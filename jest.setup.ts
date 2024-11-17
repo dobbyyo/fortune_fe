@@ -1,1 +1,1 @@
-import "@testing-library/jest-dom"; // Jest DOM 확장
+import '@testing-library/jest-dom'; // Jest DOM 확장

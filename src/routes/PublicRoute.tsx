@@ -1,16 +1,14 @@
 import { type ReactElement } from 'react';
-import { Navigate } from 'react-router';
-import { useRecoilValue } from 'recoil';
-import { authState } from '@/stores/useAuthStore';
+import BaseLayout from '@/layouts/BaseLayout';
 
 interface Props {
 	children: ReactElement;
 }
 
 const PublicRoute: React.FC<Props> = ({ children }) => {
-	const isAuthenticated = useRecoilValue(authState);
+	// const isAuthenticated = useRecoilValue(authState);
 
-	return isAuthenticated ? <Navigate to="/" /> : children;
+	return <BaseLayout>{children}</BaseLayout>;
 };
 
 export default PublicRoute;

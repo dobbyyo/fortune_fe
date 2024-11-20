@@ -1,3 +1,4 @@
+import BaseLayout from '@/layouts/BaseLayout';
 import { authState } from '@/stores/useAuthStore';
 import { FC, type ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
@@ -10,7 +11,7 @@ interface Props {
 const PrivateRoute: FC<Props> = ({ children }) => {
 	const isAuthenticated = useRecoilValue(authState);
 
-	return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+	return isAuthenticated ? <BaseLayout>{children}</BaseLayout> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

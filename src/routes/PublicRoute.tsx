@@ -6,8 +6,6 @@ interface Props {
 }
 
 const PublicRoute: React.FC<Props> = ({ children }) => {
-	// const isAuthenticated = useRecoilValue(authState);
-
 	return <BaseLayout>{children}</BaseLayout>;
 };
 

@@ -1,11 +1,11 @@
-import Header from '@/components/Header';
+import Header from '@/components/Header/Header';
 import { ReactNode } from 'react';
 
 const BaseLayout = ({ children }: { children: ReactNode }) => {
 	return (
-		<div className="w-full h-screen px-4 bg-base-100">
+		<div className="w-full h-screen flex flex-col items-center">
 			<Header />
-			<main className="flex-grow w-full max-w-[800px] mx-auto px-4">{children}</main>
+			<main className="max-w-[800px] min-w-[320px] w-full px-4 pt-[186px]">{children}</main>
 		</div>
 	);
 };

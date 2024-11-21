@@ -1,5 +1,7 @@
+import { useSignupQuery } from '@/services/queries/auth.query';
 import { authState, userState } from '@/stores/useAuthStore';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 const Signup = () => {
@@ -7,11 +9,11 @@ const Signup = () => {
 	const { email, username } = userData;
 
 	const [formData, setFormData] = useState({
-		email: '',
-		name: '',
+		email,
+		username,
 		gender: '',
-		birth: '',
-		birthTime: '',
+		birth_date: '',
+		birth_time: '',
 	});
 
 	const [agreements, setAgreements] = useState({
@@ -51,6 +53,10 @@ const Signup = () => {
 		setFormData((prev) => ({ ...prev, [id]: value }));
 	};
 
+	const years = Array.from({ length: new Date().getFullYear() - 1949 }, (_, i) => 1950 + i);
+
+	const { mutateAsync: signupMutation, isPending: signupIsPending, isError: singupIsError } = useSignupQuery();
+	const navigate = useNavigate();
 	// 폼 제출 핸들러
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -61,9 +67,33 @@ const Signup = () => {
 			return;
 		}
 
-		// 폼 데이터 콘솔 출력
 		console.log('폼 데이터:', formData);
+		signupMutation({
+			email: formData.email,
+			provider: 'kakao',
+			username: formData.username,
+			gender: formData.gender,
+			birth_date: formData.birth_date,
+			birth_time: formData.birth_time,
+		})
+			.then((res) => {
+				console.log('회원가입 성공:', res);
+				// 회원가입 성공 시 로그인 페이지
+				navigate('/login');
+			})
+			.catch((error) => {
+				console.error('회원가입 실패:', error);
+			});
 	};
+
+	// 24시간 형식의 시간 생성
+	const times = Array.from({ length: 24 * 60 }, (_, i) => {
+		const hours = Math.floor(i / 60)
+			.toString()
+			.padStart(2, '0');
+		const minutes = (i % 60).toString().padStart(2, '0');
+		return `${hours}:${minutes}`;
+	});
 
 	return (
 		<div className="flex flex-col items-center justify-center">
@@ -85,21 +115,23 @@ const Signup = () => {
 							placeholder="이메일을 입력하세요"
 							className="input input-bordered w-full h-[62px]"
 							value={formData.email}
-							onChange={handleInputChange}
+							disabled
+							// onChange={handleInputChange}
 						/>
 					</div>
 
 					<div className="w-[320px]">
-						<label htmlFor="name" className="label  text-[25px] font-medium">
+						<label htmlFor="username" className="label  text-[25px] font-medium">
 							이름 *
 						</label>
 						<input
-							id="name"
+							id="username"
 							type="이름"
 							placeholder="이름을 입력하세요"
 							className="input input-bordered w-full h-[62px]"
-							value={formData.name}
-							onChange={handleInputChange}
+							value={formData.username}
+							disabled
+							// onChange={handleInputChange}
 						/>
 					</div>
 
@@ -113,7 +145,7 @@ const Signup = () => {
 							value={formData.gender}
 							onChange={handleInputChange}
 						>
-							<option disabled selected>
+							<option disabled value="">
 								성별을 선택하세요
 							</option>
 							<option>남성</option>
@@ -122,39 +154,36 @@ const Signup = () => {
 					</div>
 
 					<div className="w-[320px]">
-						<label htmlFor="birth" className="label text-[25px] font-medium">
+						<label htmlFor="birth_date" className="label text-[25px] font-medium">
 							생일 *
 						</label>
-						<select
-							id="birth"
-							className="select select-bordered w-full h-[62px]"
-							value={formData.birth}
+						<input
+							id="birth_date"
+							type="date"
+							className="input input-bordered w-full h-[62px]"
+							value={formData.birth_date}
 							onChange={handleInputChange}
-						>
-							<option disabled selected>
-								생년월일을 선택하세요
-							</option>
-							<option>1990</option>
-							<option>2000</option>
-							<option>2010</option>
-						</select>
+						/>
 					</div>
 
 					<div className="w-[320px]">
-						<label htmlFor="birthTime" className="label text-[25px] font-medium">
+						<label htmlFor="birth_time" className="label text-[25px] font-medium">
 							태어난 시간 *
 						</label>
 						<select
-							id="birthTime"
+							id="birth_time"
 							className="select select-bordered w-full h-[62px]"
-							value={formData.birthTime}
+							value={formData.birth_time}
 							onChange={handleInputChange}
 						>
-							<option disabled selected>
+							<option disabled value="">
 								태어난 시간을 선택하세요
 							</option>
-							<option>11:50</option>
-							<option>11:51</option>
+							{times.map((time) => (
+								<option key={time} value={time}>
+									{time}
+								</option>
+							))}
 						</select>
 					</div>
 					<div className="w-full flex flex-col justify-center items-center mb-[69px]">

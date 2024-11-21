@@ -11,7 +11,7 @@ export const requestInterceptor = (config: InternalAxiosRequestConfig): Internal
 	}
 
 	if (csrfToken) {
-		config.headers.set('X-CSRF-Token', csrfToken);
+		config.headers.set('csrf-token', csrfToken);
 	}
 
 	return config;

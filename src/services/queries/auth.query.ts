@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { kakaoAuth, loginAuth } from '../api/auth.service';
+import { kakaoAuth, loginAuth, signupAuth } from '../api/auth.service';
+import { SignupDto } from '@/types/signupType';
 
 export const useKaKaoAuth = (code: string) => {
 	return useQuery<any>({
@@ -17,6 +18,16 @@ export const useLoginQuery = () => {
 		mutationKey: ['loginAuth'],
 		mutationFn: async (email: string) => {
 			const response = await loginAuth(email);
+			return response;
+		},
+	});
+};
+
+export const useSignupQuery = () => {
+	return useMutation({
+		mutationKey: ['signupAuth'],
+		mutationFn: async (signupDto: SignupDto) => {
+			const response = await signupAuth(signupDto);
 			return response;
 		},
 	});

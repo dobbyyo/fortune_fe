@@ -1,4 +1,5 @@
 export interface SignupDto {
+	avatar: string;
 	username: string;
 	provider: string;
 	email: string;

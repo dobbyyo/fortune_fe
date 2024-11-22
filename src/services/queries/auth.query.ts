@@ -1,6 +1,8 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { kakaoAuth, loginAuth, signupAuth } from '../api/auth.service';
 import { SignupDto } from '@/types/signupType';
+import { authState, userState } from '@/stores/useAuthStore';
+import { useSetRecoilState } from 'recoil';
 
 export const useKaKaoAuth = (code: string) => {
 	return useQuery<any>({
@@ -14,11 +16,22 @@ export const useKaKaoAuth = (code: string) => {
 };
 
 export const useLoginQuery = () => {
+	const setAuthState = useSetRecoilState(authState);
+	const setUserState = useSetRecoilState(userState);
+
 	return useMutation({
 		mutationKey: ['loginAuth'],
 		mutationFn: async (email: string) => {
 			const response = await loginAuth(email);
 			return response;
+		},
+		onSuccess: ({ data }) => {
+			console.log(data);
+			setAuthState(true);
+			setUserState((prev) => ({
+				...prev,
+				...data.data,
+			}));
 		},
 	});
 };
@@ -30,5 +43,6 @@ export const useSignupQuery = () => {
 			const response = await signupAuth(signupDto);
 			return response;
 		},
+		onSuccess: () => {},
 	});
 };

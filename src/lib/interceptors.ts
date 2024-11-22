@@ -4,8 +4,9 @@ import { getCookie } from './cookieStorage';
 
 export const requestInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
 	const jwtToken = getCookie('jwt_token');
-	const csrfToken = getCookie('csrf_token');
+	const csrfToken = getCookie('csrf-token');
 
+	console.log('Request URL:', jwtToken, csrfToken);
 	if (jwtToken) {
 		config.headers.set('Authorization', `Bearer ${jwtToken}`);
 	}
@@ -37,6 +38,7 @@ export const errorInterceptor = async (error: AxiosError<ErrorResponse>): Promis
 		console.error('Error Message:', error.response.data.message);
 		console.error('Error Path:', error.response.data.path);
 		console.error('Error Timestamp:', error.response.data.timestamp);
+		console.error('Error Data:', error.response.headers);
 	} else {
 		console.error('Unexpected Error:', error.message);
 	}

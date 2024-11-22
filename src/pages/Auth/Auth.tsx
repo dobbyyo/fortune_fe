@@ -18,9 +18,7 @@ const Auth = () => {
 	useEffect(() => {
 		const handleKakaoLogin = async () => {
 			if (kakaoData && !kakaoIsLoading && !kakaoIsError) {
-				const { userExist, email, nickname } = kakaoData.data;
-				console.log('kakaoData:', kakaoData);
-				console.log('userExist:', userExist, 'email:', email, 'nickname:', nickname);
+				const { userExist, email, nickname, avatar } = kakaoData.data;
 
 				if (userExist) {
 					try {
@@ -28,7 +26,7 @@ const Auth = () => {
 							.then((res) => {
 								console.log('res', res);
 								setAuthState(true); // 인증 상태 변경
-								setUserState((prev) => ({ ...res })); // 유저 정보 변경
+								setUserState(() => ({ ...res })); // 유저 정보 변경
 								navigate('/'); // 메인 페이지로 이동
 							})
 							.catch((error) => {
@@ -39,8 +37,13 @@ const Auth = () => {
 					}
 				} else {
 					console.log('else', email, nickname);
-					setUserState((prev) => ({ ...prev, email, username: nickname })); // 유저 정보 변경
-					navigate('/signup', { state: { email, nickname } });
+					setUserState((prev) => ({
+						...prev,
+						email,
+						username: nickname,
+						profile: { user_id: null, profile_url: avatar },
+					})); // 유저 정보 변경
+					navigate('/signup');
 				}
 			}
 		};

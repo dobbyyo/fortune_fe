@@ -11,7 +11,7 @@ export const kakaoAuth = async (code: string): Promise<any> => {
 // 로그인
 export const loginAuth = async (email: string): Promise<any> => {
 	const { data } = await api.post('/auth/login', { email });
-
+	console.log('service', data);
 	return data;
 };
 

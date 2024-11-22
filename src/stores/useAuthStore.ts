@@ -43,7 +43,7 @@ export const userState = atom({
 		},
 		profile: {
 			user_id: null,
-			profile_url: null,
+			profile_url: '',
 		},
 		password: {
 			user_id: null,

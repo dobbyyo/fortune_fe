@@ -27,7 +27,7 @@ const SignupButton = () => {
 				birth_date: formData.birthDate,
 				birth_time: `${formData.birthTime}:00`,
 			});
-
+			console.log('formData.email', formData.email);
 			await loginMutation(formData.email);
 
 			navigate('/');

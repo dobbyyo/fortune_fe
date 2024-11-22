@@ -6,7 +6,6 @@ export const requestInterceptor = (config: InternalAxiosRequestConfig): Internal
 	const jwtToken = getCookie('jwt_token');
 	const csrfToken = getCookie('csrf-token');
 
-	console.log('Request URL:', jwtToken, csrfToken);
 	if (jwtToken) {
 		config.headers.set('Authorization', `Bearer ${jwtToken}`);
 	}
@@ -22,15 +21,12 @@ export const requestInterceptor = (config: InternalAxiosRequestConfig): Internal
 export const successInterceptor = <T>(
 	response: AxiosResponse<SuccessResponse<T>>,
 ): AxiosResponse<SuccessResponse<T>> => {
-	console.log('Success Message:', response.data.message);
-	console.log('Success Data:', response.data.data);
 	return response;
 };
 
 // 에러 인터셉터: 상태 코드에 따라 에러 처리
 export const errorInterceptor = async (error: AxiosError<ErrorResponse>): Promise<void> => {
 	if (error.response?.status === 401) {
-		console.warn('Unauthorized! Redirecting to login...');
 		window.location.href = '/login';
 		await Promise.reject(error);
 	} else if (error.response) {

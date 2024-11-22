@@ -26,11 +26,12 @@ export const useLoginQuery = () => {
 			return response;
 		},
 		onSuccess: ({ data }) => {
-			console.log(data);
+			console.log('data', data);
+			const { accessToken, refreshToken, ...userData } = data.myInfo;
 			setAuthState(true);
 			setUserState((prev) => ({
 				...prev,
-				...data.data,
+				...userData,
 			}));
 		},
 	});

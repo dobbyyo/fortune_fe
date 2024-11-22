@@ -1,6 +1,6 @@
 import { useKaKaoAuth, useLoginQuery } from '@/services/queries/auth.query';
 import { authState, userState } from '@/stores/useAuthStore';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
@@ -21,22 +21,9 @@ const Auth = () => {
 				const { userExist, email, nickname, avatar } = kakaoData.data;
 
 				if (userExist) {
-					try {
-						await loginMutation(email)
-							.then((res) => {
-								console.log('res', res);
-								setAuthState(true); // 인증 상태 변경
-								setUserState(() => ({ ...res })); // 유저 정보 변경
-								navigate('/'); // 메인 페이지로 이동
-							})
-							.catch((error) => {
-								console.error('로그인 실패:', error);
-							});
-					} catch (error) {
-						console.error('로그인 실패:', error);
-					}
+					await loginMutation(email);
+					navigate('/');
 				} else {
-					console.log('else', email, nickname);
 					setUserState((prev) => ({
 						...prev,
 						email,

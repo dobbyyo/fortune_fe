@@ -1,11 +1,11 @@
-import { type ReactElement } from 'react';
+import { FC, type ReactElement } from 'react';
 import BaseLayout from '@/layouts/BaseLayout';
 
 interface Props {
 	children: ReactElement;
 }
 
-const PublicRoute: React.FC<Props> = ({ children }) => {
+const PublicRoute: FC<Props> = ({ children }) => {
 	return <BaseLayout>{children}</BaseLayout>;
 };
 

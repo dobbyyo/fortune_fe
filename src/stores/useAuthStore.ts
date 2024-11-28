@@ -1,3 +1,4 @@
+import { UserResponse } from '@/types/userType';
 import { atom, selector } from 'recoil';
 
 // 상태 관리 (isAuthenticated)
@@ -18,37 +19,7 @@ export const authSelector = selector({
 });
 
 // 로그인 유저
-export const userState = atom({
+export const userState = atom<UserResponse | null>({
 	key: 'userState',
-	default: {
-		id: null,
-		created_at: null,
-		updated_at: null,
-		deleted_at: null,
-		username: '',
-		provider: '',
-		email: '',
-		gender: '',
-		birth_date: '',
-		birth_time: '',
-		calendar_type: '',
-		language: {
-			user_id: null,
-			language: '',
-		},
-		notification: {
-			user_id: null,
-			benefit: false,
-			horoscope: false,
-		},
-		profile: {
-			user_id: null,
-			profile_url: '',
-		},
-		password: {
-			user_id: null,
-			password_lock_status: false,
-			hash_password: null,
-		},
-	},
+	default: null,
 });

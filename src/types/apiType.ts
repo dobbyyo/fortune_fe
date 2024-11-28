@@ -12,4 +12,4 @@ export interface ErrorResponse extends BaseResponse {
 	path: string; // 요청 경로
 }
 
-export type ApiResponse<T> = SuccessResponse<T> | ErrorResponse;
+// export type ApiResponse<T> = SuccessResponse<T>;

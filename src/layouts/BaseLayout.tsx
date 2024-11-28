@@ -1,5 +1,6 @@
 import Header from '@/components/Header/Header';
 import { useCSRFQuery } from '@/services/queries/csrf.query';
+import { useMyDataQuery } from '@/services/queries/user.query';
 import { ReactNode, useEffect } from 'react';
 
 const BaseLayout = ({ children }: { children: ReactNode }) => {

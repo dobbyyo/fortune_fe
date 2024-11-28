@@ -3,7 +3,7 @@ import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } 
 import { getCookie } from './cookieStorage';
 
 export const requestInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-	const jwtToken = getCookie('jwt_token');
+	const jwtToken = getCookie('access_token');
 	const csrfToken = getCookie('csrf-token');
 
 	if (jwtToken) {
@@ -27,8 +27,7 @@ export const successInterceptor = <T>(
 // 에러 인터셉터: 상태 코드에 따라 에러 처리
 export const errorInterceptor = async (error: AxiosError<ErrorResponse>): Promise<void> => {
 	if (error.response?.status === 401) {
-		window.location.href = '/login';
-		await Promise.reject(error);
+		return Promise.reject(error);
 	} else if (error.response) {
 		console.error('Error Status:', error.response.data.status);
 		console.error('Error Message:', error.response.data.message);

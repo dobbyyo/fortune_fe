@@ -1,11 +1,12 @@
+import { useMyDataQuery } from '@/services/queries/user.query';
 import { authState, userState } from '@/stores/useAuthStore';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 const Header = () => {
-	const isAuthenticated = useRecoilValue(authState);
-	const userData = useRecoilValue(userState);
+	const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+	const [userDatas, setUserDatas] = useRecoilState(userState);
 	const navigate = useNavigate();
 
 	const goHome = useCallback(() => {
@@ -15,6 +16,15 @@ const Header = () => {
 	const goMypage = useCallback(() => {
 		navigate('/mypage');
 	}, []);
+
+	const { data: myData } = useMyDataQuery();
+
+	useEffect(() => {
+		if (myData && myData.data) {
+			setIsAuthenticated(true);
+			setUserDatas(myData.data); // UserResponse 타입이므로 오류 없음
+		}
+	}, [myData]);
 
 	return (
 		<header className="navbar absolute top-0 left-0 w-full h-[186px] bg-white flex items-center px-4 shadow-md z-50 md:px-8">
@@ -30,14 +40,14 @@ const Header = () => {
 			</div>
 
 			<div className="flex-none gap-2 max-sm:hidden">
-				{isAuthenticated ? (
+				{isAuthenticated && userDatas ? (
 					<>
 						<div className="dropdown dropdown-end">
 							<div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar w-[46px] h-[46px]">
 								<div className="rounded-full w-[46px] h-[46px]">
 									<img
 										alt="사용자 프로필 이미지"
-										src={userData.profile.profile_url}
+										src={userDatas.profile.profile_url as string}
 										className="w-[46px] h-[45px] cursor-pointer"
 										onClick={goMypage}
 									/>
@@ -46,7 +56,7 @@ const Header = () => {
 						</div>
 						<div className="form-control">
 							<h3 onClick={goMypage} className="text-[30px] font-normal cursor-pointer">
-								{userData.username}
+								{userDatas.username}
 							</h3>
 						</div>
 						<button className="btn btn-primary w-[160px] h-[68px] ml-[40px] bg-[#A57AF1] text-[30px] font-bold text-black border-none">

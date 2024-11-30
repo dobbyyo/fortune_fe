@@ -1,3 +1,4 @@
+import { CategoryButton } from '@/components/Home';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ const Home = () => {
 		dream: ['해몽', '꿈'],
 		saju: ['사주', '운세', '오늘의 운세', '내일의 운세', '지정일 운세', '신년운세', '토정비결', '정통사주'],
 		naming: ['작명', '이름'],
-		tarot: ['타로', '타로점', '타로운세', '타로카드'],
+		tarot: ['타로', '타로점', '타로운세', '타로카드', '별자리', '띠', '연애', '취업'],
 	};
 
 	const handleSearch = (e: FormEvent<HTMLFormElement>) => {
@@ -54,10 +55,10 @@ const Home = () => {
 			<div className="mt-[50px] w-full">
 				<h2 className="font-bold flex justify-start text-clamp50">전체 카테고리</h2>
 				<div className="flex justify-center gap-4 mt-4">
-					<CategoryButton icon="/mainTarot.svg" label="타로" />
-					<CategoryButton icon="/mainSaju.svg" label="사주" />
-					<CategoryButton icon="/mainDream.svg" label="꿈해몽" />
-					<CategoryButton icon="/mainNaming.svg" label="작명" />
+					<CategoryButton icon="/mainTarot.svg" label="타로" pageUrl="tarot" />
+					<CategoryButton icon="/mainSaju.svg" label="사주" pageUrl="saju" />
+					<CategoryButton icon="/mainDream.svg" label="꿈해몽" pageUrl="dream" />
+					<CategoryButton icon="/mainNaming.svg" label="작명" pageUrl="naming" />
 				</div>
 			</div>
 		</div>
@@ -65,12 +66,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const CategoryButton = ({ icon, label }: { icon: string; label: string }) => {
-	return (
-		<div className="flex flex-col items-center justify-center w-[100px] h-[100px] bg-purple-100 text-purple-600 font-semibold rounded-lg shadow-md hover:bg-purple-200 transition">
-			<img className="w-[45px] h-[45px]" src={icon} alt="label icon picture" />
-			<span className="mt-1 text-clamp30 text-black font-normal">{label}</span>
-		</div>
-	);
-};

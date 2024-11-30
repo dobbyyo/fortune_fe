@@ -6,13 +6,19 @@ const Login = () => {
 	};
 
 	return (
-		<div>
+		<div className="flex flex-col items-center justify-center">
 			<div>
-				<img src="/login-icon.jpg" alt="logo" className="w-[366px] h-[403px] mx-auto mt-10" />
+				<img
+					src="/login-icon.jpg"
+					alt="logo"
+					className="w-[200px] h-[220px] sm:w-[300px] sm:h-[330px] md:w-[366px] md:h-[403px] mx-auto mt-10"
+				/>
 			</div>
 			<button
-				className="btn btn-warning bg-[#FFD34B] border-none w-[800px] 
-      h-[68px] rounded-[30px] text-[30px] font-bold"
+				className="btn btn-warning bg-[#FFD34B] border-none w-[280px] h-[50px] text-[18px] 
+				sm:w-[400px] sm:h-[60px] sm:text-[22px] 
+				md:w-[800px] md:h-[68px] md:text-[30px] 
+				rounded-[30px] font-bold mt-6"
 				onClick={handleLogin}
 			>
 				카카오톡으로 로그인

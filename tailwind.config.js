@@ -5,7 +5,13 @@ const require = createRequire(import.meta.url);
 export default {
 	content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			fontSize: {
+				clamp25: 'clamp(13px, 4vw, 25px)', // 최소 20px, 최대 25px
+				clamp30: 'clamp(15px, 4vw, 30px)', // 최소 25px, 최대 30px
+				clamp50: 'clamp(18px, 4vw, 50px)', // 최소 30px, 최대 50px
+			},
+		},
 	},
 	plugins: [require('daisyui')],
 	daisyui: {

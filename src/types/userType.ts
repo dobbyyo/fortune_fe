@@ -13,7 +13,7 @@ export interface UserNotification {
 
 export interface UserProfile {
 	user_id: number;
-	profile_url: string | null;
+	profile_url: string;
 }
 
 export interface UserPassword {

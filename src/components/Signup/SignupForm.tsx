@@ -5,11 +5,14 @@ import { formDataState } from '@/stores/useSignupStore';
 
 const SignupForm = () => {
 	const userData = useRecoilValue(userState);
-	const { email, username, profile } = userData;
+
 	const [formData, setFormData] = useRecoilState(formDataState);
 
 	useEffect(() => {
-		setFormData((prev) => ({ ...prev, email, username, avatar: profile.profile_url }));
+		if (userData !== null) {
+			const { email, username, profile } = userData;
+			setFormData((prev) => ({ ...prev, email, username, avatar: profile.profile_url }));
+		}
 	}, []);
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

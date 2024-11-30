@@ -1,7 +1,38 @@
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
+	const [searchTerm, setSearchTerm] = useState('');
+
+	const navigate = useNavigate(); // React Router 사용
+
+	// 키워드 매핑 데이터
+	const keywordMapping = {
+		dream: ['해몽', '꿈'],
+		saju: ['사주', '운세', '오늘의 운세', '내일의 운세', '지정일 운세', '신년운세', '토정비결', '정통사주'],
+		naming: ['작명', '이름'],
+		tarot: ['타로', '타로점', '타로운세', '타로카드'],
+	};
+
+	const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		for (const [category, keywords] of Object.entries(keywordMapping)) {
+			if (keywords.some((keyword) => searchTerm.includes(keyword))) {
+				navigate(`/${category}`);
+				return;
+			}
+		}
+
+		alert('해당 키워드와 매칭되는 카테고리가 없습니다.');
+	};
+
 	return (
 		<div className="flex flex-col items-center justify-center">
-			<div className="px-2 flex items-center w-full h-[60px] sm:h-[70px] md:h-[84px] bg-white border border-[#404040] rounded-[5px]">
+			<form
+				onSubmit={handleSearch}
+				className="px-2 flex items-center w-full h-[60px] sm:h-[70px] md:h-[84px] bg-white border border-[#404040] rounded-[5px]"
+			>
 				<div>
 					<img
 						src="/search-icon.jpg"
@@ -15,8 +46,10 @@ const Home = () => {
 					className="flex-1 p-2 text-gray-700 bg-transparent border-none 
 						focus:outline-none text-clamp30 
     				placeholder:text-clamp30 placeholder:font-normal"
+					value={searchTerm}
+					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
-			</div>
+			</form>
 
 			<div className="mt-[50px] w-full">
 				<h2 className="font-bold flex justify-start text-clamp50">전체 카테고리</h2>
@@ -34,7 +67,6 @@ const Home = () => {
 export default Home;
 
 const CategoryButton = ({ icon, label }: { icon: string; label: string }) => {
-	console.log(icon, label);
 	return (
 		<div className="flex flex-col items-center justify-center w-[100px] h-[100px] bg-purple-100 text-purple-600 font-semibold rounded-lg shadow-md hover:bg-purple-200 transition">
 			<img className="w-[45px] h-[45px]" src={icon} alt="label icon picture" />
@@ -42,7 +74,3 @@ const CategoryButton = ({ icon, label }: { icon: string; label: string }) => {
 		</div>
 	);
 };
-
-{
-	/* <h1 className="text-clamp30">This text adjusts between 25px and 30px</h1> */
-}

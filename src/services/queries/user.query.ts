@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { myDataUser } from '../api/user.service';
-import { ApiUserDataResponse } from '@/types/userType';
+import { UserType } from '@/types/userType';
 
 export const useMyDataQuery = () => {
-	return useQuery<ApiUserDataResponse>({
+	return useQuery<UserType>({
 		queryKey: ['myData'],
 		queryFn: async () => {
 			const response = await myDataUser();
-			return response;
+
+			return response.data;
 		},
 		retry: 1,
 	});

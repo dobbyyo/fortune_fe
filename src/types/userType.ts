@@ -40,4 +40,8 @@ export interface UserResponse {
 	password: UserPassword;
 }
 
-export type ApiUserDataResponse = SuccessResponse<UserResponse>;
+export interface UserType {
+	myInfo: UserResponse;
+}
+
+export type ApiUserDataResponse = SuccessResponse<UserType>;

@@ -64,15 +64,23 @@ const CardSlider = () => {
 	};
 
 	return (
-		<div className="w-full max-w-[800px] mx-auto p-4">
+		<div className="w-full sm:p-4">
 			<Swiper
 				ref={sliderRef}
 				modules={[Navigation, Pagination]}
-				spaceBetween={-66}
-				slidesPerView={20}
 				grabCursor={false}
 				navigation={false}
 				pagination={false}
+				breakpoints={{
+					320: {
+						slidesPerView: 12,
+						spaceBetween: -10,
+					},
+					640: {
+						slidesPerView: 20,
+						spaceBetween: -66,
+					},
+				}}
 			>
 				{Array.from({ length: totalCards }).map((_, index) => (
 					<SwiperSlide key={index}>

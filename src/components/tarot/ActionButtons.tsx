@@ -13,21 +13,22 @@ const ActionButtons = () => {
 	};
 
 	return (
-		<div className="mt-8 flex justify-center gap-[109px] pb-20">
+		<div className="mt-8 flex justify-center sm:gap-[109px] pb-20">
 			<button
 				onClick={handleReset}
-				className="border-none btn w-[195px] h-[41px] px-4 py-2 bg-[#D9D9D9] rounded-[20px]
-				 hover:bg-gray-300 transition text-[20px] font-medium"
+				className="border-none btn w-[160px] h-[50px] sm:w-[195px] sm:h-[41px] px-2 sm:px-4 py-2 
+				bg-[#787878] text-white rounded-none sm:rounded-[20px] hover:bg-[#808080] transition text-[20px] font-bold"
 			>
 				다시 선택하기
 			</button>
 
 			<button
-				className={`border-none btn w-[195px] h-[41px] px-4 py-2 rounded-[20px] text-[20px] font-medium ${
-					isResultDisabled
-						? 'bg-purple-300 text-white cursor-not-allowed'
-						: 'bg-purple-500 text-white hover:bg-purple-600 transition'
-				}`}
+				className={`border-none btn w-[160px] h-[50px] sm:w-[195px] sm:h-[41px] px-2 sm:px-4 py-2 
+					rounded-none sm:rounded-[20px] text-[20px] font-bold text-black ${
+						isResultDisabled
+							? 'disabled:opacity-50 bg-[#d1d1d1] text-[#a1a1a1] cursor-not-allowed'
+							: 'bg-[#DECEFF] hover:bg-[#d8ceeb] transition'
+					}`}
 			>
 				결과보기
 			</button>

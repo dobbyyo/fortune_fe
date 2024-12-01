@@ -5,6 +5,7 @@ import { ApiUserDataResponse } from '@/types/userType';
 export const myDataUser = async (): Promise<ApiUserDataResponse> => {
 	try {
 		const { data } = await api.get<ApiUserDataResponse>('/users/myInfo');
+
 		return data;
 	} catch (error) {
 		throw error;

@@ -21,14 +21,15 @@ const Header = () => {
 		navigate('/login');
 	}, []);
 
-	const { data: myData } = useMyDataQuery();
+	const { data } = useMyDataQuery();
+	const myInfo = data?.myInfo;
 
 	useEffect(() => {
-		if (myData && myData.data) {
+		if (myInfo) {
 			setIsAuthenticated(true);
-			setUserDatas(myData.data);
+			setUserDatas(myInfo);
 		}
-	}, [myData]);
+	}, [myInfo]);
 
 	return (
 		<header className="navbar absolute top-0 left-0 w-full h-[80px] sm:h-[120px] md:h-[150px] bg-white flex items-center px-4 shadow-md z-50 md:px-8">
@@ -38,9 +39,9 @@ const Header = () => {
 						<img src="/header-icon.jpg" alt="Avatar" onClick={goHome} className="cursor-pointer" />
 					</div>
 				</div>
-				<div className="ml-3 text-clamp50 font-bold cursor-pointer" onClick={goHome}>
+				{/* <div className="ml-3 text-clamp50 font-bold cursor-pointer" onClick={goHome}>
 					너의 이름은
-				</div>
+				</div> */}
 			</div>
 
 			<div className="flex-none gap-2 ">
@@ -52,7 +53,7 @@ const Header = () => {
 								role="button"
 								className="btn btn-ghost btn-circle avatar w-[36px] h-[36px] sm:w-[46px] sm:h-[46px] md:w-[56px] md:h-[56px]"
 							>
-								<div className="rounded-full w-[46px] h-[46px]">
+								<div className="rounded-full w-[35px] h-[35px] sm:w-[46px] sm:h-[46px]">
 									<img
 										alt="사용자 프로필 이미지"
 										src={userDatas.profile.profile_url as string}
@@ -62,12 +63,12 @@ const Header = () => {
 								</div>
 							</div>
 						</div>
-						<div className="form-control">
+						{/* <div className="form-control">
 							<h3 onClick={goMyPage} className="text-[20px] sm:text-[25px] md:text-[30px] font-normal cursor-pointer">
 								{userDatas.username}
 							</h3>
-						</div>
-						<button className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-black border-none">
+						</div> */}
+						<button className="btn btn-primary text-white w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-black border-none">
 							로그아웃
 						</button>
 					</>

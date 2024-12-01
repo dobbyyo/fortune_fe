@@ -2,17 +2,17 @@ import { authState } from '@/stores/useAuthStore';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-const NavBar = () => {
+const NavBar = ({ title }: { title: string }) => {
 	const isAuthenticated = useRecoilValue(authState);
 
 	return (
-		<div className="navbar w-full">
-			<div className="navbar-start">
+		<div className="navbar w-full flex items-center px-4 relative">
+			<div className="navbar-start absolute left-0">
 				<div className="dropdown">
 					<div tabIndex={0} role="button" className="btn btn-ghost btn-circle w-[45px] h-[45px]">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							className="h-[45px] w-[45px]"
+							className="h-[30px] w-[30px] sm:h-[45px] sm:w-[45px]"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke="currentColor"
@@ -39,8 +39,8 @@ const NavBar = () => {
 					</ul>
 				</div>
 			</div>
-			<div className="navbar-center">
-				<h2 className="text-[50px] font-bold">타로</h2>
+			<div className="navbar-center absolute left-1/2 transform -translate-x-1/2">
+				<h2 className="text-clamp50 font-bold text-center">{title}</h2>
 			</div>
 		</div>
 	);

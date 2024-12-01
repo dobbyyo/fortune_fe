@@ -14,7 +14,7 @@ const TabNavigation = () => {
 	};
 
 	return (
-		<div role="tablist" className="flex">
+		<div role="tablist" className="flex w-full">
 			{tabs.map((tab) => (
 				<button
 					key={tab}

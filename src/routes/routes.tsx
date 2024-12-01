@@ -4,8 +4,10 @@ import { lazy } from 'react';
 
 // Lazy Loading으로 페이지 컴포넌트 동적 로드
 const Home = lazy(() => import('@/pages/Home'));
-const Tarot = lazy(() => import('@/pages/Tarot'));
-// const MyPage = lazy(() => import('@/pages/MyPage'));
+const Tarot = lazy(() => import('@/pages/Tarot/Tarot'));
+const TarotCard = lazy(() => import('@/pages/Tarot/TarotCard'));
+const TarotResult = lazy(() => import('@/pages/Tarot/TarotResult'));
+const MyPage = lazy(() => import('@/pages/MyPage'));
 const Login = lazy(() => import('@/pages/Login'));
 
 // 라우트 정보 객체화
@@ -20,11 +22,21 @@ const routes = [
 		element: <Tarot />,
 		isPrivate: false,
 	},
-	// {
-	// 	path: '/myPage',
-	// 	element: <MyPage />,
-	// 	isPrivate: true,
-	// },
+	{
+		path: '/tarot/card',
+		element: <TarotCard />,
+		isPrivate: false,
+	},
+	{
+		path: '/tarot/result',
+		element: <TarotResult />,
+		isPrivate: false,
+	},
+	{
+		path: '/myPage',
+		element: <MyPage />,
+		isPrivate: true,
+	},
 	{
 		path: '/login',
 		element: <Login />,

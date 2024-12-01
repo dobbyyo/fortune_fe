@@ -1,3 +1,4 @@
+import { TarotCard } from '@/types/tarotType';
 import { atom, selector } from 'recoil';
 
 // 활성 탭 상태
@@ -57,4 +58,10 @@ export const sliderIndexState = atom<number>({
 export const resetTriggerState = atom<boolean>({
 	key: 'resetTriggerState',
 	default: false,
+});
+
+// 타로카드 해석
+export const tarotCardsState = atom<TarotCard[]>({
+	key: 'tarotCardsState',
+	default: [], // 초기값은 빈 배열
 });

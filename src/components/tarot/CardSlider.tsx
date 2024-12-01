@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { dragPositionState, resetTriggerState, selectedCardsState } from '@/stores/useTarotCardStore';
 
 const CardSlider = () => {
-	const totalCards = 78;
+	const totalCards = 64;
 	const sliderRef = useRef(null);
 	const [selectedCards, setSelectedCards] = useRecoilState(selectedCardsState);
 	const dragPosition = useRecoilValue(dragPositionState);
@@ -56,7 +56,14 @@ const CardSlider = () => {
 			const nullIndex = nextState.findIndex((card) => card === null);
 
 			if (nullIndex !== -1) {
-				nextState[nullIndex] = index;
+				// 중복되지 않는 랜덤 번호 생성
+				let randomNumber;
+				do {
+					randomNumber = Math.floor(Math.random() * 64); // 0부터 63까지
+				} while (nextState.includes(randomNumber));
+
+				// 랜덤 번호를 null 자리로 삽입
+				nextState[nullIndex] = randomNumber;
 			}
 
 			return nextState;

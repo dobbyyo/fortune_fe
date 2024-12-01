@@ -10,7 +10,7 @@ export default {
 				clamp20: 'clamp(12px, 2vw, 20px)', // 최소 10px, 최대 20px
 				clamp25: 'clamp(13px, 4vw, 25px)', // 최소 20px, 최대 25px
 				clamp30: 'clamp(15px, 4vw, 30px)', // 최소 25px, 최대 30px
-				clamp50: 'clamp(18px, 4vw, 50px)', // 최소 30px, 최대 50px
+				clamp50: 'clamp(30px, 3vw, 50px)', // 최소 30px, 최대 50px
 			},
 		},
 	},

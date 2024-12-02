@@ -55,6 +55,9 @@ const CardSlider = () => {
 			const nextState = [...prev];
 			const nullIndex = nextState.findIndex((card) => card === null);
 
+			console.log('pre', prev);
+			console.log('next', nextState);
+
 			if (nullIndex !== -1) {
 				// 중복되지 않는 랜덤 번호 생성
 				let randomNumber;

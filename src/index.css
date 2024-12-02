@@ -2,17 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'NotoSansKr';
+  src:
+    url('/src/assets/fonts/NotoSansKr-Light.woff2') format('woff2'),
+    url('/src/assets/fonts/NotoSansKr-Light.woff') format('woff'),
+    url('/src/assets/fonts/NotoSansKr-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSansKr';
+  src:
+    url('/src/assets/fonts/NotoSansKr-Regular.woff2') format('woff2'),
+    url('/src/assets/fonts/NotoSansKr-Regular.woff') format('woff'),
+    url('/src/assets/fonts/NotoSansKr-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSansKr';
+  src:
+    url('/src/assets/fonts/NotoSansKr-Medium.woff2') format('woff2'),
+    url('/src/assets/fonts/NotoSansKr-Medium.woff') format('woff'),
+    url('/src/assets/fonts/NotoSansKr-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSansKr';
+  src:
+    url('/src/assets/fonts/NotoSansKr-Bold.woff2') format('woff2'),
+    url('/src/assets/fonts/NotoSansKr-Bold.woff') format('woff'),
+    url('/src/assets/fonts/NotoSansKr-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
+  font-family: 'NotoSansKr', Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-	color-scheme: light;
-	color: rgba(0, 0, 0);
-	background-color: #fff;
+  color-scheme: light;
+  color: rgba(0, 0, 0);
+  background-color: #fff;
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

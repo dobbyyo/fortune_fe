@@ -12,6 +12,9 @@ export default {
 				clamp30: 'clamp(15px, 4vw, 30px)', // 최소 25px, 최대 30px
 				clamp50: 'clamp(30px, 3vw, 50px)', // 최소 30px, 최대 50px
 			},
+			fontFamily: {
+				sans: ['NotoSansKr', 'Arial', 'sans-serif'], // 'NotoSansKr'로 이름 통일
+			},
 		},
 	},
 	plugins: [require('daisyui')],

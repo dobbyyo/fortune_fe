@@ -1,17 +1,20 @@
+import { LoadingBar } from '@/components/Common';
 import BaseLayout from '@/layouts/BaseLayout';
-import { authState } from '@/stores/useAuthStore';
+import { useMyDataQuery } from '@/services/queries/user.query';
 import { FC, type ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 
 interface Props {
-	children: ReactElement;
+  children: ReactElement;
 }
 
 const PrivateRoute: FC<Props> = ({ children }) => {
-	const isAuthenticated = useRecoilValue(authState);
+  const { data, isLoading } = useMyDataQuery(); // 인증 정보 로드
 
-	return isAuthenticated ? <BaseLayout>{children}</BaseLayout> : <Navigate to="/login" />;
+  if (isLoading) {
+    return <LoadingBar />;
+  }
+  return data ? <BaseLayout>{children}</BaseLayout> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

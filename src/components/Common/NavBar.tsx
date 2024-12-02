@@ -14,7 +14,7 @@ const NavBar = ({ title, isResult }: { title: string; isResult: boolean }) => {
   const { mutate: deleteBookmarkMutate } = useTarotCardBookmarkDeleteMutation();
 
   const onBookmark = () => {
-    if (isAuthenticated) {
+    if (isAuthenticated.isAuthenticated) {
       if (isTarotBookmark && isTarotBookmark.isBookmark) {
         return deleteBookmarkMutate(isTarotBookmark.id);
       }
@@ -52,7 +52,7 @@ const NavBar = ({ title, isResult }: { title: string; isResult: boolean }) => {
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
             <li>
-              <Link to={'/'}>{isAuthenticated ? '이름' : '로그인'}</Link>
+              <Link to={'/'}>{isAuthenticated.isAuthenticated ? '이름' : '로그인'}</Link>
             </li>
             <li>
               <Link to={'/'}>타로</Link>

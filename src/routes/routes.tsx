@@ -9,49 +9,61 @@ const TarotCard = lazy(() => import('@/pages/Tarot/TarotCard'));
 const TarotResult = lazy(() => import('@/pages/Tarot/TarotResult'));
 const MyPage = lazy(() => import('@/pages/MyPage'));
 const Login = lazy(() => import('@/pages/Login'));
+const Saju = lazy(() => import('@/pages/Saju/Saju'));
 
 // 라우트 정보 객체화
 const routes = [
-	{
-		path: '/',
-		element: <Home />,
-		isPrivate: false,
-	},
-	{
-		path: '/tarot',
-		element: <Tarot />,
-		isPrivate: false,
-	},
-	{
-		path: '/tarot/card',
-		element: <TarotCard />,
-		isPrivate: false,
-	},
-	{
-		path: '/tarot/result',
-		element: <TarotResult />,
-		isPrivate: false,
-	},
-	{
-		path: '/myPage',
-		element: <MyPage />,
-		isPrivate: true,
-	},
-	{
-		path: '/login',
-		element: <Login />,
-		isPrivate: false,
-	},
-	{
-		path: '/auth',
-		element: <Auth />,
-		isPrivate: false,
-	},
-	{
-		path: '/signup',
-		element: <Signup />,
-		isPrivate: false,
-	},
+  // HOME
+  {
+    path: '/',
+    element: <Home />,
+    isPrivate: false,
+  },
+
+  // TAROT
+  {
+    path: '/tarot',
+    element: <Tarot />,
+    isPrivate: false,
+  },
+  {
+    path: '/tarot/card',
+    element: <TarotCard />,
+    isPrivate: false,
+  },
+  {
+    path: '/tarot/result',
+    element: <TarotResult />,
+    isPrivate: false,
+  },
+
+  // Saju
+  {
+    path: '/saju',
+    element: <Saju />,
+    isPrivate: true,
+  },
+
+  {
+    path: '/myPage',
+    element: <MyPage />,
+    isPrivate: true,
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    isPrivate: false,
+  },
+  {
+    path: '/auth',
+    element: <Auth />,
+    isPrivate: false,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
+    isPrivate: false,
+  },
 ];
 
 export default routes;

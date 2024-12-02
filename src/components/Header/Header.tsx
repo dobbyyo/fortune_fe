@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 
 const Header = () => {
   const [userDatas, setUserDatas] = useRecoilState(userState);
-  const [isAuthenticated, setIsAuthenticated] = useRecoilState(authState);
+  const [auth, setAuth] = useRecoilState(authState);
   const navigate = useNavigate();
 
   const goHome = useCallback(() => {
@@ -21,15 +21,17 @@ const Header = () => {
     navigate('/login');
   }, []);
 
-  const { data } = useMyDataQuery();
+  const { data, isLoading } = useMyDataQuery(); // 쿼리에서 로딩 상태 가져오기
   const myInfo = data?.myInfo;
 
   useEffect(() => {
-    if (myInfo) {
+    if (isLoading) {
+      setAuth({ isLoading: true, isAuthenticated: false }); // 로딩 중
+    } else if (myInfo) {
       setUserDatas(myInfo);
-      setIsAuthenticated(true);
+      setAuth({ isLoading: false, isAuthenticated: true }); // 인증 성공
     } else {
-      setIsAuthenticated(false);
+      setAuth({ isLoading: false, isAuthenticated: false }); // 인증 실패
     }
   }, [myInfo]);
 
@@ -47,7 +49,7 @@ const Header = () => {
       </div>
 
       <div className="flex-none gap-2 ">
-        {isAuthenticated && userDatas ? (
+        {auth.isAuthenticated && userDatas ? (
           <>
             <div className="dropdown dropdown-end">
               <div
@@ -70,7 +72,7 @@ const Header = () => {
 								{userDatas.username}
 							</h3>
 						</div> */}
-            <button className="btn btn-primary text-white w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-black border-none">
+            <button className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-black border-none">
               로그아웃
             </button>
           </>

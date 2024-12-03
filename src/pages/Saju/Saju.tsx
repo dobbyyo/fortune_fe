@@ -13,7 +13,7 @@ const Saju = () => {
   ];
 
   const onGoPage = (category: string) => {
-    navigate(`/saju/${category}`);
+    navigate(category);
   };
 
   return (

@@ -22,7 +22,7 @@ const Header = () => {
   }, []);
 
   const { data, isLoading } = useMyDataQuery(); // 쿼리에서 로딩 상태 가져오기
-  const myInfo = data?.myInfo;
+  const myInfo = data && data.myInfo;
 
   useEffect(() => {
     if (isLoading) {

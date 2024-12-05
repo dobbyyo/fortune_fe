@@ -15,7 +15,11 @@ const ItemList = () => {
 
   const userId = myData?.id;
 
-  const { data, isLoading, isError } = useTodayFortuneQuery(userId, {
+  const {
+    data: todayFortuneData,
+    isLoading,
+    isError,
+  } = useTodayFortuneQuery(userId, {
     enabled: userId !== undefined,
   });
 
@@ -25,10 +29,10 @@ const ItemList = () => {
   }, [isLoading, isError, setIsLoading]);
 
   useEffect(() => {
-    if (data) {
-      setTodayFortune(data);
+    if (todayFortuneData) {
+      setTodayFortune(todayFortuneData);
     }
-  }, [data, setTodayFortune]);
+  }, [todayFortuneData, setTodayFortune]);
 
   if (!userId) {
     return <LoadingBar />;
@@ -36,7 +40,7 @@ const ItemList = () => {
 
   return (
     <div className="flex flex-col gap-4 text-center mt-[40px] w-full">
-      {todayFortune && (
+      {todayFortune && todayFortune.fortunesData && (
         <>
           <ListDisplay items={['사주', '알주', '월주', '년주']} className="bg-[#F2F2F2] py-1 rounded-[10px]" />
           <ListDisplay

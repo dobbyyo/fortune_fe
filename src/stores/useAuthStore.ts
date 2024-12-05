@@ -23,3 +23,11 @@ export const userState = atom<UserResponse | null>({
   key: 'userState',
   default: null,
 });
+
+export const userIdSelector = selector({
+  key: 'userIdSelector',
+  get: ({ get }) => {
+    const user = get(userState);
+    return user?.id;
+  },
+});

@@ -8,17 +8,15 @@ export interface BaseElements {
   hour: string;
 }
 
-export interface ElementsData {
-  baseElements: BaseElements;
-  img: BaseElements;
-}
-
 export interface HeavenlyEarthlyData {
   year: string;
   month: string;
   day: string;
   hour: string;
-  elements: ElementsData;
+  elements: {
+    img: BaseElements;
+    baseElements: BaseElements;
+  };
 }
 export interface FortunesData {
   heavenly: HeavenlyEarthlyData;
@@ -53,3 +51,25 @@ export interface TodayFortuneExplanationType {
 }
 
 export type ApiTodayFortuneExplanationResponse = SuccessResponse<TodayFortuneExplanationType>;
+
+// 띠 운세 조회
+export interface ZodiacFortuneData {
+  id: number;
+  name: string;
+  info: string;
+  start_year: number;
+  cycle: number;
+  rest: number;
+  image_url: string;
+  zodiacGeneral: string;
+  zodiacToday: string;
+  yearlyFortunes: {
+    [key: string]: string;
+  };
+}
+
+export interface TodayZodiacFortuneExplanationType {
+  zodiacFortune: ZodiacFortuneData;
+}
+
+export type ApiTodayZodiacFortuneExplanationResponse = SuccessResponse<TodayZodiacFortuneExplanationType>;

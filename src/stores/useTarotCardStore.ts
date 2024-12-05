@@ -27,7 +27,6 @@ export const selectedCardsDefault = selector({
   key: 'selectedCardsDefault',
   get: ({ get }) => {
     const currentTab = get(tabState); // 현재 탭
-    console.log('asd', currentTab);
     if (currentTab === '오늘의 타로') return [null, null, null]; // 애정운, 재물운, 학업운
     if (currentTab === '이달의 타로') return [null, null, null, null, null]; // 총운, 행운, 주의, 사건, 처세술
     if (currentTab === '연애 타로') return [null]; // 연애운

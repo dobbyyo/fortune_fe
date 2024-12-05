@@ -57,7 +57,6 @@ export const useTarotCardBookmarkMutation = () => {
     },
     onSuccess: async (response) => {
       const { savedCards } = response.data;
-      console.log('savedCards:', response.data);
       setLoading(false);
       setTarotBookmark(true);
       setLocalStorage('tarotBookmark', { isBookmark: true, id: savedCards.id });

@@ -26,7 +26,6 @@ export const useLoginQuery = () => {
       return response;
     },
     onSuccess: ({ data }) => {
-      console.log('data', data);
       const { accessToken, refreshToken, ...userData } = data.myInfo;
       setAuthState({ isLoading: false, isAuthenticated: true });
       setUserState((prev) => ({

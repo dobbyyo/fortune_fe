@@ -1,5 +1,9 @@
 import api from '@/lib/api';
-import { ApiTodayFortuneExplanationResponse, ApiTodayFortuneResponse } from '@/types/fortuneType';
+import {
+  ApiTodayFortuneExplanationResponse,
+  ApiTodayFortuneResponse,
+  ApiTodayZodiacFortuneExplanationResponse,
+} from '@/types/fortuneType';
 
 // 오늘의 운세 조회
 export const todayFortune = async (userId: number): Promise<ApiTodayFortuneResponse> => {
@@ -16,6 +20,17 @@ export const todayFortune = async (userId: number): Promise<ApiTodayFortuneRespo
 export const todayFortuneExplain = async (userId: number): Promise<ApiTodayFortuneExplanationResponse> => {
   try {
     const { data } = await api.get<ApiTodayFortuneExplanationResponse>(`/fortunes/explanation?userId=${userId}`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 띠 운세 조회
+export const todayZodiacFortuneExplain = async (userId: number): Promise<ApiTodayZodiacFortuneExplanationResponse> => {
+  try {
+    const { data } = await api.get<ApiTodayZodiacFortuneExplanationResponse>(`/fortunes/zodiac?userId=${userId}`);
 
     return data;
   } catch (error) {

@@ -1,5 +1,6 @@
 import api from '@/lib/api';
 import {
+  ApiConstellationFortuneResponse,
   ApiTodayFortuneExplanationResponse,
   ApiTodayFortuneResponse,
   ApiTodayZodiacFortuneExplanationResponse,
@@ -31,6 +32,17 @@ export const todayFortuneExplain = async (userId: number): Promise<ApiTodayFortu
 export const todayZodiacFortuneExplain = async (userId: number): Promise<ApiTodayZodiacFortuneExplanationResponse> => {
   try {
     const { data } = await api.get<ApiTodayZodiacFortuneExplanationResponse>(`/fortunes/zodiac?userId=${userId}`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 별자리 운세 조회
+export const todayConstellationFortune = async (userId: number): Promise<ApiConstellationFortuneResponse> => {
+  try {
+    const { data } = await api.get<ApiConstellationFortuneResponse>(`/fortunes/constellation?userId=${userId}`);
 
     return data;
   } catch (error) {

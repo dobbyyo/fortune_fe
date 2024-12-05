@@ -73,3 +73,21 @@ export interface TodayZodiacFortuneExplanationType {
 }
 
 export type ApiTodayZodiacFortuneExplanationResponse = SuccessResponse<TodayZodiacFortuneExplanationType>;
+
+// 별자리 운세
+
+export interface ConstellationData {
+  id: number;
+  name: string;
+  start_date: string;
+  end_date: string;
+  image_url: string;
+  constellationGeneral: string;
+  constellationToday: string;
+}
+
+export interface ConstellationFortuneType {
+  constellation: ConstellationData;
+}
+
+export type ApiConstellationFortuneResponse = SuccessResponse<ConstellationFortuneType>;

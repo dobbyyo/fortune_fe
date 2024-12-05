@@ -1,5 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { todayFortune, todayFortuneExplain, todayZodiacFortuneExplain } from '../api/saju.service';
+import {
+  todayConstellationFortune,
+  todayFortune,
+  todayFortuneExplain,
+  todayZodiacFortuneExplain,
+} from '../api/saju.service';
 
 export const useTodayFortuneQuery = (userId: number | undefined, options = {}) => {
   return useQuery({
@@ -30,6 +35,18 @@ export const useZodiacFortuneQuery = (userId: number | undefined, options = {}) 
     queryKey: ['zodiacFortune', userId],
     queryFn: async () => {
       const response = await todayZodiacFortuneExplain(Number(userId));
+      return response.data;
+    },
+    retry: 1,
+    ...options,
+  });
+};
+
+export const useConstellationFortuneQuery = (userId: number | undefined, options = {}) => {
+  return useQuery({
+    queryKey: ['constellationFortune', userId],
+    queryFn: async () => {
+      const response = await todayConstellationFortune(Number(userId));
       return response.data;
     },
     retry: 1,

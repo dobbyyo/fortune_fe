@@ -1,7 +1,7 @@
 import { NavBar } from '@/components/Common';
 import { useNavigate } from 'react-router-dom';
 
-const Saju = () => {
+const SajuHome = () => {
   const navigate = useNavigate();
   const sajuCategories = [
     { id: 1, label: '오늘의 운세', icon: '/saju/calendar-icon.svg', url: '/saju/today' },
@@ -38,4 +38,4 @@ const Saju = () => {
   );
 };
 
-export default Saju;
+export default SajuHome;

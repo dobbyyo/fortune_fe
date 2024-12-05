@@ -1,2 +1,3 @@
-export { default as Saju } from './Saju';
-export { default as Today } from './Today';
+export { default as SajuHome } from './SajuHome';
+export { default as SajuToday } from './SajuToday';
+export { default as SajuResult } from './SajuResult';

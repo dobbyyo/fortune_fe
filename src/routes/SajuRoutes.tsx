@@ -1,17 +1,23 @@
 import { lazy } from 'react';
 
-const Saju = lazy(() => import('@/pages/Saju/Saju'));
-const Today = lazy(() => import('@/pages/Saju/Today'));
+const SajuHome = lazy(() => import('@/pages/Saju/SajuHome'));
+const SajuToday = lazy(() => import('@/pages/Saju/SajuToday'));
+const SajuResult = lazy(() => import('@/pages/Saju/SajuResult'));
 
 const sajuRoutes = [
   {
     path: '/saju',
-    element: <Saju />,
+    element: <SajuHome />,
     isPrivate: true,
   },
   {
     path: '/saju/today',
-    element: <Today />,
+    element: <SajuToday />,
+    isPrivate: true,
+  },
+  {
+    path: '/saju/result',
+    element: <SajuResult />,
     isPrivate: true,
   },
 ];

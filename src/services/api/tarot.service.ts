@@ -3,6 +3,7 @@ import { SuccessResponse } from '@/types/apiType';
 import {
   ApiTarotCardInterpretationBookmarkedResponse,
   ApiTarotCardsResponse,
+  TarotBookmarkDeletePayloadType,
   TarotBookmarkPayload,
 } from '@/types/tarotType';
 
@@ -36,9 +37,13 @@ export const tarotCardResultBookmark = async (
   }
 };
 
-export const tarotCardResultBookmarkDelete = async (savedCardId: number): Promise<SuccessResponse<null>> => {
+export const tarotCardResultBookmarkDelete = async (
+  payload: TarotBookmarkDeletePayloadType,
+): Promise<SuccessResponse<null>> => {
   try {
-    const { data } = await api.delete(`tarots/cancle/${savedCardId}`);
+    const { data } = await api.delete(`tarots/cancel`, {
+      params: payload,
+    });
 
     return data;
   } catch (error) {

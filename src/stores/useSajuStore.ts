@@ -29,3 +29,9 @@ export const fortuneConstellationState = atom<ConstellationFortuneType | null>({
   key: 'fortuneConstellationState',
   default: null,
 });
+
+// 오늘의 운세 저장 여부
+export const isTodayFortuneSavedState = atom<boolean>({
+  key: 'isTodayFortuneSavedState',
+  default: false,
+});

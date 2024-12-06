@@ -1,10 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   todayConstellationFortune,
   todayFortune,
+  todayFortuneDelete,
   todayFortuneExplain,
+  todayFortuneSave,
   todayZodiacFortuneExplain,
 } from '../api/saju.service';
+import { useSetRecoilState } from 'recoil';
+import { loadingState } from '@/stores/useLoadingStore';
+import { todayFortuneSavePayloadType } from '@/types/fortuneType';
+import { setLocalStorage } from '@/lib/localStorage';
+import { isTodayFortuneSavedState } from '@/stores/useSajuStore';
 
 export const useTodayFortuneQuery = (userId: number | undefined, options = {}) => {
   return useQuery({
@@ -51,5 +58,64 @@ export const useConstellationFortuneQuery = (userId: number | undefined, options
     },
     retry: 1,
     ...options,
+  });
+};
+
+// 오늘의 운세 저장
+export const useTodayFortuneSaveMutation = () => {
+  const setLoading = useSetRecoilState(loadingState);
+  const setTodayFortuneSaved = useSetRecoilState(isTodayFortuneSavedState);
+
+  return useMutation<any, Error, { payload: todayFortuneSavePayloadType }>({
+    mutationKey: ['todayFortuneSave'],
+    mutationFn: async ({ payload }: { payload: todayFortuneSavePayloadType }) => {
+      setLoading(true);
+      const response = await todayFortuneSave(payload);
+
+      return response;
+    },
+    onSuccess: async (response) => {
+      console.log('saveResponse:', response);
+      const { savedSandbar } = response.data;
+      console.log('response:', savedSandbar);
+      setTodayFortuneSaved(true);
+      setLocalStorage('todayFortuneBookmark', { isBookmark: true, id: savedSandbar.id });
+      setLoading(false);
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+    onError: (error) => {
+      console.error('Error:', error);
+      setLoading(false);
+    },
+  });
+};
+
+// 오늘의 운세 삭제
+export const useTodayFortuneDeleteMutation = () => {
+  const setLoading = useSetRecoilState(loadingState);
+  const setTodayFortuneSaved = useSetRecoilState(isTodayFortuneSavedState);
+
+  return useMutation<any, Error, { payload: { sandbarId: number; userId: number } }>({
+    mutationKey: ['todayFortuneDelete'],
+    mutationFn: async ({ payload }: { payload: { sandbarId: number; userId: number } }) => {
+      setLoading(true);
+      const response = await todayFortuneDelete(payload);
+
+      return response;
+    },
+    onSuccess: async () => {
+      setTodayFortuneSaved(false);
+      setLocalStorage('todayFortuneBookmark', null);
+      setLoading(false);
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+    onError: (error) => {
+      console.error('Error:', error);
+      setLoading(false);
+    },
   });
 };

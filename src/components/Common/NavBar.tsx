@@ -1,39 +1,19 @@
-import { getLocalStorage } from '@/lib/localStorage';
-import { useTarotCardBookmarkDeleteMutation, useTarotCardBookmarkMutation } from '@/services/queries/tarot.query';
 import { authState } from '@/stores/useAuthStore';
-import { tarotCardsState } from '@/stores/useTarotCardStore';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-const NavBar = ({ title, isResult }: { title: string; isResult: boolean }) => {
+const NavBar = ({
+  title,
+  isResult,
+  onBookmark,
+  isBookmark,
+}: {
+  title: string;
+  isResult: boolean;
+  onBookmark?: () => void;
+  isBookmark: boolean;
+}) => {
   const isAuthenticated = useRecoilValue(authState);
-  const tarotCards = useRecoilValue(tarotCardsState);
-  const isTarotBookmark = getLocalStorage('tarotBookmark');
-
-  const { mutate: bookMarkMutate } = useTarotCardBookmarkMutation();
-  const { mutate: deleteBookmarkMutate } = useTarotCardBookmarkDeleteMutation();
-
-  const onBookmark = () => {
-    if (isAuthenticated.isAuthenticated) {
-      if (isTarotBookmark && isTarotBookmark.isBookmark) {
-        return deleteBookmarkMutate(isTarotBookmark.id);
-      }
-
-      bookMarkMutate({
-        payload: {
-          mainTitle: '오늘의 타로',
-          cards: tarotCards.map((card) => ({
-            cardId: card.id,
-            subTitle: card.subTitle,
-            isReversed: card.isReversed,
-            cardInterpretation: card.interpretation.interpretation,
-          })),
-        },
-      });
-    } else {
-      alert('로그인이 필요한 서비스입니다.');
-    }
-  };
 
   return (
     <div className="navbar w-full flex items-center px-4 relative">
@@ -79,7 +59,7 @@ const NavBar = ({ title, isResult }: { title: string; isResult: boolean }) => {
             onClick={onBookmark}
             className="w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] flex items-center justify-center"
           >
-            {isTarotBookmark ? (
+            {isBookmark ? (
               <img src="/on-bookmark-icon.jpg" alt="Bookmark" className="w-full h-full object-cover" />
             ) : (
               <img src="/off-bookmark-icon.jpg" alt="Bookmark" className="w-full h-full object-cover" />

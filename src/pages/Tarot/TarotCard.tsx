@@ -23,7 +23,7 @@ const TarotCard = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <NavBar title="오늘의 타로" isResult={false} />
+      <NavBar title="오늘의 타로" isResult={false} isBookmark={false} />
 
       <h2 className="mt-4 text-xl font-bold text-center">선택한 카드의 결과를 확인해 보세요.</h2>
 

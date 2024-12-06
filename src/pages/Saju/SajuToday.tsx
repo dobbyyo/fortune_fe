@@ -4,7 +4,7 @@ import { HeaderInfo, ItemList, ResultButton } from '@/components/Saju/SajuToday'
 const SajuToday = () => {
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <NavBar title="오늘의 사주" isResult={false} />
+      <NavBar title="오늘의 사주" isResult={false} isBookmark={false} />
       <HeaderInfo />
       <ItemList />
       <ResultButton />

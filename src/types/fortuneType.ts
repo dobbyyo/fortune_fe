@@ -91,3 +91,59 @@ export interface ConstellationFortuneType {
 }
 
 export type ApiConstellationFortuneResponse = SuccessResponse<ConstellationFortuneType>;
+
+// 오늘의 운세 저장
+
+export interface todayFortuneSavePayloadType {
+  userId: number;
+  title: string;
+  todaysFortune: {
+    totalFortuneTitle: string;
+    totalFortuneDescription: string;
+    wealthFortuneTitle: string;
+    wealthFortuneDescription: string;
+    loveFortuneTitle: string;
+    loveFortuneDescription: string;
+    businessFortuneTitle: string;
+    businessFortuneDescription: string;
+    healthFortuneTitle: string;
+    healthFortuneDescription: string;
+    studyFortuneTitle: string;
+    studyFortuneDescription: string;
+    luckyItemsTitle: string;
+    luckyItem1: string;
+    luckyItem2: string;
+    luckyOutfitTitle: string;
+    luckyOutfitDescription: string;
+  };
+  zodiacFortune: {
+    zodiacTitle: string;
+    zodiacMainDescription: string;
+    zodiacSubDescription: string;
+    yearOfBirth: string;
+    imageUrl: string;
+  };
+  starSignFortune: {
+    starSign: string;
+    starMainDescription: string;
+    starSubDescription: string;
+    imageUrl: string;
+    year: string;
+  };
+}
+
+interface SavedSandbar {
+  title: string;
+  user_id: number;
+  todays_fortune_id: number;
+  zodiac_fortune_id: number;
+  star_sign_fortune_id: number;
+  id: number;
+  saved_at: string;
+}
+
+interface TodayFortuneSaveType {
+  savedSandbar: SavedSandbar;
+}
+
+export type ApiTodayFortuneSaveResponse = SuccessResponse<TodayFortuneSaveType>;

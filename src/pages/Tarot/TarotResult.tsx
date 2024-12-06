@@ -1,13 +1,18 @@
 import { NavBar } from '@/components/Common';
 import { cleanData } from '@/hooks/cleanData';
 import { getLocalStorage } from '@/lib/localStorage';
+import { useTarotCardBookmarkDeleteMutation, useTarotCardBookmarkMutation } from '@/services/queries/tarot.query';
+import { authState, userState } from '@/stores/useAuthStore';
 import { tarotCardsState } from '@/stores/useTarotCardStore';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 const TarotResult = () => {
   const [tarotCards, setTarotCards] = useRecoilState(tarotCardsState);
   const storedTarotCards = getLocalStorage('tarotCards');
+  const isAuthenticated = useRecoilValue(authState);
+  const userData = useRecoilValue(userState);
+  const isTarotBookmark = getLocalStorage('tarotBookmark');
 
   useEffect(() => {
     if (storedTarotCards) {
@@ -15,9 +20,39 @@ const TarotResult = () => {
     }
   }, []);
 
+  const { mutate: bookMarkMutate } = useTarotCardBookmarkMutation();
+  const { mutate: deleteBookmarkMutate } = useTarotCardBookmarkDeleteMutation();
+
+  const onBookmark = () => {
+    if (isAuthenticated.isAuthenticated && userData) {
+      if (isTarotBookmark && isTarotBookmark.isBookmark) {
+        const payload = {
+          userId: Number(userData.id),
+          savedCardId: Number(isTarotBookmark.id),
+        };
+        return deleteBookmarkMutate({ payload });
+      }
+
+      bookMarkMutate({
+        payload: {
+          userId: userData.id,
+          mainTitle: '오늘의 타로',
+          cards: tarotCards.map((card) => ({
+            cardId: card.id,
+            subTitle: card.subTitle,
+            isReversed: card.isReversed,
+            cardInterpretation: card.interpretation.interpretation,
+          })),
+        },
+      });
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-auto">
-      <NavBar title="오늘의 타로" isResult={true} />
+      <NavBar title="오늘의 타로" isResult={true} onBookmark={onBookmark} isBookmark={isTarotBookmark} />
 
       <div className="flex flex-col gap-12 mt-8 w-full px-4 mb-[60px]">
         {tarotCards.map((card) => (

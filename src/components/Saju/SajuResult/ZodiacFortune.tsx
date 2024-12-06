@@ -57,7 +57,7 @@ const ZodiacFortune = () => {
             {/* 연별 운세 */}
             <div className="w-full mt-4">
               {Object.entries(fortuneZodiac.zodiacFortune.yearlyFortunes).map(([year, fortune]) => (
-                <div className="py-2 mt-5">
+                <div className="py-2 mt-5" key={year}>
                   <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
                     <h3 className="font-bold text-clamp35 text-start px-2">💜 {year}년생</h3>
                   </div>

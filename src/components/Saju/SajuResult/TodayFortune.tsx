@@ -1,4 +1,5 @@
 import { LoadingBar } from '@/components/Common';
+import { todayDate } from '@/hooks/dateHook';
 import { getLocalStorage, setLocalStorage } from '@/lib/localStorage';
 import { useTodayFortuneExplainQuery } from '@/services/queries/saju.query';
 import { userIdSelector } from '@/stores/useAuthStore';
@@ -10,8 +11,9 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 const TodayFortune = () => {
   const userId = useRecoilValue(userIdSelector);
   const setIsLoading = useSetRecoilState(loadingState);
-  const localFortuneData = getLocalStorage('fortuneData');
+  const localFortuneData = getLocalStorage('fortuneExplainData');
   const [explainsFortune, setExplainsFortune] = useRecoilState(explainFortuneState);
+  const today = todayDate();
 
   const { data, isLoading, isError } = useTodayFortuneExplainQuery(userId, {
     enabled: userId !== undefined && localFortuneData === null,
@@ -26,7 +28,8 @@ const TodayFortune = () => {
 
   useEffect(() => {
     if (data) {
-      setLocalStorage('fortuneData', data);
+      setLocalStorage('fortuneExplainData', data);
+      setLocalStorage('todayDate', today);
       setExplainsFortune(data);
     } else if (localFortuneData) {
       setExplainsFortune(localFortuneData);

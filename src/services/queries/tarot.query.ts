@@ -1,4 +1,9 @@
-import { ApiTarotCardsResponse, TarotBookmarkPayload } from '@/types/tarotType';
+import {
+  ApiTarotCardInterpretationBookmarkedResponse,
+  ApiTarotCardsResponse,
+  TarotBookmarkDeletePayloadType,
+  TarotBookmarkPayload,
+} from '@/types/tarotType';
 import { useMutation } from '@tanstack/react-query';
 import { tarotCardResult, tarotCardResultBookmark, tarotCardResultBookmarkDelete } from '../api/tarot.service';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +11,7 @@ import { TarotBookmarkState, tarotCardsState } from '@/stores/useTarotCardStore'
 import { useSetRecoilState } from 'recoil';
 import { setLocalStorage } from '@/lib/localStorage';
 import { loadingState } from '@/stores/useLoadingStore';
+import { SuccessResponse } from '@/types/apiType';
 
 export const useTarotCardInterpretationMutation = () => {
   const navigate = useNavigate();
@@ -42,7 +48,7 @@ export const useTarotCardBookmarkMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setTarotBookmark = useSetRecoilState(TarotBookmarkState);
   return useMutation<
-    any,
+    ApiTarotCardInterpretationBookmarkedResponse,
     Error,
     {
       payload: TarotBookmarkPayload;
@@ -74,11 +80,17 @@ export const useTarotCardBookmarkMutation = () => {
 export const useTarotCardBookmarkDeleteMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setTarotBookmark = useSetRecoilState(TarotBookmarkState);
-  return useMutation<any, Error, number>({
+  return useMutation<
+    SuccessResponse<null>,
+    Error,
+    {
+      payload: TarotBookmarkDeletePayloadType;
+    }
+  >({
     mutationKey: ['tarotCardBookmarkDelete'],
-    mutationFn: async (savedCardId: number) => {
+    mutationFn: async ({ payload }: { payload: TarotBookmarkDeletePayloadType }) => {
       setLoading(true);
-      const response = await tarotCardResultBookmarkDelete(savedCardId);
+      const response = await tarotCardResultBookmarkDelete(payload);
 
       return response;
     },

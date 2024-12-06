@@ -3,7 +3,9 @@ import {
   ApiConstellationFortuneResponse,
   ApiTodayFortuneExplanationResponse,
   ApiTodayFortuneResponse,
+  ApiTodayFortuneSaveResponse,
   ApiTodayZodiacFortuneExplanationResponse,
+  todayFortuneSavePayloadType,
 } from '@/types/fortuneType';
 
 // 오늘의 운세 조회
@@ -43,6 +45,32 @@ export const todayZodiacFortuneExplain = async (userId: number): Promise<ApiToda
 export const todayConstellationFortune = async (userId: number): Promise<ApiConstellationFortuneResponse> => {
   try {
     const { data } = await api.get<ApiConstellationFortuneResponse>(`/fortunes/constellation?userId=${userId}`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 오늘의 운세 저장
+export const todayFortuneSave = async (
+  todayFortuneSavePayload: todayFortuneSavePayloadType,
+): Promise<ApiTodayFortuneSaveResponse> => {
+  try {
+    const { data } = await api.post('/fortunes/save', todayFortuneSavePayload);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 오늘의 운세 삭제
+export const todayFortuneDelete = async (payload: { userId: number; sandbarId: number }): Promise<void> => {
+  try {
+    const { data } = await api.delete('/fortunes/delete', {
+      params: payload,
+    });
 
     return data;
   } catch (error) {

@@ -1,5 +1,15 @@
 import { NavBar } from '@/components/Common';
+import { todayDate } from '@/hooks/dateHook';
+import { getLocalStorage } from '@/lib/localStorage';
+import {
+  explainFortuneState,
+  fortuneConstellationState,
+  fortuneZodiacState,
+  todayFortuneState,
+} from '@/stores/useSajuStore';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 
 const SajuHome = () => {
   const navigate = useNavigate();
@@ -16,9 +26,35 @@ const SajuHome = () => {
     navigate(category);
   };
 
+  const setTodayFortune = useSetRecoilState(todayFortuneState);
+  const setExplainFortune = useSetRecoilState(explainFortuneState);
+  const setFortuneZodiac = useSetRecoilState(fortuneZodiacState);
+  const setFortuneConstellation = useSetRecoilState(fortuneConstellationState);
+
+  useEffect(() => {
+    const today = todayDate();
+    const localDate = getLocalStorage('todayDate');
+
+    console.log('today', today);
+    console.log('localDate', localDate);
+
+    if (localDate !== today) {
+      // 날짜가 다르면 Recoil 상태 및 로컬스토리지 초기화
+      setTodayFortune(null);
+      setExplainFortune(null);
+      setFortuneZodiac(null);
+      setFortuneConstellation(null);
+
+      localStorage.removeItem('fortuneExplainData');
+      localStorage.removeItem('fortuneZodiacData');
+      localStorage.removeItem('fortuneConstellationData');
+      localStorage.setItem('todayDate', today);
+    }
+  }, []);
+
   return (
     <div className="w-full h-full flex flex-col items-center">
-      <NavBar title="사주" isResult={false} />
+      <NavBar title="사주" isResult={false} isBookmark={false} />
 
       <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8">
         {sajuCategories.map((category) => (

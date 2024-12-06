@@ -4,7 +4,7 @@ import { ActionButtons, CardSlider, CardTitle, DragControl, SelectedCards, TabNa
 const Tarot = () => {
   return (
     <div className="flex flex-col items-center justify-center">
-      <NavBar title="타로" isResult={false} />
+      <NavBar title="타로" isResult={false} isBookmark={false} />
       <TabNavigation />
       <div className="w-full bg-[#f1f1f1] mt-[49px]">
         <CardTitle />

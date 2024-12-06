@@ -29,6 +29,7 @@ export type ApiTarotCardsResponse = SuccessResponse<TarotCardsResponse>;
 // 타로카드 결과 저장
 export interface TarotBookmarkPayload {
   mainTitle: string;
+  userId: number;
   cards: {
     cardId: number;
     subTitle: string;
@@ -38,15 +39,24 @@ export interface TarotBookmarkPayload {
 }
 
 export interface TarotCardInterpretationBookmarked {
-  created_at: string;
-  deleted_at: string;
   id: number;
   title: string;
-  upadted_at: string;
+  user: {
+    id: number;
+  };
+  created_at: string;
+  deleted_at: string;
+  updated_at: string;
 }
 
 export interface TarotCardsBookmarkResponse {
-  saveCards: TarotCardInterpretationBookmarked[];
+  savedCards: TarotCardInterpretationBookmarked;
 }
 
 export type ApiTarotCardInterpretationBookmarkedResponse = SuccessResponse<TarotCardsBookmarkResponse>;
+
+// 타로카드 저장 삭제
+export interface TarotBookmarkDeletePayloadType {
+  userId: number;
+  savedCardId: number;
+}

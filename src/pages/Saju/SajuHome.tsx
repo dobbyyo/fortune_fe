@@ -16,10 +16,10 @@ const SajuHome = () => {
   const sajuCategories = [
     { id: 1, label: '오늘의 운세', icon: '/saju/calendar-icon.svg', url: '/saju/today' },
     { id: 2, label: '내일의 운세', icon: '/saju/clock-icon.svg', url: '/saju/tomorrow' },
-    { id: 3, label: '지정일 운세', icon: '/saju/circle-icon.svg', url: '/saju/date' },
-    { id: 4, label: '신년운세', icon: '/saju/clover-icon.svg', url: '/saju/new-year' },
-    { id: 5, label: '토정비결', icon: '/saju/fortune-icon.svg', url: '/saju/fortune' },
-    { id: 6, label: '정통사주', icon: '/saju/note-icon.svg', url: '/saju/note' },
+    { id: 3, label: '지정일 운세', icon: '/saju/circle-icon.svg', url: '/saju/select' },
+    { id: 4, label: '신년운세', icon: '/saju/clover-icon.svg', url: '/saju/year' },
+    { id: 5, label: '토정비결', icon: '/saju/fortune-icon.svg', url: '/saju/tojeong' },
+    { id: 6, label: '정통사주', icon: '/saju/note-icon.svg', url: '/saju/traditional' },
   ];
 
   const onGoPage = (category: string) => {
@@ -34,9 +34,6 @@ const SajuHome = () => {
   useEffect(() => {
     const today = todayDate();
     const localDate = getLocalStorage('todayDate');
-
-    console.log('today', today);
-    console.log('localDate', localDate);
 
     if (localDate !== today) {
       // 날짜가 다르면 Recoil 상태 및 로컬스토리지 초기화

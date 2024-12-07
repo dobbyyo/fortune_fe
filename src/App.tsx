@@ -10,16 +10,16 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 function App() {
-	return (
-		<CookiesProvider>
-			<RecoilRoot>
-				<QueryClientProvider client={queryClient}>
-					<Router />
-					<ReactQueryDevtools initialIsOpen={false} />
-				</QueryClientProvider>
-			</RecoilRoot>
-		</CookiesProvider>
-	);
+  return (
+    <CookiesProvider>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <Router />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </RecoilRoot>
+    </CookiesProvider>
+  );
 }
 
 export default App;

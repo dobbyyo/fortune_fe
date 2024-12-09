@@ -17,9 +17,9 @@ const mockSetTodayFortune = jest.fn();
 
 jest.mock('../config/config', () => ({
   config: {
-    apiUrl: 'http://localhost:mock', // Mock API URL
-    kakaoApiKey: 'mock-kakao-api-key', // Mock Kakao API Key
-    kakaoRedirectUri: 'http://localhost:mock-redirect', // Mock Redirect URI
+    apiUrl: 'http://localhost:mock',
+    kakaoApiKey: 'mock-kakao-api-key',
+    kakaoRedirectUri: 'http://localhost:mock-redirect',
   },
 }));
 
@@ -27,10 +27,10 @@ jest.mock('recoil', () => ({
   ...jest.requireActual('recoil'),
   useRecoilValue: jest.fn((state) => {
     if (state === authState) {
-      return { isAuthenticated: true }; // Mock isAuthenticated 상태
+      return { isAuthenticated: true };
     }
     if (state === userState) {
-      return { id: 1, name: 'Test User', gender: 'MAN', birth_date: '1990-01-01' }; // Mock userState 데이터
+      return { id: 1, name: 'Test User', gender: 'MAN', birth_date: '1990-01-01' };
     }
     return undefined;
   }),

@@ -45,13 +45,11 @@ const SajuResult = () => {
   const isTodayFortuneSavedLocal = getLocalStorage('todayFortuneBookmark');
 
   const onSaveTodayFortune = () => {
-    const localExplainFortuneData = getLocalStorage('fortuneExplainData');
-    const localFortuneZodiacData = getLocalStorage('fortuneZodiac');
-    const localFortuneConstellationData = getLocalStorage('fortuneConstellationData');
+    const getFortuneData = (key: string, recoilState: any) => recoilState || getLocalStorage(key);
 
-    const explainFortune = explainFortuneData || localExplainFortuneData;
-    const fortuneZodiac = fortuneZodiacData || localFortuneZodiacData;
-    const fortuneConstellation = fortuneConstellationData || localFortuneConstellationData;
+    const explainFortune = getFortuneData('fortuneExplainData', explainFortuneData);
+    const fortuneZodiac = getFortuneData('fortuneZodiac', fortuneZodiacData);
+    const fortuneConstellation = getFortuneData('fortuneConstellation', fortuneConstellationData);
 
     if (!explainFortune || !fortuneZodiac || !fortuneConstellation) {
       return alert('데이터를 불러올 수 없습니다.');

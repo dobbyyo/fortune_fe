@@ -10,10 +10,10 @@ const BaseLayout = ({ children }: { children: ReactNode }) => {
   useCSRFQuery();
 
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-white">
+    <div className="w-full h-screen flex flex-col items-center bg-white px-0 sm:px-2">
       <Header />
       {isLoading && <LoadingBar />}
-      <main className="max-w-[800px] min-w-[320px] w-full sm:px-4 pt-[80px] sm:pt-[120px] md:pt-[150px] bg-white">
+      <main className="max-w-[800px] min-w-[320px] w-full px-0 sm:px-4 pt-[80px] sm:pt-[120px] md:pt-[150px] bg-white">
         {children}
       </main>
     </div>

@@ -75,9 +75,7 @@ export const useTodayFortuneSaveMutation = () => {
       return response;
     },
     onSuccess: async (response) => {
-      console.log('saveResponse:', response);
       const { savedSandbar } = response.data;
-      console.log('response:', savedSandbar);
       setTodayFortuneSaved(true);
       setLocalStorage('todayFortuneBookmark', { isBookmark: true, id: savedSandbar.id });
       setLoading(false);

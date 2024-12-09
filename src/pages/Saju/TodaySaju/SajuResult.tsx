@@ -16,7 +16,7 @@ import { useRecoilValue } from 'recoil';
 const SajuResult = () => {
   const [activeTab, setActiveTab] = useState('오늘의 운세');
 
-  const TABS = [
+  const tabs = [
     { name: '오늘의 운세', key: 'today' },
     { name: '띠 운세', key: 'zodiac' },
     { name: '별자리 운세', key: 'stars' },
@@ -29,7 +29,7 @@ const SajuResult = () => {
       stars: <StarSignFortune />,
     };
 
-    const activeTabKey: string = TABS.find((tab) => tab.name === activeTab)?.key || 'today';
+    const activeTabKey: string = tabs.find((tab) => tab.name === activeTab)?.key || 'today';
     return tabContentMap[activeTabKey] || <div>탭을 선택하세요</div>;
   };
 
@@ -87,7 +87,7 @@ const SajuResult = () => {
         role="tablist"
         className="w-full h-[50px] sm:h-[60px] tabs tabs-bordered flex justify-start mb-4 bg-white px-5"
       >
-        {TABS.map((tab) => (
+        {tabs.map((tab) => (
           <a
             key={tab.key}
             className={`w-full tab h-full px-4 text-center text-clamp30 font-normal ${

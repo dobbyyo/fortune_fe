@@ -1,6 +1,11 @@
 import { NavBar } from '@/components/Common';
 import { StarSignFortune, TodayFortune, ZodiacFortune } from '@/components/Saju/SajuResult';
 import { getLocalStorage } from '@/lib/localStorage';
+import {
+  mapStarSignFortuneData,
+  mapTodayFortuneData,
+  mapZodiacFortuneData,
+} from '@/services/payloadData/SajuResultPayload';
 import { useTodayFortuneDeleteMutation, useTodayFortuneSaveMutation } from '@/services/queries/saju.query';
 import { authState, userState } from '@/stores/useAuthStore';
 import { explainFortuneState, fortuneConstellationState, fortuneZodiacState } from '@/stores/useSajuStore';
@@ -18,16 +23,14 @@ const SajuResult = () => {
   ];
 
   const renderTabContent = () => {
-    switch (activeTab) {
-      case '오늘의 운세':
-        return <TodayFortune />;
-      case '띠 운세':
-        return <ZodiacFortune />;
-      case '별자리 운세':
-        return <StarSignFortune />;
-      default:
-        return <div>탭을 선택하세요</div>;
-    }
+    const tabContentMap: { [key: string]: JSX.Element } = {
+      today: <TodayFortune />,
+      zodiac: <ZodiacFortune />,
+      stars: <StarSignFortune />,
+    };
+
+    const activeTabKey: string = TABS.find((tab) => tab.name === activeTab)?.key || 'today';
+    return tabContentMap[activeTabKey] || <div>탭을 선택하세요</div>;
   };
 
   const { mutate: bookMarkMutate } = useTodayFortuneSaveMutation();
@@ -51,59 +54,23 @@ const SajuResult = () => {
     const fortuneConstellation = fortuneConstellationData || localFortuneConstellationData;
 
     if (!explainFortune || !fortuneZodiac || !fortuneConstellation) {
-      alert('데이터를 불러올 수 없습니다.');
-      return;
+      return alert('데이터를 불러올 수 없습니다.');
     }
 
-    if (isAuthenticated.isAuthenticated === false || !userData) {
-      alert('로그인이 필요합니다.');
-      return;
+    if (!isAuthenticated?.isAuthenticated || !userData) {
+      return alert('로그인이 필요합니다.');
     }
 
     const payload: todayFortuneSavePayloadType = {
       userId: userData.id,
       title: '오늘의 운세',
-      todaysFortune: {
-        totalFortuneTitle: '총운',
-        totalFortuneDescription: explainFortune.explanationData.generalFortune,
-        wealthFortuneTitle: '재물운',
-        wealthFortuneDescription: explainFortune.explanationData.wealthFortune,
-        loveFortuneTitle: '연애운',
-        loveFortuneDescription: explainFortune.explanationData.loveFortune,
-        businessFortuneTitle: '사업운',
-        businessFortuneDescription: explainFortune.explanationData.careerFortune,
-        healthFortuneTitle: '건강운',
-        healthFortuneDescription: explainFortune.explanationData.healthFortune,
-        studyFortuneTitle: '학업운',
-        studyFortuneDescription: explainFortune.explanationData.studyFortune,
-        luckyItemsTitle: '행운의 요소',
-        luckyItem1: explainFortune.explanationData.luckyElements[0],
-        luckyItem2: explainFortune.explanationData.luckyElements[1],
-        luckyOutfitTitle: '행운의 코디',
-        luckyOutfitDescription: explainFortune.explanationData.luckyOutfit,
-      },
-      zodiacFortune: {
-        zodiacTitle: fortuneZodiac.zodiacFortune.name,
-        zodiacMainDescription: fortuneZodiac.zodiacFortune.zodiacGeneral,
-        zodiacSubDescription: fortuneZodiac.zodiacFortune.zodiacToday,
-        yearOfBirth: userData.birth_date.split('-')[0], // 출생 연도 추출
-        imageUrl: fortuneZodiac.zodiacFortune.image_url,
-      },
-      starSignFortune: {
-        starSign: fortuneConstellation.constellation.name,
-        starMainDescription: fortuneConstellation.constellation.constellationGeneral,
-        starSubDescription: fortuneConstellation.constellation.constellationToday,
-        imageUrl: fortuneConstellation.constellation.image_url,
-        year: userData.birth_date.split('-')[0], // 출생 연도 추출
-      },
+      todaysFortune: mapTodayFortuneData(explainFortune),
+      zodiacFortune: mapZodiacFortuneData(fortuneZodiac, userData),
+      starSignFortune: mapStarSignFortuneData(fortuneConstellation, userData),
     };
 
-    if (isTodayFortuneSavedLocal && isTodayFortuneSavedLocal.isBookmark) {
-      const payload = {
-        userId: userData.id,
-        sandbarId: isTodayFortuneSavedLocal.id,
-      };
-      deleteBookmarkMutate({ payload });
+    if (isTodayFortuneSavedLocal?.isBookmark) {
+      deleteBookmarkMutate({ payload: { userId: userData.id, sandbarId: isTodayFortuneSavedLocal.id } });
     } else {
       bookMarkMutate({ payload });
     }

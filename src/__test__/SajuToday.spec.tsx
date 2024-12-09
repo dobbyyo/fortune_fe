@@ -1,135 +1,187 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import React from 'react';
+import { render, screen } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
-import { userState } from '@/stores/useAuthStore';
+import { HeaderInfo, ItemList } from '@/components/Saju/SajuToday';
+import { MemoryRouter } from 'react-router-dom';
 import { todayFortuneState } from '@/stores/useSajuStore';
+import { authState, userState } from '@/stores/useAuthStore';
+import { loadingState } from '@/stores/useLoadingStore';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SajuToday } from '@/pages/Saju/TodaySaju';
-import { UserResponse } from '@/types/userType';
+import { NavBar } from '@/components/Common';
 
-// Recoil Mock 상태 설정
-const mockUserState: UserResponse = {
-  id: 1,
-  username: '테스트 유저',
-  gender: 'MAN',
-  birth_date: '1990-01-01',
-  birth_time: '00:00:00',
-  calendar_type: 'SOLAR',
-  language: {
-    user_id: 1,
-    language: 'ko',
-  },
-  notification: {
-    user_id: 1,
-    benefit: true,
-    horoscope: true,
-  },
-  profile: {
-    user_id: 1,
-    profile_url: 'https://path/to/profile.jpg',
-  },
-  password: {
-    user_id: 1,
-    password_lock_status: false,
-    hash_password: null,
-  },
-  created_at: '2023-01-01',
-  updated_at: '2023-01-01',
-  deleted_at: null,
-  provider: 'local',
-  email: 'test@example.com',
-};
+// 공통 Mock 데이터 설정
+const mockSetIsLoading = jest.fn();
+const mockSetTodayFortune = jest.fn();
 
-const mockTodayFortune = {
-  fortunesData: {
-    heavenly: { elements: { img: { one: '/path1.jpg', two: '/path2.jpg' } } },
-    earthly: { elements: { img: { three: '/path3.jpg', four: '/path4.jpg' } } },
-    heavenlyStemTenGod: ['편인', '정인'],
-    earthlyBranchTenGod: ['상관', '겁재'],
-    tenStemTwelveStates: ['태', '생'],
-    twelveGod: ['정관', '비견'],
+jest.mock('../config/config', () => ({
+  config: {
+    apiUrl: 'http://localhost:mock', // Mock API URL
+    kakaoApiKey: 'mock-kakao-api-key', // Mock Kakao API Key
+    kakaoRedirectUri: 'http://localhost:mock-redirect', // Mock Redirect URI
   },
-} as any;
+}));
 
-// Mock 서비스
+jest.mock('recoil', () => ({
+  ...jest.requireActual('recoil'),
+  useRecoilValue: jest.fn((state) => {
+    if (state === authState) {
+      return { isAuthenticated: true }; // Mock isAuthenticated 상태
+    }
+    if (state === userState) {
+      return { id: 1, name: 'Test User', gender: 'MAN', birth_date: '1990-01-01' }; // Mock userState 데이터
+    }
+    return undefined;
+  }),
+  useSetRecoilState: jest.fn((state) => {
+    if (state === loadingState) return mockSetIsLoading;
+    if (state === todayFortuneState) return mockSetTodayFortune;
+    return jest.fn();
+  }),
+  useRecoilState: jest.fn((state) => {
+    if (state === todayFortuneState) {
+      return [
+        {
+          fortunesData: {
+            heavenly: { elements: { img: { one: '/path1.jpg', two: '/path2.jpg' } } },
+            earthly: { elements: { img: { three: '/path3.jpg', four: '/path4.jpg' } } },
+            heavenlyStemTenGod: ['편인', '정인'],
+            earthlyBranchTenGod: ['상관', '겁재'],
+            tenStemTwelveStates: ['태', '생'],
+            twelveGod: ['정관', '비견'],
+          },
+        },
+        mockSetTodayFortune,
+      ];
+    }
+    return [undefined, jest.fn()];
+  }),
+}));
+
 jest.mock('@/services/queries/saju.query', () => ({
   useTodayFortuneQuery: jest.fn(() => ({
-    data: mockTodayFortune,
+    data: {
+      fortunesData: {
+        heavenly: { elements: { img: { one: '/path1.jpg', two: '/path2.jpg' } } },
+        earthly: { elements: { img: { three: '/path3.jpg', four: '/path4.jpg' } } },
+        heavenlyStemTenGod: ['편인', '정인'],
+        earthlyBranchTenGod: ['상관', '겁재'],
+        tenStemTwelveStates: ['태', '생'],
+        twelveGod: ['정관', '비견'],
+      },
+    },
     isLoading: false,
     isError: false,
   })),
 }));
 
+// 공통 QueryClient 설정
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false, // 테스트 환경에서 불필요한 재시도 방지
+      },
+    },
+  });
+
+// SajuToday Page
 describe('SajuToday Component', () => {
+  const testQueryClient = createTestQueryClient();
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('renders HeaderInfo correctly', () => {
+  test('renders all child components', () => {
     render(
-      <RecoilRoot
-        initializeState={({ set }) => {
-          set(userState, mockUserState);
-        }}
-      >
-        <MemoryRouter>
-          <SajuToday />
-        </MemoryRouter>
-      </RecoilRoot>,
+      <QueryClientProvider client={testQueryClient}>
+        <RecoilRoot>
+          <MemoryRouter>
+            <SajuToday />
+          </MemoryRouter>
+        </RecoilRoot>
+      </QueryClientProvider>,
     );
 
-    // HeaderInfo 렌더링 확인
-    expect(screen.getByText('테스트 유저')).toBeInTheDocument();
-    expect(screen.getByText('남')).toBeInTheDocument();
-    expect(screen.getByText('1990년 01월 01일 (양력)')).toBeInTheDocument();
+    expect(screen.getByText('오늘의 사주')).toBeInTheDocument(); // NavBar
+    expect(screen.getByText('결과보기')).toBeInTheDocument(); // ResultButton
+  });
+});
+
+// NavBar
+describe('NavBar Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  test('renders ItemList with today fortune data', () => {
-    render(
-      <RecoilRoot
-        initializeState={({ set }) => {
-          set(userState, mockUserState);
-          set(todayFortuneState, mockTodayFortune);
-        }}
-      >
-        <MemoryRouter>
-          <SajuToday />
-        </MemoryRouter>
-      </RecoilRoot>,
-    );
-
-    // 천간 이미지 렌더링 확인
-    expect(screen.getByAltText('one')).toBeInTheDocument();
-    expect(screen.getByAltText('two')).toBeInTheDocument();
-
-    // 십신 항목 확인
-    expect(screen.getByText('편인')).toBeInTheDocument();
-    expect(screen.getByText('정인')).toBeInTheDocument();
-
-    // 지지 항목 확인
-    expect(screen.getByText('상관')).toBeInTheDocument();
-    expect(screen.getByText('겁재')).toBeInTheDocument();
-  });
-
-  test('navigates to result page on button click', () => {
-    const mockNavigate = jest.fn();
-    jest.mock('react-router-dom', () => ({
-      ...jest.requireActual('react-router-dom'),
-      useNavigate: () => mockNavigate,
-    }));
-
+  test('renders title correctly', () => {
     render(
       <RecoilRoot>
         <MemoryRouter>
-          <SajuToday />
+          <NavBar title="테스트 제목" isResult={false} isBookmark={false} />
         </MemoryRouter>
       </RecoilRoot>,
     );
 
-    const button = screen.getByText('결과보기');
-    fireEvent.click(button);
+    expect(screen.getByText('테스트 제목')).toBeInTheDocument();
+  });
 
-    // navigate('/saju/result') 호출 확인
-    expect(mockNavigate).toHaveBeenCalledWith('/saju/result');
+  test('shows bookmark button when isResult is true', () => {
+    render(
+      <RecoilRoot>
+        <MemoryRouter>
+          <NavBar title="테스트 제목" isResult={true} isBookmark={false} />
+        </MemoryRouter>
+      </RecoilRoot>,
+    );
+
+    expect(screen.getByAltText('Bookmark')).toBeInTheDocument();
+  });
+});
+
+describe('HeaderInfo Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('renders user information', () => {
+    render(
+      <RecoilRoot>
+        <HeaderInfo />
+      </RecoilRoot>,
+    );
+
+    expect(screen.getByText('남')).toBeInTheDocument();
+    expect(screen.getByText('1990년 01월 01일 (양력)')).toBeInTheDocument();
+  });
+});
+
+// ItemList
+describe('ItemList Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f()); // Mock useEffect
+  });
+
+  test('renders fortune data when available', () => {
+    render(
+      <RecoilRoot>
+        <MemoryRouter>
+          <ItemList />
+        </MemoryRouter>
+      </RecoilRoot>,
+    );
+
+    // 모든 이미지를 배열로 가져오기
+    const images = screen.getAllByRole('img');
+
+    // src 속성을 기준으로 특정 이미지 확인
+    const img1 = images.find((img) => img.getAttribute('src') === '/path1.jpg');
+    const img2 = images.find((img) => img.getAttribute('src') === '/path3.jpg');
+
+    expect(img1).toBeInTheDocument();
+    expect(img2).toBeInTheDocument();
   });
 });

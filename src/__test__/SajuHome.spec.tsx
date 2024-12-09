@@ -4,12 +4,18 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 
-jest.mock('@/hooks/dateHook', () => ({
-  todayDate: jest.fn(() => '2023-12-07'),
-}));
+const mockGetLocalStorage = jest.fn();
+const mockSetLocalStorage = jest.fn();
+const mockRemoveLocalStorage = jest.fn();
 
 jest.mock('@/lib/localStorage', () => ({
-  getLocalStorage: jest.fn(() => '2023-12-06'), // Mocked 값: 어제 날짜
+  getLocalStorage: jest.fn(() => mockGetLocalStorage()),
+  setLocalStorage: jest.fn((key, value) => mockSetLocalStorage(key, value)),
+  removeLocalStorage: jest.fn((key) => mockRemoveLocalStorage(key)),
+}));
+
+jest.mock('@/hooks/dateHook', () => ({
+  todayDate: jest.fn(() => '2023-12-07'), // Mock today's date
 }));
 
 const mockNavigate = jest.fn();
@@ -21,7 +27,6 @@ jest.mock('react-router-dom', () => ({
 describe('SajuHome Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    localStorage.clear();
   });
 
   test('renders categories correctly', () => {
@@ -33,7 +38,6 @@ describe('SajuHome Component', () => {
       </RecoilRoot>,
     );
 
-    // 카테고리 버튼 렌더링 확인
     const categories = ['오늘의 운세', '내일의 운세', '지정일 운세', '신년운세', '토정비결', '정통사주'];
     categories.forEach((category) => {
       expect(screen.getByText(category)).toBeInTheDocument();
@@ -56,6 +60,8 @@ describe('SajuHome Component', () => {
   });
 
   test('resets state and localStorage if date changes', () => {
+    mockGetLocalStorage.mockReturnValueOnce({ todayDate: '2023-12-06' }); // Mock yesterday's date
+
     render(
       <RecoilRoot>
         <MemoryRouter>
@@ -64,10 +70,29 @@ describe('SajuHome Component', () => {
       </RecoilRoot>,
     );
 
-    // Recoil 상태 초기화 확인
-    expect(localStorage.getItem('fortuneExplainData')).toBeNull();
-    expect(localStorage.getItem('fortuneZodiacData')).toBeNull();
-    expect(localStorage.getItem('fortuneConstellationData')).toBeNull();
-    expect(localStorage.getItem('todayDate')).toBe('2023-12-07');
+    // Check that Recoil states are reset
+    expect(mockRemoveLocalStorage).toHaveBeenCalledWith('fortuneExplainData');
+    expect(mockRemoveLocalStorage).toHaveBeenCalledWith('fortuneZodiacData');
+    expect(mockRemoveLocalStorage).toHaveBeenCalledWith('fortuneConstellationData');
+    expect(mockRemoveLocalStorage).toHaveBeenCalledWith('todayFortuneBookmark');
+
+    // Check that today's date is saved
+    expect(mockSetLocalStorage).toHaveBeenCalledWith('todayDate', { todayDate: '2023-12-07' });
+  });
+
+  test('does not reset localStorage if date matches', () => {
+    mockGetLocalStorage.mockReturnValueOnce({ todayDate: '2023-12-07' }); // Mock same date
+
+    render(
+      <RecoilRoot>
+        <MemoryRouter>
+          <SajuHome />
+        </MemoryRouter>
+      </RecoilRoot>,
+    );
+
+    // Ensure no localStorage values are cleared
+    expect(mockRemoveLocalStorage).not.toHaveBeenCalled();
+    expect(mockSetLocalStorage).not.toHaveBeenCalled();
   });
 });

@@ -35,7 +35,7 @@ export type ApiTodayFortuneResponse = SuccessResponse<TodayFortuneType>;
 
 // 오늘의 운세 해석
 
-interface TodayFortuneExplanationData {
+export interface TodayFortuneExplanationData {
   generalFortune: string;
   wealthFortune: string;
   loveFortune: string;

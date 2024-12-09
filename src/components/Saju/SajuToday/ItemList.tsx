@@ -1,4 +1,3 @@
-import { LoadingBar } from '@/components/Common';
 import { useTodayFortuneQuery } from '@/services/queries/saju.query';
 import { userState } from '@/stores/useAuthStore';
 import { loadingState } from '@/stores/useLoadingStore';
@@ -25,18 +24,22 @@ const ItemList = () => {
 
   useEffect(() => {
     setIsLoading(isLoading);
+    if (isLoading) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+    if (!userId) {
+      setIsLoading(false);
+    }
     if (isError) setIsLoading(false);
   }, [isLoading, isError, setIsLoading]);
 
   useEffect(() => {
-    if (todayFortuneData) {
+    if (todayFortuneData && todayFortuneData !== todayFortune) {
       setTodayFortune(todayFortuneData);
     }
-  }, [todayFortuneData, setTodayFortune]);
-
-  if (!userId) {
-    return <LoadingBar />;
-  }
+  }, [todayFortuneData, todayFortune, setTodayFortune]);
 
   return (
     <div className="flex flex-col gap-4 text-center mt-[40px] w-full">

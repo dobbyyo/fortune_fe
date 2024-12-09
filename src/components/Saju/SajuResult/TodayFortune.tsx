@@ -27,14 +27,18 @@ const TodayFortune = () => {
   }, [isLoading, isError, setIsLoading]);
 
   useEffect(() => {
-    if (data) {
-      setLocalStorage('fortuneExplainData', data);
-      setLocalStorage('todayDate', today);
+    if (data && data !== explainsFortune) {
       setExplainsFortune(data);
-    } else if (localFortuneData) {
+
+      // localStorage 업데이트는 상태와 별개로 처리
+      if (localStorage.getItem('fortuneExplainData') !== JSON.stringify(data)) {
+        setLocalStorage('fortuneExplainData', data);
+        setLocalStorage('todayDate', today);
+      }
+    } else if (!data && localFortuneData && localFortuneData !== explainsFortune) {
       setExplainsFortune(localFortuneData);
     }
-  }, [data]);
+  }, [data, localFortuneData, today, explainsFortune]);
 
   if (!userId) {
     return <LoadingBar />;

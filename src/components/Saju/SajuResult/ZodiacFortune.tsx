@@ -25,15 +25,19 @@ const ZodiacFortune = () => {
   }, [isLoading, isError, setIsLoading]);
 
   useEffect(() => {
-    if (data) {
-      setLocalStorage('fortuneZodiacData', data);
+    if (data && JSON.stringify(data) !== JSON.stringify(fortuneZodiac)) {
       setFortuneZodiac(data);
-    } else if (localFortuneZodiacData) {
+      setLocalStorage('fortuneZodiacData', data);
+    } else if (
+      !data &&
+      localFortuneZodiacData &&
+      JSON.stringify(localFortuneZodiacData) !== JSON.stringify(fortuneZodiac)
+    ) {
       setFortuneZodiac(localFortuneZodiacData);
     }
-  }, [data]);
+  }, [data, localFortuneZodiacData, fortuneZodiac]);
 
-  if (!userId) {
+  if (!userId || !fortuneZodiac) {
     return <LoadingBar />;
   }
 

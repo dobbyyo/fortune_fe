@@ -25,15 +25,19 @@ const StarSignFortune = () => {
   }, [isLoading, isError, setIsLoading]);
 
   useEffect(() => {
-    if (data) {
+    if (data && JSON.stringify(data) !== JSON.stringify(fortuneConstellation)) {
       setLocalStorage('fortuneConstellationData', data);
       setFortuneConstellation(data);
-    } else if (localFortuneConstellationData) {
+    } else if (
+      !data &&
+      localFortuneConstellationData &&
+      JSON.stringify(localFortuneConstellationData) !== JSON.stringify(fortuneConstellation)
+    ) {
       setFortuneConstellation(localFortuneConstellationData);
     }
-  }, [data]);
+  }, [data, localFortuneConstellationData, fortuneConstellation]);
 
-  if (!userId) {
+  if (!userId || !fortuneConstellation) {
     return <LoadingBar />;
   }
 

@@ -27,20 +27,16 @@ const TodayFortune = () => {
   }, [isLoading, isError, setIsLoading]);
 
   useEffect(() => {
-    if (data && data !== explainsFortune) {
+    if (data && JSON.stringify(data) !== JSON.stringify(explainsFortune)) {
       setExplainsFortune(data);
-
-      // localStorage 업데이트는 상태와 별개로 처리
-      if (localStorage.getItem('fortuneExplainData') !== JSON.stringify(data)) {
-        setLocalStorage('fortuneExplainData', data);
-        setLocalStorage('todayDate', today);
-      }
-    } else if (!data && localFortuneData && localFortuneData !== explainsFortune) {
+      setLocalStorage('fortuneExplainData', data);
+      setLocalStorage('todayDate', today);
+    } else if (!data && localFortuneData && JSON.stringify(localFortuneData) !== JSON.stringify(explainsFortune)) {
       setExplainsFortune(localFortuneData);
     }
   }, [data, localFortuneData, today, explainsFortune]);
 
-  if (!userId) {
+  if (!userId || !explainsFortune) {
     return <LoadingBar />;
   }
 
@@ -74,11 +70,11 @@ const TodayFortune = () => {
               <h3 className="font-bold text-clamp35 text-start px-2">🍀행운을 가져오는 것들</h3>
             </div>
             <div className="flex justify-start items-center mt-2">
-              <p className="font-normal text-clamp30 text-start px-2">
+              <ul className="font-normal text-clamp30 text-start px-2">
                 {explainsFortune.explanationData.luckyElements.map((element, index) => (
                   <li key={index}>{element}</li>
                 ))}
-              </p>
+              </ul>
             </div>
           </div>
 

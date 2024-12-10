@@ -1,5 +1,7 @@
+import { NotService } from '../Common';
+
 const ProfessionalNaming = () => {
-  return <div>ProfessionalNaming</div>;
+  return <NotService />;
 };
 
 export default ProfessionalNaming;

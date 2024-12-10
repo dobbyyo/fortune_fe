@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 const NamingHome = () => {
   const [activeTab, setActiveTab] = useState('AI 작명');
-
   const tabs = [
     { name: 'AI 작명', key: 'aiNaming' },
     { name: '전문가 의뢰', key: 'professionalNaming' },

@@ -1,12 +1,11 @@
 import { useAiNamingMutation } from '@/services/queries/naming.query';
-import { aiNamingState } from '@/stores/useNamingStore';
+import { mainTitleTab } from '@/stores/useNamingStore';
 import { ChangeEvent, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const AiNaming = () => {
-  const [mainTitle, setMainTitle] = useState('AI 작명');
+  const [mainTitle, setMainTitle] = useRecoilState(mainTitleTab);
   const [content, setContent] = useState('');
-  const aiNamingData = useRecoilValue(aiNamingState);
 
   const handleCategoryClick = (category: { id: number; label: string; icon: string }) => {
     setMainTitle(category.label);
@@ -28,7 +27,7 @@ const AiNaming = () => {
     mainTitle,
     content,
   };
-
+  console.log(payload);
   const { mutate: aiNamingMutate } = useAiNamingMutation();
 
   const handleGenerate = () => {
@@ -46,22 +45,26 @@ const AiNaming = () => {
         <h1 className="text-[20px] sm:text-[30px] font-bold mt-5 text-center">원하는 이름을 만들어 드립니다.</h1>
 
         <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8 w-full max-w-[800px] place-items-center">
-          {namingCategories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => handleCategoryClick(category)}
-              className="btn btn-ghost shadow-lg flex flex-col items-center justify-center
-              w-[80px] h-[80px] sm:w-[140px] sm:h-[110px]
-              bg-white hover:bg-gray-200 rounded-lg"
-            >
-              <img
-                src={category.icon}
-                alt={category.label}
-                className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mb-2"
-              />
-              <span className="text-[12px] sm:text-[25px] font-medium">{category.label}</span>
-            </button>
-          ))}
+          {namingCategories.map((category) => {
+            const isActive = mainTitle === category.label;
+
+            return (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryClick(category)}
+                className={`btn btn-ghost shadow-lg flex flex-col items-center justify-center
+                  w-[80px] h-[80px] sm:w-[140px] sm:h-[110px]
+                  ${isActive ? 'bg-[#eded]' : 'bg-white'} hover:bg-gray-200 rounded-lg`}
+              >
+                <img
+                  src={category.icon}
+                  alt={category.label}
+                  className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mb-2"
+                />
+                <span className="text-[12px] sm:text-[25px] font-medium">{category.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="w-full max-w-[600px] mt-8 px-4">

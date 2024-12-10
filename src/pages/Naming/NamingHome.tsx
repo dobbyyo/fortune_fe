@@ -15,7 +15,7 @@ const NamingHome = () => {
       professionalNaming: <ProfessionalNaming />,
     };
 
-    const activeTabKey: string = tabs.find((tab) => tab.name === activeTab)?.key || 'today';
+    const activeTabKey: string = tabs.find((tab) => tab.name === activeTab)?.key || 'aiNaming';
     return tabContentMap[activeTabKey] || <div>탭을 선택하세요</div>;
   };
 

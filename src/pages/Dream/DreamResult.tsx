@@ -82,7 +82,7 @@ const DreamResult = () => {
           className="absolute left-0 w-[50px] h-[50px]"
           onClick={handleBackClick}
         />
-        <h1 className="pl-2 mx-auto font-bold text-clamp50">꿈해몽</h1>
+        <h1 className="mx-auto font-bold text-clamp50 w-full">꿈해몽</h1>
       </div>
 
       <div className="w-full border-b border-[#e5e5e5] mt-[50px]"></div>
@@ -91,8 +91,8 @@ const DreamResult = () => {
         <div className="space-y-4 px-2 w-full pt-10">
           {dreamData && (
             <>
-              <div className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
-                <div className="mr-5">
+              <div className="relative border rounded-lg p-4 flex items-center justify-between shadow-sm">
+                <div className="absolute left-2 top-6">
                   <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(dreamData)}>
                     <img
                       src={isBookmarked(dreamData.title) ? '/on-bookmark-icon.jpg' : '/off-bookmark-icon.jpg'}

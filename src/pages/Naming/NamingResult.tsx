@@ -1,5 +1,6 @@
 import { useAiNamingBookmarkMutation, useAiNamingUnBookmarkMutation } from '@/services/queries/naming.query';
-import { aiNamingState, mainTitleTab, savedAiNamingState } from '@/stores/useNamingStore';
+import { authState } from '@/stores/useAuthStore';
+import { aiNamingState, namingMainTitleTab, savedAiNamingState } from '@/stores/useNamingStore';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -10,8 +11,9 @@ const NamingResult = () => {
   // Recoil 상태 가져오기
   const aiNamingData = useRecoilValue(aiNamingState);
   const [savedNamings, setSavedNamings] = useRecoilState(savedAiNamingState);
-  const mainTitle = useRecoilValue(mainTitleTab);
+  const mainTitle = useRecoilValue(namingMainTitleTab);
   const [localData, setLocalData] = useState(null);
+  const isAuthenticated = useRecoilValue(authState);
 
   // 로컬스토리지에서 데이터 가져오기
   useEffect(() => {
@@ -32,6 +34,11 @@ const NamingResult = () => {
   // 북마크 토글 함수
   const handleBookmarkToggle = (item: any) => {
     const isCurrentlyBookmarked = isBookmarked(item.name);
+
+    if (!isAuthenticated.isAuthenticated) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
 
     if (isCurrentlyBookmarked) {
       const target = savedNamings.find((saved) => saved.name === item.name);
@@ -90,7 +97,7 @@ const NamingResult = () => {
         <h1 className="pl-2 mx-auto font-bold text-clamp50">AI 작명가</h1>
       </div>
 
-      <div>
+      <div className="w-full">
         <div className="text-center font-normal text-clamp30 my-5">
           <p>이름이 완성되었어요!</p>
           <p>마음에 드는 이름을 즐겨보세요.</p>

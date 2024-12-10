@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { aiNamingState, mainTitleTab, savedAiNamingState } from '@/stores/useNamingStore';
+import { aiNamingState, namingMainTitleTab, savedAiNamingState } from '@/stores/useNamingStore';
 import { NamingResult } from '@/pages/Naming';
 
 const mockNavigate = jest.fn();
@@ -93,7 +93,7 @@ describe('NamingResult Component', () => {
         initializeState={({ set }) => {
           set(aiNamingState, mockAiNamingData);
           set(savedAiNamingState, mockSavedNamings);
-          set(mainTitleTab, '사람'); // mainTitle 초기화
+          set(namingMainTitleTab, '사람'); // mainTitle 초기화
         }}
       >
         <MemoryRouter>

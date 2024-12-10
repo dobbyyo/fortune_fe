@@ -1,51 +1,56 @@
-import { useAiNamingMutation } from '@/services/queries/naming.query';
-import { namingMainTitleTab } from '@/stores/useNamingStore';
+import { NavBar } from '@/components/Common';
+import { useAiDreamMutation } from '@/services/queries/dream.query';
+import { aiDreamMainTitleTab } from '@/stores/useDreamStore';
 import { ChangeEvent, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
-const AiNaming = () => {
-  const [mainTitle, setMainTitle] = useRecoilState(namingMainTitleTab);
-  const [content, setContent] = useState('');
+const DreamHome = () => {
+  const [title, setTitle] = useRecoilState(aiDreamMainTitleTab);
+  const [description, setDescription] = useState('');
 
   const handleCategoryClick = (category: { id: number; label: string; icon: string }) => {
-    setMainTitle(category.label);
+    setTitle(category.label);
   };
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setContent(event.target.value);
+    setDescription(event.target.value);
   };
 
   const namingCategories = [
-    { id: 1, label: '사람', icon: '/naming/human-icon.jpg' },
-    { id: 2, label: '반려동물', icon: '/naming/cat-icon.jpg' },
-    { id: 3, label: '아이디어', icon: '/naming/innovation-icon.jpg' },
-    { id: 4, label: '제품명', icon: '/naming/shopping-icon.jpg' },
-    { id: 5, label: '상호명', icon: '/naming/shop-icon.jpg' },
-    { id: 6, label: '회사명', icon: '/naming/building-icon.jpg' },
+    { id: 1, label: '사람/행동', icon: '/dream/human-icon.svg' },
+    { id: 2, label: '죽음/영혼', icon: '/dream/ghost-icon.svg' },
+    { id: 3, label: '동물/곤충', icon: '/dream/animal-icon.svg' },
+    { id: 4, label: '식품/과일', icon: '/dream/clover-icon.svg' },
+    { id: 5, label: '자연현상', icon: '/dream/hurricane-icon.svg' },
+    { id: 6, label: '생활용품', icon: '/dream/note-icon.svg' },
+    { id: 7, label: '태몽', icon: '/dream/baby-icon.svg' },
   ];
 
   const payload = {
-    mainTitle,
-    content,
+    title,
+    description,
   };
-  const { mutate: aiNamingMutate } = useAiNamingMutation();
 
+  const { mutate: aiDreamMutate } = useAiDreamMutation();
   const handleGenerate = () => {
-    if (!mainTitle || !content) {
+    if (!title || !description) {
       alert('카테고리와 설명을 입력해주세요.');
       return;
     }
-
-    aiNamingMutate({ payload });
+    aiDreamMutate({ payload });
   };
 
   return (
-    <>
-      <div className="w-full bg-[#F6F6F6] flex flex-col items-center py-8">
+    <div className="w-full h-full flex flex-col items-center mt-10">
+      <NavBar title="꿈해몽" isResult={false} isBookmark={false} />
+
+      <div className="w-full border-b border-[#e5e5e5] mt-[50px]"></div>
+
+      <div className="w-full bg-[#F6F6F6] flex flex-col items-center py-8 my-12">
         <h1 className="text-[20px] sm:text-[30px] font-bold mt-5 text-center">원하는 이름을 만들어 드립니다.</h1>
 
         <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8 w-full max-w-[800px] place-items-center">
           {namingCategories.map((category) => {
-            const isActive = mainTitle === category.label;
+            const isActive = title === category.label;
 
             return (
               <button
@@ -66,11 +71,11 @@ const AiNaming = () => {
           })}
         </div>
 
-        <div className="w-full mt-8 px-4">
+        <div className="w-full mt-8 px-6">
           <h3 className="text-[18px] sm:text-[25px] font-medium text-start mb-2">간단한 설명</h3>
           <input
             type="text"
-            value={content}
+            value={description}
             onChange={handleInputChange}
             placeholder="예시) 모던한 느낌의 사람 이름"
             className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg shadow-sm font-medium
@@ -79,15 +84,14 @@ const AiNaming = () => {
           />
         </div>
       </div>
-
       <button
         onClick={handleGenerate}
-        className="w-full sm:w-[240px] py-3 bg-[#A47aF1] text-white text-clamp25 font-bold sm:rounded-[30px] sm:mt-10"
+        className="w-full sm:w-[240px] py-3 bg-[#A47aF1] text-white text-clamp25 font-bold sm:rounded-[30px]"
       >
         생성하기
       </button>
-    </>
+    </div>
   );
 };
 
-export default AiNaming;
+export default DreamHome;

@@ -3,7 +3,7 @@ import { lazy } from 'react';
 const NamingHome = lazy(() => import('@/pages/Naming/NamingHome'));
 const NamingResult = lazy(() => import('@/pages/Naming/NamingResult'));
 
-const dreamRoutes = [
+const namingRoutes = [
   {
     path: '/naming',
     element: <NamingHome />,
@@ -16,4 +16,4 @@ const dreamRoutes = [
   },
 ];
 
-export default dreamRoutes;
+export default namingRoutes;

@@ -2,7 +2,7 @@ import { AiNamingSaveData, AiNamingType } from '@/types/namingType';
 import { atom } from 'recoil';
 
 // 탭 관리 리코일
-export const mainTitleTab = atom<string>({
+export const namingMainTitleTab = atom<string>({
   key: 'mainTitleTab',
   default: '사람',
 });

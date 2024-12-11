@@ -7,7 +7,7 @@ const MyPage = () => {
   const myData = useRecoilValue(userState);
   console.log(myData);
   return (
-    <div className="w-full h-full flex flex-col items-center bg-white">
+    <div className="w-full h-full flex flex-col items-center">
       {myData && (
         <>
           {/* 상단 네비게이션 */}

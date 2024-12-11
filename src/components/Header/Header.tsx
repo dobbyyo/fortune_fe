@@ -1,3 +1,4 @@
+import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import { useMyDataQuery } from '@/services/queries/user.query';
 import { authState, userState } from '@/stores/useAuthStore';
 import { useCallback, useEffect } from 'react';
@@ -21,19 +22,33 @@ const Header = () => {
     navigate('/login');
   }, []);
 
-  const { data, isLoading } = useMyDataQuery(); // 쿼리에서 로딩 상태 가져오기
-  const myInfo = data && data.myInfo;
+  const { data: checkLogin, isSuccess: isLoginChecked } = useCheckAuthQuery();
+
+  const { data: myData, isLoading: isFetchingData } = useMyDataQuery({
+    enabled: auth.isAuthenticated, // Run query only if authenticated
+  });
+
+  const myInfo = myData?.myInfo;
 
   useEffect(() => {
-    if (isLoading) {
-      setAuth({ isLoading: true, isAuthenticated: false }); // 로딩 중
-    } else if (myInfo) {
-      setUserDatas(myInfo);
-      setAuth({ isLoading: false, isAuthenticated: true }); // 인증 성공
-    } else {
-      setAuth({ isLoading: false, isAuthenticated: false }); // 인증 실패
+    if (isLoginChecked) {
+      if (checkLogin?.status === 200) {
+        setAuth({ isLoading: false, isAuthenticated: true });
+      } else {
+        setAuth({ isLoading: false, isAuthenticated: false });
+        setUserDatas(null);
+      }
     }
-  }, [myInfo]);
+  }, [checkLogin, isLoginChecked]);
+
+  useEffect(() => {
+    if (!isFetchingData && myInfo) {
+      setUserDatas(myInfo);
+    } else if (!isFetchingData && !myInfo) {
+      setUserDatas(null);
+      setAuth({ isLoading: false, isAuthenticated: false });
+    }
+  }, [myInfo, isFetchingData]);
 
   return (
     <header className="navbar absolute top-0 left-0 w-full h-[80px] sm:h-[120px] md:h-[150px] bg-white flex items-center px-4 shadow-md z-50 md:px-8">

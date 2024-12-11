@@ -1,13 +1,11 @@
+import { BackNavBar } from '@/components/Common';
 import { useAiNamingBookmarkMutation, useAiNamingUnBookmarkMutation } from '@/services/queries/naming.query';
 import { authState } from '@/stores/useAuthStore';
 import { aiNamingState, namingMainTitleTab, savedAiNamingState } from '@/stores/useNamingStore';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 const NamingResult = () => {
-  const navigate = useNavigate();
-
   // Recoil 상태 가져오기
   const aiNamingData = useRecoilValue(aiNamingState);
   const [savedNamings, setSavedNamings] = useRecoilState(savedAiNamingState);
@@ -76,26 +74,13 @@ const NamingResult = () => {
     }
   };
 
-  // 뒤로가기 버튼 클릭 시
-  const handleBackClick = () => {
-    navigate(-1);
-  };
-
   if (!namingData || !namingData.naming) {
     return <p>생성된 이름이 없습니다. 다시 시도해주세요.</p>;
   }
 
   return (
     <div className="w-full h-full flex flex-col items-center mt-10">
-      <div className="relative w-full flex items-center">
-        <img
-          src="/common/back-icon.jpg"
-          alt="back-icon"
-          className="absolute left-0 w-[50px] h-[50px]"
-          onClick={handleBackClick}
-        />
-        <h1 className="pl-2 mx-auto font-bold text-clamp50">AI 작명가</h1>
-      </div>
+      <BackNavBar title="AI 작명가" />
 
       <div className="w-full">
         <div className="text-center font-normal text-clamp30 my-5">

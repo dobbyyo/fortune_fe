@@ -1,8 +1,11 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { kakaoAuth, loginAuth, signupAuth } from '../api/auth.service';
+import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { checkAuth, kakaoAuth, loginAuth, logoutAuth, signupAuth } from '../api/auth.service';
 import { SignupDto } from '@/types/signupType';
 import { authState, userState } from '@/stores/useAuthStore';
 import { useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { loadingState } from '@/stores/useLoadingStore';
+import { SuccessResponse } from '@/types/apiType';
 
 export const useKaKaoAuth = (code: string) => {
   return useQuery<any>({
@@ -44,5 +47,49 @@ export const useSignupQuery = () => {
       return response;
     },
     onSuccess: () => {},
+  });
+};
+
+export const useLogoutMutation = () => {
+  const navigate = useNavigate();
+  const setAuthState = useSetRecoilState(authState);
+  const setUserState = useSetRecoilState(userState);
+  const setLoading = useSetRecoilState(loadingState);
+  const errorState = useSetRecoilState(loadingState);
+
+  return useMutation({
+    mutationKey: ['logoutAuth'],
+    mutationFn: async () => {
+      setLoading(true);
+      const response = await logoutAuth();
+      return response;
+    },
+    onSuccess: () => {
+      localStorage.clear();
+      sessionStorage.clear();
+      setLoading(false);
+      setAuthState({ isLoading: false, isAuthenticated: false });
+      setUserState(null);
+      navigate('/');
+    },
+    onSettled: () => {
+      setLoading(false);
+      setAuthState({ isLoading: false, isAuthenticated: false });
+      setUserState(null);
+    },
+    onError: () => {
+      setLoading(false);
+      errorState(true);
+    },
+  });
+};
+
+export const useCheckAuthQuery = () => {
+  return useQuery({
+    queryKey: ['check'],
+    queryFn: async () => {
+      const response = await checkAuth();
+      return response;
+    },
   });
 };

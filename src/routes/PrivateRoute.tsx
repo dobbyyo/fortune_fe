@@ -1,6 +1,6 @@
 import { LoadingBar } from '@/components/Common';
 import BaseLayout from '@/layouts/BaseLayout';
-import { useMyDataQuery } from '@/services/queries/user.query';
+import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import { FC, type ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -9,12 +9,18 @@ interface Props {
 }
 
 const PrivateRoute: FC<Props> = ({ children }) => {
-  const { data, isLoading } = useMyDataQuery(); // 인증 정보 로드
+  const { data: checkLogin, isLoading: isCheckingLogin, isFetched } = useCheckAuthQuery();
 
-  if (isLoading) {
+  // 로딩 중 또는 아직 데이터가 준비되지 않은 경우
+  if (isCheckingLogin || !isFetched) {
     return <LoadingBar />;
   }
-  return data ? <BaseLayout>{children}</BaseLayout> : <Navigate to="/login" />;
+
+  return checkLogin && checkLogin.status === 200 ? (
+    <BaseLayout>{children}</BaseLayout>
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };
 
 export default PrivateRoute;

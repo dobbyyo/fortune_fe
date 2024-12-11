@@ -1,6 +1,7 @@
-import { NavBar } from '@/components/Common';
+import { LoadingBar, NavBar } from '@/components/Common';
 import { todayDate } from '@/hooks/dateHook';
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/lib/localStorage';
+import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import {
   explainFortuneState,
   fortuneConstellationState,
@@ -12,7 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
 const SajuHome = () => {
+  const { data: checkLogin, isLoading: isCheckingLogin } = useCheckAuthQuery();
   const navigate = useNavigate();
+
   const sajuCategories = [
     { id: 1, label: '오늘의 운세', icon: '/saju/calendar-icon.svg', url: '/saju/today' },
     { id: 2, label: '내일의 운세', icon: '/saju/clock-icon.svg', url: '/saju/tomorrow' },
@@ -49,6 +52,16 @@ const SajuHome = () => {
       setLocalStorage('todayDate', { todayDate: today });
     }
   }, [setTodayFortune, setExplainFortune, setFortuneZodiac, setFortuneConstellation]);
+
+  useEffect(() => {
+    if (checkLogin.status !== 200) {
+      navigate('/login');
+    }
+  }, [checkLogin, isCheckingLogin]);
+
+  if (isCheckingLogin || !checkLogin) {
+    return <LoadingBar />;
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-center">

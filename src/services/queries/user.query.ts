@@ -5,7 +5,7 @@ import { loadingState } from '@/stores/useLoadingStore';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/stores/useAuthStore';
 
-export const useMyDataQuery = () => {
+export const useMyDataQuery = (option?: any) => {
   return useQuery<UserType>({
     queryKey: ['myData'],
     queryFn: async () => {
@@ -14,6 +14,7 @@ export const useMyDataQuery = () => {
       return response.data;
     },
     retry: 1,
+    ...option,
   });
 };
 

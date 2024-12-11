@@ -1,8 +1,10 @@
 import { CategoryButton } from '@/components/Home';
+import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  useCheckAuthQuery();
   const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate(); // React Router 사용

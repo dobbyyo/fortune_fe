@@ -1,0 +1,50 @@
+import { BackNavBar } from '@/components/Common';
+import LogoutModal from '@/components/MyPage/LogoutModal';
+import { useState } from 'react';
+
+const Account = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const onOpenLogoutModal = () => {
+    setModalOpen(true);
+  };
+
+  const onCloseLogoutModal = () => {
+    setModalOpen(false);
+  };
+
+  return (
+    <div className="w-full h-full flex flex-col items-center mt-10">
+      {/* 헤더 */}
+      <BackNavBar title="계정 설정" />
+
+      {/* 로그아웃 모달 */}
+      {isModalOpen && <LogoutModal isOpen={isModalOpen} onClose={onCloseLogoutModal} />}
+
+      <div className="w-full p-4 space-y-4">
+        {/* 카카오 연결 */}
+        <div className="flex items-center py-4 border-b">
+          <img src="/myPage/yellowKakao-icon.jpg" alt="카카오 아이콘" className="w-[35px] h-[35px] mr-4" />
+          <span className="text-clamp35 font-normal">카카오톡으로 연결됨</span>
+        </div>
+
+        {/* 로그아웃 */}
+        <button className="flex items-center w-full py-4 border-b" onClick={onOpenLogoutModal}>
+          <img src="/myPage/logout-icon.jpg" alt="로그아웃 아이콘" className="w-[35px] h-[35px] mr-4" />
+          <span className="text-clamp35 font-normal">로그아웃</span>
+        </button>
+
+        {/* 탈퇴하기 */}
+        <button
+          className="flex items-center w-full py-4"
+          onClick={() => confirm('정말 탈퇴하시겠습니까?') && alert('탈퇴 처리되었습니다.')}
+        >
+          <img src="/myPage/ghost-icon.jpg" alt="탈퇴하기 아이콘" className="w-[35px] h-[35px] mr-4" />
+          <span className="text-clamp35 font-normal">탈퇴하기</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Account;

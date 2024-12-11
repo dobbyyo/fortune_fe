@@ -27,7 +27,7 @@ const CardSlider = () => {
   // 드래그 위치와 슬라이더 연동
   useEffect(() => {
     if (sliderRef.current) {
-      const swiperInstance = sliderRef.current.swiper;
+      const swiperInstance = (sliderRef.current as any).swiper;
       const slideIndex = Math.floor((dragPosition / 100) * totalCards);
       swiperInstance.slideTo(slideIndex);
     }

@@ -1,3 +1,4 @@
+import { ErrorModal, LoadingBar } from '@/components/Common';
 import { useKaKaoAuth, useLoginQuery } from '@/services/queries/auth.query';
 import { userState } from '@/stores/useAuthStore';
 import { useEffect } from 'react';
@@ -38,12 +39,12 @@ const Auth = () => {
   }, [kakaoData, kakaoIsLoading, kakaoIsError, loginMutation, navigate]);
 
   // 로딩 상태 처리
-  if (kakaoIsLoading || loginIsLoading) return <div>잠시만 기다려주세요...</div>;
+  if (kakaoIsLoading || loginIsLoading) return <LoadingBar />;
 
   // 에러 상태 처리
-  if (kakaoIsError || loginIsError) return <div>인증에 실패했습니다.</div>;
+  if (kakaoIsError || loginIsError) return <ErrorModal />;
 
-  return <div>인증 처리 중...</div>;
+  return null;
 };
 
 export default Auth;

@@ -67,19 +67,19 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="form-control">
-							<h3 onClick={goMyPage} className="text-[20px] sm:text-[25px] md:text-[30px] font-normal cursor-pointer">
-								{userDatas.username}
-							</h3>
-						</div> */}
-            <button className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-black border-none">
+            <button
+              className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px]
+             bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-white border-none"
+            >
               로그아웃
             </button>
           </>
         ) : (
           <button
             onClick={goLogin}
-            className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-white border-none"
+            className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] 
+            ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold
+             text-white border-none"
           >
             로그인
           </button>

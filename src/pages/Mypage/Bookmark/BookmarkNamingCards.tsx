@@ -91,7 +91,7 @@ const BookmarkNamingCards = () => {
         ) : (
           <>
             {bookmarksData &&
-              bookmarksData.savedNaming.map((item, index) => (
+              bookmarksData.savedNaming.map((item) => (
                 <div key={item.id} className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
                   <div className="mr-5">
                     <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>

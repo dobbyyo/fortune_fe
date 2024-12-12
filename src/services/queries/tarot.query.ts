@@ -39,7 +39,7 @@ export const useTarotCardInterpretationMutation = () => {
     onSettled: () => {
       setLoading(false); // 로딩 상태 종료
     },
-    onError: (error) => {
+    onError: () => {
       setLoading(false); // 에러 시에도 로딩 상태 종료
       setError(true); // 에러 상태 변경
     },

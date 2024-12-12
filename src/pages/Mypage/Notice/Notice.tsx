@@ -2,7 +2,7 @@ import { BackNavBar, Line } from '@/components/Common';
 import { NoticeModal } from '@/components/MyPage/Notice';
 import { todayDate } from '@/hooks/dateHook';
 import { useGetNotice } from '@/services/queries/myPage.query';
-import { GetNoticeData, GetNoticePayload } from '@/types/myPageType';
+import { GetNoticeData } from '@/types/myPageType';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 

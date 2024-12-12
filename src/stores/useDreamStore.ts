@@ -1,4 +1,4 @@
-import { AiDreamData, AiDreamSaveData, AiDreamType } from '@/types/dreamType';
+import { AiDreamData, AiDreamSaveData } from '@/types/dreamType';
 import { atom } from 'recoil';
 
 export const aiDreamMainTitleTab = atom<string>({

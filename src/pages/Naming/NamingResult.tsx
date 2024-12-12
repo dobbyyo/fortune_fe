@@ -57,7 +57,17 @@ const NamingResult = () => {
       }
     } else {
       bookmark(
-        { payload: { mainTitle, namings: [{ name: item.name, description: item.description }] } }, // Description은 예시
+        {
+          payload: {
+            mainTitle,
+            namings: [
+              {
+                name: item.name,
+                description: item.description,
+              },
+            ],
+          },
+        },
         {
           onSuccess: (response) => {
             const { savedNamings: newSavedNamings } = response.data;

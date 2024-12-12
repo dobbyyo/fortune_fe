@@ -31,17 +31,17 @@ const Bookmark = () => {
   };
 
   const handleCardClick = (data: any) => {
-    switch (data.title) {
-      case '나의 작명 결과보기':
-        navigate(`/myPage/BookmarkNamingCards/${userId}`);
+    switch (data.type) {
+      case 'naming':
+        navigate(`/myPage/bookmarkNamingCards/${userId}`);
         break;
-      case '나의 꿈해몽 결과보기':
-        navigate(`/myPage/BookmarkDreamCards/${userId}`);
+      case 'dream':
+        navigate(`/myPage/bookmarkDreamCards/${userId}`);
         break;
-      case '오늘의 타로':
+      case 'tarot':
         navigate(`/myPage/bookmarkTarotCards?tarotCardId=${data.id}`);
         break;
-      case '오늘의 운세':
+      case 'fortune':
         navigate(
           `/myPage/bookmarkFortuneCards?fortuneId=${data.todays_fortune_id}&zodiacId=${data.zodiac_fortune_id}&startId=${data.star_sign_fortune_id}`,
         );
@@ -66,13 +66,14 @@ const Bookmark = () => {
             id: item.id,
             title: item.title,
             created_at: item.created_at,
+            type: 'fortune',
           },
-          fullData: item,
+          fullData: { ...item, type: 'fortune' },
         }));
       case '타로':
         return savedTarot.map((item) => ({
-          item: { id: item.id, title: item.title, created_at: item.created_at },
-          fullData: item,
+          item: { id: item.id, title: item.title, created_at: item.created_at, type: 'tarot' },
+          fullData: { ...item, type: 'tarot' },
         }));
       case '작명':
         return hasSavedNaming ? [{ item: { id: 0, title: '나의 작명 결과보기' }, fullData: { type: 'naming' } }] : [];
@@ -81,12 +82,12 @@ const Bookmark = () => {
       default:
         return [
           ...savedTarot.map((item) => ({
-            item: { id: item.id, title: item.title, created_at: item.created_at },
-            fullData: item,
+            item: { id: item.id, title: item.title, created_at: item.created_at, type: 'tarot' },
+            fullData: { ...item, type: 'tarot' },
           })),
           ...savedFortune.map((item) => ({
-            item: { id: item.id, title: item.title, created_at: item.created_at },
-            fullData: item,
+            item: { id: item.id, title: item.title, created_at: item.created_at, type: 'fortune' },
+            fullData: { ...item, type: 'fortune' },
           })),
           ...(hasSavedNaming ? [{ item: { id: 0, title: '나의 작명 결과보기' }, fullData: { type: 'naming' } }] : []),
           ...(hasSavedDream ? [{ item: { id: 0, title: '나의 꿈해몽 결과보기' }, fullData: { type: 'dream' } }] : []),

@@ -141,3 +141,51 @@ export interface GetDetailFortuneBookmarkType {
 }
 
 export type GetDetailFortuneBookmarkResponse = SuccessResponse<GetDetailFortuneBookmarkType>;
+
+// 꿈해몽 북마크 상세가져오기
+export interface GetDetailDreamBookmarkPayload {
+  userId: number;
+}
+
+export interface SavedDreamData {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+  title: string;
+  user_description: string;
+  description: string;
+}
+
+export interface GetDetailDreamBookmarkType {
+  savedDream: SavedDreamData[];
+}
+
+export type GetDetailDreamBookmarkResponse = SuccessResponse<GetDetailDreamBookmarkType>;
+
+// 작명 북마크 상세가져오기
+export interface GetDetailNamingBookmarkPayload {
+  userId: number;
+}
+
+export interface SavedNamingMainTitleData {
+  id: number;
+  mainTitle: string;
+  date: string;
+}
+
+export interface SavedNamingData {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+  name: string;
+  description: string;
+  naming: SavedNamingMainTitleData;
+}
+
+export interface GetDetailNamingBookmarkType {
+  savedNaming: SavedNamingData[];
+}
+
+export type GetDetailNamingBookmarkResponse = SuccessResponse<GetDetailNamingBookmarkType>;

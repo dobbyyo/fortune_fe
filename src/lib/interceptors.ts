@@ -29,6 +29,13 @@ export const successInterceptor = <T>(
 export const errorInterceptor = async (error: AxiosError<ErrorResponse>): Promise<void> => {
   if (error.response?.status === 401) {
     setLocalStorage('auth', false);
+    // window.location.href = '/login';
+    // if (window.location.pathname === '/login') {
+    //   console.log('window.location.pathname:', window.location.pathname);
+    //   return Promise.reject(error);
+    // } else {
+    //   window.location.href = '/login';
+    // }
     return Promise.reject(error);
   } else if (error.response) {
     console.error('Error Status:', error.response.data.status);

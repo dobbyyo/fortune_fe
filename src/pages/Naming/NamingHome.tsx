@@ -1,4 +1,4 @@
-import { NavBar } from '@/components/Common';
+import { Line, NavBar } from '@/components/Common';
 import { AiNaming, ProfessionalNaming } from '@/components/Naming';
 import { useState } from 'react';
 
@@ -20,8 +20,10 @@ const NamingHome = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center mt-10">
+    <div className="w-full h-full flex flex-col items-center">
       <NavBar title="작명" isResult={false} isBookmark={false} />
+
+      <Line />
 
       <div
         role="tablist"

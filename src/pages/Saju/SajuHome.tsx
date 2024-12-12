@@ -1,4 +1,4 @@
-import { LoadingBar, NavBar } from '@/components/Common';
+import { Line, LoadingBar, NavBar } from '@/components/Common';
 import { todayDate } from '@/hooks/dateHook';
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/lib/localStorage';
 import { useCheckAuthQuery } from '@/services/queries/auth.query';
@@ -54,7 +54,7 @@ const SajuHome = () => {
   }, [setTodayFortune, setExplainFortune, setFortuneZodiac, setFortuneConstellation]);
 
   useEffect(() => {
-    if (checkLogin.status !== 200) {
+    if (checkLogin && checkLogin.status !== 200) {
       navigate('/login');
     }
   }, [checkLogin, isCheckingLogin]);
@@ -66,6 +66,7 @@ const SajuHome = () => {
   return (
     <div className="w-full h-full flex flex-col items-center">
       <NavBar title="사주" isResult={false} isBookmark={false} />
+      <Line />
 
       <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8">
         {sajuCategories.map((category) => (

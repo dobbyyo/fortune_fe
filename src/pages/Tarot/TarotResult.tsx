@@ -67,14 +67,18 @@ const TarotResult = () => {
 
             <div className="flex flex-col justify-center items-center w-[320px] sm:w-[600px] md:w-[700px] lg:w-[800px]">
               <div className="mt-4 text-start flex flex-col items-start w-full">
-                <h4 className="text-clamp30 font-bold mb-[16px]">카드 해석</h4>
+                <div className="bg-[#D9D9D9] w-full float-start justify-center items-center  mb-[16px] py-2 pl-2">
+                  <h4 className="text-clamp30 font-bold">🔥 카드 해석</h4>
+                </div>
                 <p className="text-clamp25 font-normal indent-2 mb-[30px]">
                   {cleanData(card.interpretation.interpretation)}
                 </p>
               </div>
 
               <div className="mt-4 text-start flex flex-col items-start w-full">
-                <h4 className="text-clamp30 font-bold mb-[16px]">카드 의미</h4>
+                <div className="bg-[#D9D9D9] w-full float-start justify-center items-center  mb-[16px] py-2 pl-2">
+                  <h4 className="text-clamp30 font-bold">🔎 카드 의미</h4>
+                </div>
                 <p className="text-clamp25 font-normal indent-2  mb-[30px]">{cleanData(card.interpretation.meaning)}</p>
               </div>
             </div>

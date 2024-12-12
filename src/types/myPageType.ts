@@ -57,3 +57,87 @@ export interface GetBookmarkType {
 }
 
 export type ApiGetBookmarkResponse = SuccessResponse<GetBookmarkType>;
+
+// 타로카드 북마크 상세가져오기
+export interface GetDetailTarotBookmarkPayload {
+  userId: number;
+  tarotCardId: number;
+}
+
+export interface SavedTarotCardData {
+  id: number;
+  subTitle: string;
+  userId: number;
+  cardId: number;
+  isUpright: boolean;
+  cardInterpretation: string;
+  imgUrl: string;
+  cardName: string;
+}
+
+export interface GetDetailTarotBookmarkType {
+  savedTarotCardsResults: SavedTarotCardData[];
+}
+
+export type GetDetailTarotBookmarkResponse = SuccessResponse<GetDetailTarotBookmarkType>;
+
+// 타로카드 운세 상세가져오기
+export interface GetDetailTFortuneBookmarkPayload {
+  userId: number;
+  fortuneId: number;
+  zodiacId: number;
+  startId: number;
+}
+
+export interface SavedTFortuneData {
+  id: number;
+  total_fortune_title: string;
+  total_fortune_description: string;
+  wealth_fortune_title: string;
+  wealth_fortune_description: string;
+  love_fortune_title: string;
+  love_fortune_description: string;
+  business_fortune_title: string;
+  business_fortune_description: string;
+  health_fortune_title: string;
+  health_fortune_description: string;
+  study_fortune_title: string;
+  study_fortune_description: string;
+  lucky_items_title: string;
+  lucky_item_1: string;
+  lucky_item_2: string;
+  lucky_outfit_title: string;
+  lucky_outfit_description: string;
+}
+
+export interface SavedZodiacData {
+  id: number;
+  zodiac_title: string;
+  zodiac_main_description: string;
+  zodiac_sub_description: string;
+  year_of_birth: string;
+  image_url: string;
+}
+
+export interface SavedStarData {
+  id: number;
+  star_sign: string;
+  star_main_description: string;
+  star_sub_description: string;
+  year: string;
+  start_date: string;
+  end_date: string;
+  image_url: string;
+}
+
+export interface GetDetailFortuneBookmarkData {
+  savedFortuneCards: SavedTFortuneData;
+  savedZodiacs: SavedZodiacData;
+  savedStars: SavedStarData;
+}
+
+export interface GetDetailFortuneBookmarkType {
+  savedFortune: GetDetailFortuneBookmarkData;
+}
+
+export type GetDetailFortuneBookmarkResponse = SuccessResponse<GetDetailFortuneBookmarkType>;

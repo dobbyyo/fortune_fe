@@ -1,12 +1,14 @@
 import { BackNavBar, LoadingBar } from '@/components/Common';
-import { BookmarkItemList, BookmarkTab } from '@/components/MyPage/Bookmark';
+import { BookmarkFortuneTab, BookmarkItemList } from '@/components/MyPage/Bookmark';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import { useGetBookmarkQuery } from '@/services/queries/myPage.query';
 import { userIdSelector } from '@/stores/useAuthStore';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 const Bookmark = () => {
+  const navigate = useNavigate();
   const { isLoading } = useRequireAuth();
   const userId = useRecoilValue(userIdSelector);
 
@@ -14,7 +16,13 @@ const Bookmark = () => {
     enabled: userId !== undefined,
   });
 
-  const tabs = ['전체', '운세', '타로', '작명', '꿈해몽'];
+  const tabs = [
+    { name: '전체', key: 'all' },
+    { name: '운세', key: 'fortune' },
+    { name: '타로', key: 'tarot' },
+    { name: '작명', key: 'naming' },
+    { name: '꿈해몽', key: 'dream' },
+  ];
 
   const [activeTab, setActiveTab] = useState<string>('전체');
 
@@ -23,7 +31,24 @@ const Bookmark = () => {
   };
 
   const handleCardClick = (data: any) => {
-    console.log('Clicked Data:', data);
+    switch (data.title) {
+      case '나의 작명 결과보기':
+        navigate(`/myPage/BookmarkNamingCards/${userId}`);
+        break;
+      case '나의 꿈해몽 결과보기':
+        navigate(`/myPage/BookmarkDreamCards/${userId}`);
+        break;
+      case '오늘의 타로':
+        navigate(`/myPage/bookmarkTarotCards?tarotCardId=${data.id}`);
+        break;
+      case '오늘의 운세':
+        navigate(
+          `/myPage/bookmarkFortuneCards?fortuneId=${data.todays_fortune_id}&zodiacId=${data.zodiac_fortune_id}&startId=${data.star_sign_fortune_id}`,
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   if (!userId || isLoading || bookmarksLoading) {
@@ -37,7 +62,11 @@ const Bookmark = () => {
     switch (activeTab) {
       case '운세':
         return savedFortune.map((item) => ({
-          item: { id: item.id, title: item.title, created_at: item.created_at },
+          item: {
+            id: item.id,
+            title: item.title,
+            created_at: item.created_at,
+          },
           fullData: item,
         }));
       case '타로':
@@ -66,9 +95,9 @@ const Bookmark = () => {
   })();
 
   return (
-    <div className="w-full h-full flex flex-col items-center mt-10">
+    <div className="w-full h-full flex flex-col items-center">
       <BackNavBar title="저장보기" />
-      <BookmarkTab tabs={tabs} handleTabClick={handleTabClick} activeTab={activeTab} />
+      <BookmarkFortuneTab tabs={tabs} activeTab={activeTab} setActiveTab={handleTabClick} />
       <BookmarkItemList data={filteredData} handleCardClick={handleCardClick} />
     </div>
   );

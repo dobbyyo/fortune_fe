@@ -1,4 +1,4 @@
-import { NavBar } from '@/components/Common';
+import { Line, NavBar } from '@/components/Common';
 import { useAiDreamMutation } from '@/services/queries/dream.query';
 import { aiDreamMainTitleTab } from '@/stores/useDreamStore';
 import { ChangeEvent, useState } from 'react';
@@ -40,10 +40,10 @@ const DreamHome = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center mt-10">
+    <div className="w-full h-full flex flex-col items-center">
       <NavBar title="꿈해몽" isResult={false} isBookmark={false} />
 
-      <div className="w-full border-b border-[#e5e5e5] mt-[50px]"></div>
+      <Line />
 
       <div className="w-full bg-[#F6F6F6] flex flex-col items-center py-8 my-12">
         <h1 className="text-[20px] sm:text-[30px] font-bold mt-5 text-center">원하는 이름을 만들어 드립니다.</h1>

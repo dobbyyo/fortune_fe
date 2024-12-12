@@ -5,6 +5,9 @@ interface BookmarkItem {
   id: number;
   title: string;
   created_at?: string;
+  fortuneId?: number;
+  zodiacId?: number;
+  startId?: number;
 }
 
 interface BookmarkItemListProps {
@@ -15,10 +18,10 @@ interface BookmarkItemListProps {
 const BookmarkItemList: FC<BookmarkItemListProps> = ({ data, handleCardClick }) => {
   return (
     <div className="w-full mt-10 px-4">
-      {data.map(({ item }, index) => (
+      {data.map(({ item, fullData }, index) => (
         <div
           key={index}
-          onClick={() => handleCardClick(item)}
+          onClick={() => handleCardClick(fullData)}
           className="w-full border rounded-[10px] border-[#787878] p-4 mb-4 
           cursor-pointer space-y-2 hover:shadow-md"
         >

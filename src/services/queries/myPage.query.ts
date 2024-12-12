@@ -1,7 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { ApiGetBookmarkResponse, GetNoticePayload } from '@/types/myPageType';
-import { getBookmark, getNotice } from '../api/myPage.service';
+import {
+  ApiGetBookmarkResponse,
+  GetDetailTarotBookmarkPayload,
+  GetDetailTFortuneBookmarkPayload,
+  GetNoticePayload,
+} from '@/types/myPageType';
+import { getBookmark, getDetailTarotBookmark, getDetailTFortuneBookmark, getNotice } from '../api/myPage.service';
 
+// 공지 가져오기
 export const useGetNotice = (payload: GetNoticePayload) => {
   return useQuery({
     queryKey: ['notice'],
@@ -12,6 +18,7 @@ export const useGetNotice = (payload: GetNoticePayload) => {
   });
 };
 
+// 북마크 가져오기
 export const useGetBookmarkQuery = (userId: number, options = {}) => {
   return useQuery({
     queryKey: ['bookmark'],
@@ -20,6 +27,32 @@ export const useGetBookmarkQuery = (userId: number, options = {}) => {
       return response.data.myBookmarks;
     },
     retry: 1,
+    ...options,
+  });
+};
+
+// 타로카드 북마크 상세가져오기
+export const useGetDetailTarotBookmark = (payload: GetDetailTarotBookmarkPayload, options = {}) => {
+  return useQuery({
+    queryKey: ['tarotCardDetails', payload.tarotCardId],
+    queryFn: async () => {
+      const response = await getDetailTarotBookmark(payload);
+      return response.data;
+    },
+
+    ...options,
+  });
+};
+
+// 운세 북마크 상세가져오기
+export const useGetDetailFortuneBookmark = (payload: GetDetailTFortuneBookmarkPayload, options = {}) => {
+  return useQuery({
+    queryKey: ['fortuneDetails', payload.fortuneId, payload.zodiacId, payload.startId],
+    queryFn: async () => {
+      const response = await getDetailTFortuneBookmark(payload);
+      return response.data;
+    },
+
     ...options,
   });
 };

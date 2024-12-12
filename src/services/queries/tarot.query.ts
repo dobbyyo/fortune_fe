@@ -12,11 +12,13 @@ import { useSetRecoilState } from 'recoil';
 import { setLocalStorage } from '@/lib/localStorage';
 import { loadingState } from '@/stores/useLoadingStore';
 import { SuccessResponse } from '@/types/apiType';
+import { errorState } from '@/stores/useErrorStore';
 
 export const useTarotCardInterpretationMutation = () => {
   const navigate = useNavigate();
   const setTarotCards = useSetRecoilState(tarotCardsState);
   const setLoading = useSetRecoilState(loadingState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<ApiTarotCardsResponse, Error, { cardId: number; subTitle: string; isReversed: boolean }[]>({
     mutationKey: ['tarotCardInterpretation'],
@@ -38,8 +40,8 @@ export const useTarotCardInterpretationMutation = () => {
       setLoading(false); // 로딩 상태 종료
     },
     onError: (error) => {
-      console.error('Error:', error);
       setLoading(false); // 에러 시에도 로딩 상태 종료
+      setError(true); // 에러 상태 변경
     },
   });
 };
@@ -47,6 +49,8 @@ export const useTarotCardInterpretationMutation = () => {
 export const useTarotCardBookmarkMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setTarotBookmark = useSetRecoilState(TarotBookmarkState);
+  const setError = useSetRecoilState(errorState);
+
   return useMutation<
     ApiTarotCardInterpretationBookmarkedResponse,
     Error,
@@ -70,9 +74,9 @@ export const useTarotCardBookmarkMutation = () => {
     onSettled: () => {
       setLoading(false);
     },
-    onError: (error) => {
+    onError: () => {
       setLoading(false);
-      console.error('Error:', error);
+      setError(true);
     },
   });
 };
@@ -80,6 +84,8 @@ export const useTarotCardBookmarkMutation = () => {
 export const useTarotCardBookmarkDeleteMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setTarotBookmark = useSetRecoilState(TarotBookmarkState);
+  const setError = useSetRecoilState(errorState);
+
   return useMutation<
     SuccessResponse<null>,
     Error,
@@ -102,9 +108,9 @@ export const useTarotCardBookmarkDeleteMutation = () => {
     onSettled: () => {
       setLoading(false);
     },
-    onError: (error) => {
+    onError: () => {
       setLoading(false);
-      console.error('Error:', error);
+      setError(true);
     },
   });
 };

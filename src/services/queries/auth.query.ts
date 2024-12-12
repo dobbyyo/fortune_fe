@@ -1,10 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { checkAuth, kakaoAuth, loginAuth, logoutAuth, signupAuth } from '../api/auth.service';
+import { checkAuth, kakaoAuth, loginAuth, logoutAuth, signupAuth, withdrawalAuth } from '../api/auth.service';
 import { SignupDto } from '@/types/signupType';
 import { authState, userState } from '@/stores/useAuthStore';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { loadingState } from '@/stores/useLoadingStore';
+import { errorState } from '@/stores/useErrorStore';
 
 export const useKaKaoAuth = (code: string) => {
   return useQuery<any>({
@@ -54,7 +55,7 @@ export const useLogoutMutation = () => {
   const setAuthState = useSetRecoilState(authState);
   const setUserState = useSetRecoilState(userState);
   const setLoading = useSetRecoilState(loadingState);
-  const errorState = useSetRecoilState(loadingState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation({
     mutationKey: ['logoutAuth'],
@@ -78,7 +79,7 @@ export const useLogoutMutation = () => {
     },
     onError: () => {
       setLoading(false);
-      errorState(true);
+      setError(true);
     },
   });
 };
@@ -89,6 +90,34 @@ export const useCheckAuthQuery = () => {
     queryFn: async () => {
       const response = await checkAuth();
       return response;
+    },
+    retry: 1,
+  });
+};
+
+export const useWithdrawalMutation = () => {
+  const navigate = useNavigate();
+  const setAuthState = useSetRecoilState(authState);
+  const setUserState = useSetRecoilState(userState);
+  const setLoading = useSetRecoilState(loadingState);
+  const setError = useSetRecoilState(errorState);
+
+  return useMutation({
+    mutationKey: ['withdrawalAuth'],
+    mutationFn: async (userId: number) => {
+      setLoading(true);
+      const response = await withdrawalAuth(userId);
+      return response.data;
+    },
+    onSuccess: async () => {
+      setLoading(false);
+      setAuthState({ isLoading: false, isAuthenticated: false });
+      setUserState(null);
+      navigate('/');
+    },
+    onError: () => {
+      setLoading(false);
+      setError(true);
     },
   });
 };

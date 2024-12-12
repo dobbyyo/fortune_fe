@@ -1,4 +1,4 @@
-import { BackNavBar, LoadingBar } from '@/components/Common';
+import { BackNavBar, LoadingBar, NotData } from '@/components/Common';
 import { BookmarkFortuneTab, BookmarkItemList } from '@/components/MyPage/Bookmark';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import { useGetBookmarkQuery } from '@/services/queries/myPage.query';
@@ -99,7 +99,14 @@ const Bookmark = () => {
     <div className="w-full h-full flex flex-col items-center">
       <BackNavBar title="저장보기" />
       <BookmarkFortuneTab tabs={tabs} activeTab={activeTab} setActiveTab={handleTabClick} />
-      <BookmarkItemList data={filteredData} handleCardClick={handleCardClick} />
+      {
+        // 북마크된 데이터가 없을 때
+        filteredData.length === 0 ? (
+          <NotData />
+        ) : (
+          <BookmarkItemList data={filteredData} handleCardClick={handleCardClick} />
+        )
+      }
     </div>
   );
 };

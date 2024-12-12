@@ -1,8 +1,10 @@
 import { agreementsState } from '@/stores/useSignupStore';
 import { ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 const SignupAgreements = () => {
+  const navigate = useNavigate();
   const [agreements, setAgreements] = useRecoilState(agreementsState);
 
   const handleAllChecked = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +25,10 @@ const SignupAgreements = () => {
     });
   };
 
+  const goAgreementsPage = (url: string) => {
+    navigate(url);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center ml-[20px]">
       <div className="w-full flex flex-col justify-center items-center">
@@ -40,9 +46,9 @@ const SignupAgreements = () => {
             />
             <span className="text-[#404040] text-[20px] font-normal">
               이용약관 필수 동의
-              <a href="#" className="text-blue-500 underline">
+              <button onClick={() => goAgreementsPage('/termsOfUse')} className="text-blue-500 underline ml-2">
                 자세히 보기
-              </a>
+              </button>
             </span>
           </label>
           <label className="flex items-center space-x-2 cursor-pointer">
@@ -54,10 +60,12 @@ const SignupAgreements = () => {
             />
             <span className="text-[#404040] text-[20px] font-normal">
               개인정보 처리방침 필수 동의
-              <a href="#" className="text-blue-500 underline">
-                {' '}
+              <button
+                onClick={() => goAgreementsPage('/personalInformationTerms')}
+                className="text-blue-500 underline ml-2"
+              >
                 자세히 보기
-              </a>
+              </button>
             </span>
           </label>
           <label className="flex items-center space-x-2 cursor-pointer">
@@ -69,10 +77,12 @@ const SignupAgreements = () => {
             />
             <span className="text-[#404040] text-[20px] font-normal">
               마케팅 정보 수신 선택 동의
-              <a href="#" className="text-blue-500 underline">
-                {' '}
+              <button
+                onClick={() => goAgreementsPage('/marketingUseAgreement')}
+                className="text-blue-500 underline ml-2"
+              >
                 자세히 보기
-              </a>
+              </button>
             </span>
           </label>
         </div>

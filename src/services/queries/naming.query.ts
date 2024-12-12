@@ -14,12 +14,14 @@ import { useSetRecoilState } from 'recoil';
 import { aiNamingState, savedAiNamingState } from '@/stores/useNamingStore';
 import { setLocalStorage } from '@/lib/localStorage';
 import { useNavigate } from 'react-router-dom';
+import { errorState } from '@/stores/useErrorStore';
 
 // AI 작명 조회
 export const useAiNamingMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setAiNamingState = useSetRecoilState(aiNamingState);
   const navigate = useNavigate();
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<ApiAiNamingResponse, Error, { payload: NamingPayload }>({
     mutationKey: ['aiNaming'],
@@ -41,6 +43,7 @@ export const useAiNamingMutation = () => {
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };
@@ -50,6 +53,7 @@ export const useAiNamingBookmarkMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setSavedAiNamingState = useSetRecoilState(savedAiNamingState);
   const setAiNamingState = useSetRecoilState(aiNamingState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<ApiAiNamingSaveResponse, Error, { payload: AiNamingSavePayload }>({
     mutationKey: ['aiNamingBookmark'],
@@ -87,6 +91,7 @@ export const useAiNamingBookmarkMutation = () => {
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };
@@ -95,6 +100,7 @@ export const useAiNamingUnBookmarkMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setAiNamingState = useSetRecoilState(aiNamingState);
   const setSavedAiNamingState = useSetRecoilState(savedAiNamingState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<ApiAiNamingSaveDeleteResponse, Error, { payload: AiNamingSaveDeletePayload }>({
     mutationKey: ['aiNamingUnBookmark'],
@@ -104,8 +110,6 @@ export const useAiNamingUnBookmarkMutation = () => {
       return response;
     },
     onSuccess: (_, { payload }) => {
-      setLoading(false);
-
       // 로컬스토리지에서 데이터 제거
       const savedNamingsJson: AiNamingSaveData[] = JSON.parse(localStorage.getItem('savedNamings') || '[]');
       const updatedNamings = savedNamingsJson.filter((saved) => saved.naming.id !== payload.id);
@@ -125,12 +129,14 @@ export const useAiNamingUnBookmarkMutation = () => {
             }
           : prevState,
       );
+      setLoading(false);
     },
     onSettled: () => {
       setLoading(false);
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };

@@ -2,10 +2,11 @@ import { BackNavBar, Line, LoadingBar } from '@/components/Common';
 import LogoutModal from '@/components/MyPage/LogoutModal';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Account = () => {
   const { isLoading } = useRequireAuth();
-
+  const navigate = useNavigate();
   if (isLoading) {
     return <LoadingBar />; // 로딩 상태 처리
   }
@@ -20,6 +21,10 @@ const Account = () => {
     setModalOpen(false);
   };
 
+  // 탈퇴하기 페이지 이동
+  const goWithdrawal = () => {
+    navigate('/myPage/withdrawal');
+  };
   return (
     <div className="w-full h-full flex flex-col items-center mt-10">
       {/* 헤더 */}
@@ -44,10 +49,7 @@ const Account = () => {
         </button>
 
         {/* 탈퇴하기 */}
-        <button
-          className="flex items-center w-full py-4"
-          onClick={() => confirm('정말 탈퇴하시겠습니까?') && alert('탈퇴 처리되었습니다.')}
-        >
+        <button className="flex items-center w-full py-4" onClick={goWithdrawal}>
           <img src="/myPage/ghost-icon.jpg" alt="탈퇴하기 아이콘" className="w-[35px] h-[35px] mr-4" />
           <span className="text-clamp35 font-normal">탈퇴하기</span>
         </button>

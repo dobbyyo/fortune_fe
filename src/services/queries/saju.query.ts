@@ -12,6 +12,7 @@ import { loadingState } from '@/stores/useLoadingStore';
 import { todayFortuneSavePayloadType } from '@/types/fortuneType';
 import { setLocalStorage } from '@/lib/localStorage';
 import { isTodayFortuneSavedState } from '@/stores/useSajuStore';
+import { errorState } from '@/stores/useErrorStore';
 
 export const useTodayFortuneQuery = (userId: number | undefined, options = {}) => {
   return useQuery({
@@ -65,6 +66,7 @@ export const useConstellationFortuneQuery = (userId: number | undefined, options
 export const useTodayFortuneSaveMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setTodayFortuneSaved = useSetRecoilState(isTodayFortuneSavedState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<any, Error, { payload: todayFortuneSavePayloadType }>({
     mutationKey: ['todayFortuneSave'],
@@ -83,9 +85,9 @@ export const useTodayFortuneSaveMutation = () => {
     onSettled: () => {
       setLoading(false);
     },
-    onError: (error) => {
-      console.error('Error:', error);
+    onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };
@@ -94,6 +96,7 @@ export const useTodayFortuneSaveMutation = () => {
 export const useTodayFortuneDeleteMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setTodayFortuneSaved = useSetRecoilState(isTodayFortuneSavedState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<any, Error, { payload: { sandbarId: number; userId: number } }>({
     mutationKey: ['todayFortuneDelete'],
@@ -111,9 +114,9 @@ export const useTodayFortuneDeleteMutation = () => {
     onSettled: () => {
       setLoading(false);
     },
-    onError: (error) => {
-      console.error('Error:', error);
+    onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };

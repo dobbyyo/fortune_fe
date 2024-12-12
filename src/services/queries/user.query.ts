@@ -4,6 +4,7 @@ import { ApiUserUpdateDataResponse, UserType, UserUpdatePayload } from '@/types/
 import { loadingState } from '@/stores/useLoadingStore';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/stores/useAuthStore';
+import { errorState } from '@/stores/useErrorStore';
 
 export const useMyDataQuery = (option?: any) => {
   return useQuery<UserType>({
@@ -21,6 +22,8 @@ export const useMyDataQuery = (option?: any) => {
 export const useMyDataUpdateMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setUserData = useSetRecoilState(userState);
+  const setError = useSetRecoilState(errorState);
+
   return useMutation<ApiUserUpdateDataResponse, Error, { payload: UserUpdatePayload }>({
     mutationKey: ['myDataUpdate'],
     mutationFn: async ({ payload }) => {
@@ -45,6 +48,7 @@ export const useMyDataUpdateMutation = () => {
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };

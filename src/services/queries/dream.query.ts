@@ -13,11 +13,14 @@ import { useSetRecoilState } from 'recoil';
 import { aiDream, aiDreamBookmark, aiDreamBookmarkDelete } from '../api/dream.service';
 import { setLocalStorage } from '@/lib/localStorage';
 import { useNavigate } from 'react-router-dom';
+import { errorState } from '@/stores/useErrorStore';
 
 // AI 꿈해몽 조회
 export const useAiDreamMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setDreamState = useSetRecoilState(aiDreamState);
+  const setError = useSetRecoilState(errorState);
+
   const navigate = useNavigate();
 
   return useMutation<ApiAiDreamResponse, Error, { payload: AiDreamPayload }>({
@@ -40,6 +43,7 @@ export const useAiDreamMutation = () => {
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };
@@ -48,6 +52,7 @@ export const useAiDreamMutation = () => {
 export const useAiDreamBookmarkMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setSavedDreamState = useSetRecoilState(savedAiDreamState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<ApiAiDreamSaveResponse, Error, { payload: AiDreamSavePayload }>({
     mutationKey: ['aiDreamBookmark'],
@@ -59,10 +64,7 @@ export const useAiDreamBookmarkMutation = () => {
     onSuccess: (response) => {
       const { savedDreamInterpretation } = response.data;
 
-      // Recoil 상태 업데이트
       setSavedDreamState(savedDreamInterpretation);
-
-      // 로컬스토리지 업데이트
       localStorage.setItem('savedDream', JSON.stringify(savedDreamInterpretation));
 
       setLoading(false);
@@ -72,6 +74,7 @@ export const useAiDreamBookmarkMutation = () => {
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };
@@ -80,6 +83,7 @@ export const useAiDreamBookmarkMutation = () => {
 export const useAiDreamBookmarkDeleteMutation = () => {
   const setLoading = useSetRecoilState(loadingState);
   const setSavedDreamState = useSetRecoilState(savedAiDreamState);
+  const setError = useSetRecoilState(errorState);
 
   return useMutation<ApiAiDreamSaveDeleteResponse, Error, { payload: AiDreamSaveDeletePayload }>({
     mutationKey: ['aiDreamBookmarkDelete'],
@@ -102,6 +106,7 @@ export const useAiDreamBookmarkDeleteMutation = () => {
     },
     onError: () => {
       setLoading(false);
+      setError(true);
     },
   });
 };

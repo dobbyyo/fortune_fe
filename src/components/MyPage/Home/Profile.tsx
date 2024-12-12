@@ -2,10 +2,20 @@ import { userState } from '@/stores/useAuthStore';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import BirthInfoModal from './BirthInfoModal';
+import LogoutModal from '../LogoutModal';
 
 const Profile = () => {
   const myData = useRecoilValue(userState);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
+
+  const onOpenLogoutModal = () => {
+    setLogoutModalOpen(true);
+  };
+
+  const onCloseLogoutModal = () => {
+    setLogoutModalOpen(false);
+  };
 
   return (
     <div className="w-full mt-8 flex flex-col items-center">
@@ -30,7 +40,13 @@ const Profile = () => {
 
           <BirthInfoModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
 
-          <button className="mt-2 px-6 py-2 rounded-full bg-[#a47af1] text-white font-medium">로그아웃</button>
+          <button
+            onClick={onOpenLogoutModal}
+            className="mt-2 px-6 py-2 rounded-full bg-[#a47af1] text-white font-medium"
+          >
+            로그아웃
+          </button>
+          {isLogoutModalOpen && <LogoutModal isOpen={isLogoutModalOpen} onClose={onCloseLogoutModal} />}
         </>
       )}
     </div>

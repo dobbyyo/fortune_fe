@@ -1,9 +1,10 @@
 import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import { useMyDataQuery } from '@/services/queries/user.query';
 import { authState, userState } from '@/stores/useAuthStore';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import LogoutModal from '../MyPage/LogoutModal';
 
 const Header = () => {
   const [userDatas, setUserDatas] = useRecoilState(userState);
@@ -23,8 +24,19 @@ const Header = () => {
   }, []);
 
   const { data: checkLogin, isSuccess: checkLoginSuccess } = useCheckAuthQuery();
+  const { data: myData, isLoading: isFetchingData } = useMyDataQuery({
+    enabled: checkLogin?.status === 200,
+  });
 
-  const { data: myData, isLoading: isFetchingData } = useMyDataQuery();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const onOpenLogoutModal = () => {
+    setModalOpen(true);
+  };
+
+  const onCloseLogoutModal = () => {
+    setModalOpen(false);
+  };
 
   const myInfo = myData?.myInfo;
   useEffect(() => {
@@ -54,9 +66,9 @@ const Header = () => {
             <img src="/header-icon.jpg" alt="Avatar" onClick={goHome} className="cursor-pointer" />
           </div>
         </div>
-        {/* <div className="ml-3 text-clamp50 font-bold cursor-pointer" onClick={goHome}>
-					너의 이름은
-				</div> */}
+        <div className="hidden sm:flex ml-3 text-clamp50 font-bold cursor-pointer" onClick={goHome}>
+          너의 이름은
+        </div>
       </div>
 
       <div className="flex-none gap-2 ">
@@ -79,6 +91,7 @@ const Header = () => {
               </div>
             </div>
             <button
+              onClick={onOpenLogoutModal}
               className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px]
              bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-white border-none"
             >
@@ -96,6 +109,9 @@ const Header = () => {
           </button>
         )}
       </div>
+
+      {/* 로그아웃 모달 */}
+      {isModalOpen && <LogoutModal isOpen={isModalOpen} onClose={onCloseLogoutModal} />}
     </header>
   );
 };

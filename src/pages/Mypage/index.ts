@@ -4,3 +4,4 @@ export { default as Account } from './Account';
 export { default as Language } from './Language';
 export { default as Notice } from './Notice/Notice';
 export { default as Bookmark } from './Bookmark/Bookmark';
+export { default as Withdrawal } from './Withdrawal';

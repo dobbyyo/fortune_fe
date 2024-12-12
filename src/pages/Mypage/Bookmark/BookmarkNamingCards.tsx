@@ -1,4 +1,4 @@
-import { BackNavBar, Line, LoadingBar } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar, NotData } from '@/components/Common';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import { useGetDetailNamingBookmark } from '@/services/queries/myPage.query';
 import { useAiNamingBookmarkMutation, useAiNamingUnBookmarkMutation } from '@/services/queries/naming.query';
@@ -86,24 +86,30 @@ const BookmarkNamingCards = () => {
       <Line />
 
       <div className="w-full space-y-4 px-2">
-        {bookmarksData &&
-          bookmarksData.savedNaming.map((item, index) => (
-            <div key={item.id} className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
-              <div className="mr-5">
-                <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
-                  <img
-                    src={isBookmarked(item.id) ? '/on-bookmark-icon.jpg' : '/off-bookmark-icon.jpg'}
-                    alt="북마크"
-                    className="w-full h-full object-contain"
-                  />
-                </button>
-              </div>
-              <div>
-                <h3 className="text-[20px] sm:text-[35px] font-bold text-center mb-5">{item.name}</h3>
-                <p className="text-[15px] sm:text-[30px] font-normal text-start">{item.description}</p>
-              </div>
-            </div>
-          ))}
+        {bookmarksData && bookmarksData.savedNaming.length === 0 ? (
+          <NotData />
+        ) : (
+          <>
+            {bookmarksData &&
+              bookmarksData.savedNaming.map((item, index) => (
+                <div key={item.id} className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
+                  <div className="mr-5">
+                    <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
+                      <img
+                        src={isBookmarked(item.id) ? '/on-bookmark-icon.jpg' : '/off-bookmark-icon.jpg'}
+                        alt="북마크"
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  </div>
+                  <div>
+                    <h3 className="text-[20px] sm:text-[35px] font-bold text-center mb-5">{item.name}</h3>
+                    <p className="text-[15px] sm:text-[30px] font-normal text-start">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+          </>
+        )}
       </div>
     </div>
   );

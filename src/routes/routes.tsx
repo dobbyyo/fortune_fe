@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import tarotRoutes from './TarotRoutes';
 import sajuRoutes from './SajuRoutes';
 import authRoutes from './AuthRoutes';
-import myRoutes from './MyPage';
+import myPagesRoutes from './MyPageRoutes';
 import namingRoutes from './NamingRoutes';
 import dreamRoutes from './DreamRoutes';
 
@@ -22,7 +22,7 @@ const routes = [
   ...tarotRoutes,
   ...sajuRoutes,
   ...authRoutes,
-  ...myRoutes,
+  ...myPagesRoutes,
   ...namingRoutes,
   ...dreamRoutes,
 ];

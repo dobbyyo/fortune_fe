@@ -10,8 +10,9 @@ const BookmarkTarotCards = lazy(() => import('@/pages/MyPage/Bookmark/BookmarkTa
 const BookmarkFortuneCards = lazy(() => import('@/pages/MyPage/Bookmark/BookmarkFortuneCards'));
 const BookmarkDreamCards = lazy(() => import('@/pages/MyPage/Bookmark/BookmarkDreamCards'));
 const BookmarkNamingCards = lazy(() => import('@/pages/MyPage/Bookmark/BookmarkNamingCards'));
+const Withdrawal = lazy(() => import('@/pages/MyPage/Withdrawal'));
 
-const myRoutes = [
+const myPagesRoutes = [
   {
     path: '/myPage',
     element: <MyPage />,
@@ -62,6 +63,11 @@ const myRoutes = [
     element: <BookmarkNamingCards />,
     isPrivate: true,
   },
+  {
+    path: '/myPage/withdrawal',
+    element: <Withdrawal />,
+    isPrivate: true,
+  },
 ];
 
-export default myRoutes;
+export default myPagesRoutes;

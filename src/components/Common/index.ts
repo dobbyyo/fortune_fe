@@ -5,3 +5,4 @@ export { default as DropDown } from './DropDown';
 export { default as ErrorModal } from './ErrorModal';
 export { default as BackNavBar } from './BackNavBar';
 export { default as Line } from './Line';
+export { default as NotData } from './NotData';

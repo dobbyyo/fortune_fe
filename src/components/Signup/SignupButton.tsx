@@ -22,10 +22,13 @@ const SignupButton = () => {
 
     try {
       await signupMutation({
-        ...formData,
+        email: formData.email,
+        username: formData.username,
         provider: 'kakao',
+        gender: formData.gender === '남성' ? 'MAN' : formData.gender === '여성' ? 'WOMAN' : 'ETC',
         birth_date: formData.birthDate,
         birth_time: `${formData.birthTime}:00`,
+        avatar: formData.avatar,
       });
 
       await loginMutation(formData.email);

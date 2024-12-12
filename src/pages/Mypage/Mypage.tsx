@@ -1,25 +1,25 @@
+import { LoadingBar } from '@/components/Common';
 import { MyPageNavBar } from '@/components/MyPage';
 import { Bottom, Profile } from '@/components/MyPage/Home';
-import { userState } from '@/stores/useAuthStore';
-import { useRecoilValue } from 'recoil';
+import useRequireAuth from '@/hooks/useRequireAuth';
 
 const MyPage = () => {
-  const myData = useRecoilValue(userState);
-  console.log(myData);
+  const { isLoading } = useRequireAuth();
+
+  if (isLoading) {
+    return <LoadingBar />; // 로딩 상태 처리
+  }
+
   return (
     <div className="w-full h-full flex flex-col items-center">
-      {myData && (
-        <>
-          {/* 상단 네비게이션 */}
-          <MyPageNavBar />
+      {/* 상단 네비게이션 */}
+      <MyPageNavBar />
 
-          {/* 프로필 정보 */}
-          <Profile />
+      {/* 프로필 정보 */}
+      <Profile />
 
-          {/* 하단 메뉴 */}
-          <Bottom />
-        </>
-      )}
+      {/* 하단 메뉴 */}
+      <Bottom />
     </div>
   );
 };

@@ -1,8 +1,15 @@
-import { BackNavBar } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar } from '@/components/Common';
 import LogoutModal from '@/components/MyPage/LogoutModal';
+import useRequireAuth from '@/hooks/useRequireAuth';
 import { useState } from 'react';
 
 const Account = () => {
+  const { isLoading } = useRequireAuth();
+
+  if (isLoading) {
+    return <LoadingBar />; // 로딩 상태 처리
+  }
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const onOpenLogoutModal = () => {
@@ -17,6 +24,8 @@ const Account = () => {
     <div className="w-full h-full flex flex-col items-center mt-10">
       {/* 헤더 */}
       <BackNavBar title="계정 설정" />
+
+      <Line />
 
       {/* 로그아웃 모달 */}
       {isModalOpen && <LogoutModal isOpen={isModalOpen} onClose={onCloseLogoutModal} />}

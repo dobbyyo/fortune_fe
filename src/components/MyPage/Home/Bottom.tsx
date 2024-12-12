@@ -1,15 +1,23 @@
+import { useNavigate } from 'react-router-dom';
+
 const Bottom = () => {
+  const navigate = useNavigate();
+
+  const onClickPage = (page: string) => {
+    navigate(page);
+  };
+
   return (
     <div className="mt-10 w-full border-t-8 flex justify-center gap-10 py-4">
-      <button className="flex flex-col items-center">
+      <button className="flex flex-col items-center" onClick={() => onClickPage('/myPage/notice')}>
         <img src="/common/speaker-icon.jpg" alt="공지사항" className="w-[25px] h-[25px] sm:w-[45px] sm:h-[45px] mb-2" />
         <span className="text-clamp30 font-normal">공지사항</span>
       </button>
-      <button className="flex flex-col items-center">
+      {/* <button className="flex flex-col items-center">
         <img src="/common/mail-icon.jpg" alt="개발자에게" className="w-[25px] h-[25px] sm:w-[45px] sm:h-[45px] mb-2" />
         <span className="text-clamp30 font-normal">개발자에게</span>
-      </button>
-      <button className="flex flex-col items-center">
+      </button> */}
+      <button className="flex flex-col items-center" onClick={() => onClickPage('/myPage/bookmark')}>
         <img src="/on-bookmark-icon.jpg" alt="개발자에게" className="w-[25px] h-[25px] sm:w-[45px] sm:h-[45px] mb-2" />
         <span className="text-clamp30 font-normal">저장보기</span>
       </button>

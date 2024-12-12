@@ -1,7 +1,14 @@
-import { BackNavBar, Line } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar } from '@/components/Common';
+import useRequireAuth from '@/hooks/useRequireAuth';
 import { Link } from 'react-router-dom';
 
 const Settings = () => {
+  const { isLoading } = useRequireAuth();
+
+  if (isLoading) {
+    return <LoadingBar />; // 로딩 상태 처리
+  }
+
   return (
     <div className="w-full h-full flex flex-col items-center">
       <BackNavBar title={'설정'} />

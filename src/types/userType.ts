@@ -52,6 +52,7 @@ export interface UserUpdatePayload {
   birth_date: string;
   birth_time: string;
   gender: string;
+  userId: number;
 }
 
 export interface UserUpdateResponse {

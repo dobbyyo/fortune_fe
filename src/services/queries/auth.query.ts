@@ -1,11 +1,10 @@
-import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { checkAuth, kakaoAuth, loginAuth, logoutAuth, signupAuth } from '../api/auth.service';
 import { SignupDto } from '@/types/signupType';
 import { authState, userState } from '@/stores/useAuthStore';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { loadingState } from '@/stores/useLoadingStore';
-import { SuccessResponse } from '@/types/apiType';
 
 export const useKaKaoAuth = (code: string) => {
   return useQuery<any>({

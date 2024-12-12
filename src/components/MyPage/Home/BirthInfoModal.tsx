@@ -34,7 +34,7 @@ const BirthInfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
   const { mutate: updateMyData } = useMyDataUpdateMutation();
 
   const handleSave = () => {
-    if (birthDate === '' || birthTime === '' || gender === '') {
+    if (birthDate === '' || birthTime === '' || gender === '' || !myData) {
       alert('모든 정보를 입력해주세요.');
       return;
     }
@@ -43,8 +43,8 @@ const BirthInfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
       birth_date: birthDate,
       birth_time: birthTime,
       gender,
+      userId: myData.id,
     };
-    console.log(payload);
     updateMyData({ payload });
 
     onClose();

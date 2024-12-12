@@ -22,33 +22,29 @@ const Header = () => {
     navigate('/login');
   }, []);
 
-  const { data: checkLogin, isSuccess: isLoginChecked } = useCheckAuthQuery();
+  const { data: checkLogin, isSuccess: checkLoginSuccess } = useCheckAuthQuery();
 
-  const { data: myData, isLoading: isFetchingData } = useMyDataQuery({
-    enabled: auth.isAuthenticated, // Run query only if authenticated
-  });
+  const { data: myData, isLoading: isFetchingData } = useMyDataQuery();
 
   const myInfo = myData?.myInfo;
-
   useEffect(() => {
-    if (isLoginChecked) {
-      if (checkLogin?.status === 200) {
+    if (isFetchingData || !checkLoginSuccess) {
+      return;
+    }
+
+    if (checkLogin?.status === 200) {
+      if (myInfo) {
+        setUserDatas(myInfo);
         setAuth({ isLoading: false, isAuthenticated: true });
       } else {
-        setAuth({ isLoading: false, isAuthenticated: false });
         setUserDatas(null);
+        setAuth({ isLoading: false, isAuthenticated: false });
       }
-    }
-  }, [checkLogin, isLoginChecked]);
-
-  useEffect(() => {
-    if (!isFetchingData && myInfo) {
-      setUserDatas(myInfo);
-    } else if (!isFetchingData && !myInfo) {
+    } else {
       setUserDatas(null);
       setAuth({ isLoading: false, isAuthenticated: false });
     }
-  }, [myInfo, isFetchingData]);
+  }, [myInfo, isFetchingData, checkLoginSuccess, checkLogin]);
 
   return (
     <header className="navbar absolute top-0 left-0 w-full h-[80px] sm:h-[120px] md:h-[150px] bg-white flex items-center px-4 shadow-md z-50 md:px-8">

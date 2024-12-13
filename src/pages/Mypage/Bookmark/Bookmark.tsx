@@ -1,5 +1,7 @@
 import { BackNavBar, LoadingBar, NotData } from '@/components/Common';
 import { BookmarkFortuneTab, BookmarkItemList } from '@/components/MyPage/Bookmark';
+import { MetaTag } from '@/components/Seo';
+import { myPageMetaData } from '@/config/metaData';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import { useGetBookmarkQuery } from '@/services/queries/myPage.query';
 import { userIdSelector } from '@/stores/useAuthStore';
@@ -8,6 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 const Bookmark = () => {
+  const {
+    title: metaTitle,
+    description: metaDescription,
+    keywords,
+    canonical,
+    ogTitle,
+    ogDescription,
+  } = myPageMetaData.bookmark;
+
   const navigate = useNavigate();
   const { isLoading } = useRequireAuth();
   const userId = useRecoilValue(userIdSelector);
@@ -96,18 +107,28 @@ const Bookmark = () => {
   })();
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
-      <BackNavBar title="저장보기" />
-      <BookmarkFortuneTab tabs={tabs} activeTab={activeTab} setActiveTab={handleTabClick} />
-      {
-        // 북마크된 데이터가 없을 때
-        filteredData.length === 0 ? (
-          <NotData />
-        ) : (
-          <BookmarkItemList data={filteredData} handleCardClick={handleCardClick} />
-        )
-      }
-    </div>
+    <>
+      <MetaTag
+        title={metaTitle}
+        description={metaDescription}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+      <div className="w-full h-full flex flex-col items-center">
+        <BackNavBar title="저장보기" />
+        <BookmarkFortuneTab tabs={tabs} activeTab={activeTab} setActiveTab={handleTabClick} />
+        {
+          // 북마크된 데이터가 없을 때
+          filteredData.length === 0 ? (
+            <NotData />
+          ) : (
+            <BookmarkItemList data={filteredData} handleCardClick={handleCardClick} />
+          )
+        }
+      </div>
+    </>
   );
 };
 

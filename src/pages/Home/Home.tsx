@@ -1,9 +1,20 @@
 import { CategoryButton } from '@/components/Home';
+import { MetaTag } from '@/components/Seo';
+import { mainMetaData } from '@/config/metaData';
 import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const {
+    title: metaTitle,
+    description: metaDescription,
+    keywords,
+    canonical,
+    ogTitle,
+    ogDescription,
+  } = mainMetaData.home;
+
   useCheckAuthQuery();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -31,39 +42,49 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <form
-        onSubmit={handleSearch}
-        className="px-2 flex items-center w-full h-[60px] sm:h-[70px] md:h-[84px] bg-white border border-[#404040] rounded-[5px]"
-      >
-        <div>
-          <img
-            src="/search-icon.jpg"
-            alt="검색 아이콘"
-            className="w-[30px] h-[40px] sm:w-[50px] sm:h-[60px] md:w-[60px] md:h-[70px] ml-2"
-          />
-        </div>
-        <input
-          type="text"
-          placeholder="검색할 내용을 입력해주세요."
-          className="flex-1 p-2 text-gray-700 bg-transparent border-none 
+    <>
+      <MetaTag
+        title={metaTitle}
+        description={metaDescription}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+      <div className="flex flex-col items-center justify-center">
+        <form
+          onSubmit={handleSearch}
+          className="px-2 flex items-center w-full h-[60px] sm:h-[70px] md:h-[84px] bg-white border border-[#404040] rounded-[5px]"
+        >
+          <div>
+            <img
+              src="/search-icon.jpg"
+              alt="검색 아이콘"
+              className="w-[30px] h-[40px] sm:w-[50px] sm:h-[60px] md:w-[60px] md:h-[70px] ml-2"
+            />
+          </div>
+          <input
+            type="text"
+            placeholder="검색할 내용을 입력해주세요."
+            className="flex-1 p-2 text-gray-700 bg-transparent border-none 
 						focus:outline-none text-clamp30 
     				placeholder:text-clamp30 placeholder:font-normal"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
 
-      <div className="mt-[50px] w-full">
-        <h2 className="font-bold flex justify-start text-clamp50">전체 카테고리</h2>
-        <div className="flex justify-center gap-4 mt-4">
-          <CategoryButton icon="/mainTarot.svg" label="타로" pageUrl="tarot" />
-          <CategoryButton icon="/mainSaju.svg" label="사주" pageUrl="saju" />
-          <CategoryButton icon="/mainDream.svg" label="꿈해몽" pageUrl="dream" />
-          <CategoryButton icon="/mainNaming.svg" label="작명" pageUrl="naming" />
+        <div className="mt-[50px] w-full">
+          <h2 className="font-bold flex justify-start text-clamp50">전체 카테고리</h2>
+          <div className="flex justify-center gap-4 mt-4">
+            <CategoryButton icon="/mainTarot.svg" label="타로" pageUrl="tarot" />
+            <CategoryButton icon="/mainSaju.svg" label="사주" pageUrl="saju" />
+            <CategoryButton icon="/mainDream.svg" label="꿈해몽" pageUrl="dream" />
+            <CategoryButton icon="/mainNaming.svg" label="작명" pageUrl="naming" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

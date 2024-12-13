@@ -28,7 +28,7 @@ export const loginAuth = async (email: string): Promise<any> => {
 export const signupAuth = async (signupDto: SignupDto): Promise<any> => {
   try {
     const { data } = await api.post('/auth/register', signupDto);
-
+    // console.log('data', data);
     return data;
   } catch (error) {
     throw error;

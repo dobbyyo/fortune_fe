@@ -1,6 +1,10 @@
 import { BackNavBar, Line } from '@/components/Common';
+import { MetaTag } from '@/components/Seo';
+import { authMetaData } from '@/config/metaData';
 
 const MarketingUseAgreement = () => {
+  const { title, description, keywords, canonical, ogTitle, ogDescription } = authMetaData.marketingUseAgreement;
+
   const sections = [
     {
       title: '1. 개인정보 수집 및 이용 목적',
@@ -31,26 +35,37 @@ const MarketingUseAgreement = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <BackNavBar title="이용약관" />
-      <Line />
-      <div className="w-full px-4 mt-6">
-        <div className="p-4 rounded-lg shadow-md">
-          <p className="text-left w-full text-[20px] mb-10">
-            [너의 이름은](이하 "회사")는 사용자에게 맞춤형 서비스와 혜택을 제공하기 위해 아래와 같이 개인정보를
-            활용하고자 합니다. 내용을 자세히 읽어보신 후 동의 여부를 결정해 주시기 바랍니다.
-          </p>
-          {sections.map((section, index) => (
-            <div key={index} className="mb-6">
-              <h3 className="font-bold text-left text-gray-900 text-[16px] sm:text-[18px] mb-2">{section.title}</h3>
-              <p className="whitespace-pre-wrap text-start text-gray-800 text-[14px] sm:text-[16px] leading-relaxed">
-                {section.content}
-              </p>
-            </div>
-          ))}
+    <>
+      <MetaTag
+        title={title}
+        description={description}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+
+      <div className="flex flex-col items-center justify-center">
+        <BackNavBar title="이용약관" />
+        <Line />
+        <div className="w-full px-4 mt-6">
+          <div className="p-4 rounded-lg shadow-md">
+            <p className="text-left w-full text-[20px] mb-10">
+              [너의 이름은](이하 "회사")는 사용자에게 맞춤형 서비스와 혜택을 제공하기 위해 아래와 같이 개인정보를
+              활용하고자 합니다. 내용을 자세히 읽어보신 후 동의 여부를 결정해 주시기 바랍니다.
+            </p>
+            {sections.map((section, index) => (
+              <div key={index} className="mb-6">
+                <h3 className="font-bold text-left text-gray-900 text-[16px] sm:text-[18px] mb-2">{section.title}</h3>
+                <p className="whitespace-pre-wrap text-start text-gray-800 text-[14px] sm:text-[16px] leading-relaxed">
+                  {section.content}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

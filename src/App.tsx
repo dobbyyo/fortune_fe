@@ -8,17 +8,20 @@ import { Router } from './routes';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
   return (
-    <CookiesProvider>
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </RecoilRoot>
-    </CookiesProvider>
+    <HelmetProvider>
+      <CookiesProvider>
+        <RecoilRoot>
+          <QueryClientProvider client={queryClient}>
+            <Router />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </RecoilRoot>
+      </CookiesProvider>
+    </HelmetProvider>
   );
 }
 

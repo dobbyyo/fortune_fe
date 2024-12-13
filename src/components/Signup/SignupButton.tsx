@@ -1,4 +1,4 @@
-import { useLoginQuery, useSignupQuery } from '@/services/queries/auth.query';
+import { useSignupQuery } from '@/services/queries/auth.query';
 import { agreementsState, formDataState } from '@/stores/useSignupStore';
 import { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,6 @@ const SignupButton = () => {
   const formData = useRecoilValue(formDataState);
   const navigate = useNavigate();
   const { mutateAsync: signupMutation } = useSignupQuery();
-  const { mutateAsync: loginMutation } = useLoginQuery();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,23 +19,19 @@ const SignupButton = () => {
       return;
     }
 
-    try {
-      await signupMutation({
-        email: formData.email,
-        username: formData.username,
-        provider: 'kakao',
-        gender: formData.gender === '남성' ? 'MAN' : formData.gender === '여성' ? 'WOMAN' : 'ETC',
-        birth_date: formData.birthDate,
-        birth_time: `${formData.birthTime}:00`,
-        avatar: formData.avatar,
-      });
+    await signupMutation({
+      email: formData.email,
+      username: formData.username,
+      provider: 'kakao',
+      gender: formData.gender === '남성' ? 'MAN' : formData.gender === '여성' ? 'WOMAN' : 'ETC',
+      birth_date: formData.birthDate,
+      birth_time: `${formData.birthTime}:00`,
+      avatar: formData.avatar,
+    });
 
-      await loginMutation(formData.email);
+    // await loginMutation(formData.email);
 
-      navigate('/');
-    } catch (error) {
-      console.error('회원가입 실패:', error);
-    }
+    navigate('/');
   };
 
   return (

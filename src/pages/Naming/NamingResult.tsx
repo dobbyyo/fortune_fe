@@ -1,4 +1,6 @@
 import { BackNavBar } from '@/components/Common';
+import { MetaTag } from '@/components/Seo';
+import { namingMetaData } from '@/config/metaData';
 import { useAiNamingBookmarkMutation, useAiNamingUnBookmarkMutation } from '@/services/queries/naming.query';
 import { authState } from '@/stores/useAuthStore';
 import { aiNamingState, namingMainTitleTab, savedAiNamingState } from '@/stores/useNamingStore';
@@ -6,6 +8,15 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 const NamingResult = () => {
+  const {
+    title: metaTitle,
+    description: metaDescription,
+    keywords,
+    canonical,
+    ogTitle,
+    ogDescription,
+  } = namingMetaData.namingResult;
+
   // Recoil 상태 가져오기
   const aiNamingData = useRecoilValue(aiNamingState);
   const [savedNamings, setSavedNamings] = useRecoilState(savedAiNamingState);
@@ -89,36 +100,46 @@ const NamingResult = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center mt-10">
-      <BackNavBar title="AI 작명가" />
+    <>
+      <MetaTag
+        title={metaTitle}
+        description={metaDescription}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+      <div className="w-full h-full flex flex-col items-center mt-10">
+        <BackNavBar title="AI 작명가" />
 
-      <div className="w-full">
-        <div className="text-center font-normal text-clamp30 my-5">
-          <p>이름이 완성되었어요!</p>
-          <p>마음에 드는 이름을 즐겨보세요.</p>
-        </div>
+        <div className="w-full">
+          <div className="text-center font-normal text-clamp30 my-5">
+            <p>이름이 완성되었어요!</p>
+            <p>마음에 드는 이름을 즐겨보세요.</p>
+          </div>
 
-        <div className="space-y-4 px-2">
-          {namingData.naming.map((item, index) => (
-            <div key={index} className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
-              <div className="mr-5">
-                <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
-                  <img
-                    src={isBookmarked(item.name) ? '/on-bookmark-icon.jpg' : '/off-bookmark-icon.jpg'}
-                    alt="북마크"
-                    className="w-full h-full object-contain"
-                  />
-                </button>
+          <div className="space-y-4 px-2">
+            {namingData.naming.map((item, index) => (
+              <div key={index} className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
+                <div className="mr-5">
+                  <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
+                    <img
+                      src={isBookmarked(item.name) ? '/on-bookmark-icon.jpg' : '/off-bookmark-icon.jpg'}
+                      alt="북마크"
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                </div>
+                <div>
+                  <h3 className="text-[20px] sm:text-[35px] font-bold text-center mb-5">{item.name}</h3>
+                  <p className="text-[15px] sm:text-[30px] font-normal text-start">{item.description}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-[20px] sm:text-[35px] font-bold text-center mb-5">{item.name}</h3>
-                <p className="text-[15px] sm:text-[30px] font-normal text-start">{item.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

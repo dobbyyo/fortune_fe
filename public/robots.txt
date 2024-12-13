@@ -1,0 +1,9 @@
+# 모든 검색 엔진 크롤러에게 적용
+User-agent: *
+Disallow: /myPage/       # 로그인 후 접근 가능한 마이페이지 크롤링 금지
+Disallow: /auth/         # 인증 관련 페이지 크롤링 금지
+Disallow: /api/          # API 경로 크롤링 금지
+Allow: /                 # 나머지 모든 경로는 허용
+
+# 사이트맵 위치
+Sitemap: https://fortunescape.co.kr/sitemap.xml

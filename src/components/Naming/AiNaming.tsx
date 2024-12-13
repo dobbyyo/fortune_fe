@@ -15,12 +15,12 @@ const AiNaming = () => {
   };
 
   const namingCategories = [
-    { id: 1, label: '사람', icon: '/naming/human-icon.jpg' },
-    { id: 2, label: '반려동물', icon: '/naming/cat-icon.jpg' },
-    { id: 3, label: '아이디어', icon: '/naming/innovation-icon.jpg' },
-    { id: 4, label: '제품명', icon: '/naming/shopping-icon.jpg' },
-    { id: 5, label: '상호명', icon: '/naming/shop-icon.jpg' },
-    { id: 6, label: '회사명', icon: '/naming/building-icon.jpg' },
+    { id: 1, label: '사람', icon: '/naming/human-icon.svg' },
+    { id: 2, label: '반려동물', icon: '/naming/cat-icon.svg' },
+    { id: 3, label: '아이디어', icon: '/naming/innovation-icon.svg' },
+    { id: 4, label: '제품명', icon: '/naming/shopping-icon.svg' },
+    { id: 5, label: '상호명', icon: '/naming/shop-icon.svg' },
+    { id: 6, label: '회사명', icon: '/naming/building-icon.svg' },
   ];
 
   const payload = {

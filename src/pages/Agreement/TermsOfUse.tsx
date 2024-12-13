@@ -1,7 +1,11 @@
 import { BackNavBar, Line } from '@/components/Common';
+import { MetaTag } from '@/components/Seo';
+import { authMetaData } from '@/config/metaData';
 
 // 이용약관
 const TermsOfUse = () => {
+  const { title, description, keywords, canonical, ogTitle, ogDescription } = authMetaData.termsOfUse;
+
   const terms = [
     {
       title: '제1조 (목적)',
@@ -65,22 +69,32 @@ const TermsOfUse = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <BackNavBar title="이용약관" />
-      <Line />
-      <div className="w-full px-4 mt-6">
-        <div className="p-4 rounded-lg shadow-md">
-          {terms.map((term, index) => (
-            <div key={index} className="mb-6">
-              <h3 className="font-bold text-left text-gray-900 text-[16px] sm:text-[18px] mb-2">{term.title}</h3>
-              <p className="whitespace-pre-wrap text-start text-gray-800 text-[14px] sm:text-[16px] leading-relaxed">
-                {term.content}
-              </p>
-            </div>
-          ))}
+    <>
+      <MetaTag
+        title={title}
+        description={description}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+      <div className="flex flex-col items-center justify-center">
+        <BackNavBar title="이용약관" />
+        <Line />
+        <div className="w-full px-4 mt-6">
+          <div className="p-4 rounded-lg shadow-md">
+            {terms.map((term, index) => (
+              <div key={index} className="mb-6">
+                <h3 className="font-bold text-left text-gray-900 text-[16px] sm:text-[18px] mb-2">{term.title}</h3>
+                <p className="whitespace-pre-wrap text-start text-gray-800 text-[14px] sm:text-[16px] leading-relaxed">
+                  {term.content}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

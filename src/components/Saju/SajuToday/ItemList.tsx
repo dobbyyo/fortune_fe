@@ -45,7 +45,7 @@ const ItemList = () => {
     <div className="flex flex-col gap-4 text-center mt-[40px] w-full">
       {todayFortune && todayFortune.fortunesData && (
         <>
-          <ListDisplay items={['사주', '알주', '월주', '년주']} className="bg-[#F2F2F2] py-1 rounded-[10px]" />
+          <ListDisplay items={['사주', '일주', '월주', '년주']} className="bg-[#F2F2F2] py-1 rounded-[10px]" />
           <ListDisplay
             items={['편인', '일원', '겸재', '상관']}
             className="bg-[#F2F2F2] mt-[20px] py-1 rounded-[10px]"

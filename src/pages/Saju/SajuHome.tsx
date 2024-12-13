@@ -1,5 +1,8 @@
 import { Line, LoadingBar, NavBar } from '@/components/Common';
+import { MetaTag } from '@/components/Seo';
+import { sajuMetaData } from '@/config/metaData';
 import { todayDate } from '@/hooks/dateHook';
+import useRequireAuth from '@/hooks/useRequireAuth';
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '@/lib/localStorage';
 import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import {
@@ -13,8 +16,18 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 
 const SajuHome = () => {
+  const {
+    title: metaTitle,
+    description: metaDescription,
+    keywords,
+    canonical,
+    ogTitle,
+    ogDescription,
+  } = sajuMetaData.sajuHome;
+
   const { data: checkLogin, isLoading: isCheckingLogin } = useCheckAuthQuery();
   const navigate = useNavigate();
+  const { isLoading } = useRequireAuth();
 
   const sajuCategories = [
     { id: 1, label: '오늘의 운세', icon: '/saju/calendar-icon.svg', url: '/saju/today' },
@@ -59,30 +72,44 @@ const SajuHome = () => {
     }
   }, [checkLogin, isCheckingLogin]);
 
-  if (isCheckingLogin || !checkLogin) {
+  if (isCheckingLogin || !checkLogin || isLoading) {
     return <LoadingBar />;
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
-      <NavBar title="사주" isResult={false} isBookmark={false} />
-      <Line />
+    <>
+      <MetaTag
+        title={metaTitle}
+        description={metaDescription}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+      <div className="w-full h-full flex flex-col items-center">
+        <NavBar title="사주" isResult={false} isBookmark={false} />
+        <Line />
 
-      <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8">
-        {sajuCategories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => onGoPage(category.url)}
-            className="btn btn-ghost shadow-lg flex flex-col items-center  p-0
+        <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8">
+          {sajuCategories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => onGoPage(category.url)}
+              className="btn btn-ghost shadow-lg flex flex-col items-center  p-0
             justify-center w-[80px] h-[80px] sm:w-[140px] sm:h-[110px]
             bg-[#F6F6F6] hover:bg-gray-200 rounded-lg"
-          >
-            <img src={category.icon} alt={category.label} className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mb-2" />
-            <span className="text-[13px] md:text-[25px] font-normal">{category.label}</span>
-          </button>
-        ))}
+            >
+              <img
+                src={category.icon}
+                alt={category.label}
+                className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mb-2"
+              />
+              <span className="text-[13px] md:text-[25px] font-normal">{category.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

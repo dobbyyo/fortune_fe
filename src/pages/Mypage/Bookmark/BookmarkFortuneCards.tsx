@@ -5,6 +5,8 @@ import {
   BookmarkStarList,
   BookmarkZodiacList,
 } from '@/components/MyPage/Bookmark';
+import { MetaTag } from '@/components/Seo';
+import { myPageMetaData } from '@/config/metaData';
 import useRequireAuth from '@/hooks/useRequireAuth';
 import { useGetDetailFortuneBookmark } from '@/services/queries/myPage.query';
 import { userIdSelector } from '@/stores/useAuthStore';
@@ -14,6 +16,15 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 const BookmarkFortuneCards = () => {
+  const {
+    title: metaTitle,
+    description: metaDescription,
+    keywords,
+    canonical,
+    ogTitle,
+    ogDescription,
+  } = myPageMetaData.bookmarkFortuneCards;
+
   const { isLoading } = useRequireAuth();
   const { search } = useLocation();
   const queryParams = new URLSearchParams(search);
@@ -77,14 +88,24 @@ const BookmarkFortuneCards = () => {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center">
-      <BackNavBar title="북마크 오늘의 운세" />
-      <Line />
+    <>
+      <MetaTag
+        title={metaTitle}
+        description={metaDescription}
+        keywords={keywords}
+        canonical={canonical}
+        ogTitle={ogTitle}
+        ogDescription={ogDescription}
+      />
+      <div className="w-full h-full flex flex-col items-center">
+        <BackNavBar title="북마크 오늘의 운세" />
+        <Line />
 
-      <BookmarkFortuneTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
+        <BookmarkFortuneTab tabs={tabs} setActiveTab={setActiveTab} activeTab={activeTab} />
 
-      {renderTabContent()}
-    </div>
+        {renderTabContent()}
+      </div>
+    </>
   );
 };
 

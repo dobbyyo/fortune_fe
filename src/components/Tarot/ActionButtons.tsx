@@ -38,11 +38,27 @@ const ActionButtons = () => {
 
   const handleSubmit = async () => {
     removeLocalStorage('tarotCards');
-    const requestData = selectedCards.map((cardId, index) => ({
-      cardId: Number(cardId) + 1,
+
+    // 중복되지 않는 랜덤 숫자 생성 함수
+    const generateUniqueRandomIds = (count: number, max: number) => {
+      const uniqueIds = new Set<number>();
+      while (uniqueIds.size < count) {
+        const randomId = Math.floor(Math.random() * max); // 0부터 max-1까지 랜덤 숫자
+        uniqueIds.add(randomId);
+      }
+      return Array.from(uniqueIds);
+    };
+
+    // 랜덤 카드 ID 생성 (중복 방지)
+    const randomCardIds = generateUniqueRandomIds(selectedCards.length, 64);
+
+    // requestData 생성
+    const requestData = randomCardIds.map((randomCardId, index) => ({
+      cardId: randomCardId + 1, // 1부터 시작하도록 조정
       subTitle: subTitles[index], // subTitle 매핑
       isReversed: getRandomBoolean(), // 랜덤 boolean
     }));
+
     setLocalStorage('tarotBookmark', false);
     mutate(requestData);
   };

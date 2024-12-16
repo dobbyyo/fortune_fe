@@ -14,15 +14,10 @@ const CardSlider = () => {
   useEffect(() => {
     // 리셋 트리거가 활성화되면 카드 상태 초기화
     if (resetTrigger) {
-      setSelectedCards(selectedCards.map(() => null));
-      document.querySelectorAll('.hidden').forEach((card) => {
-        card.classList.remove('hidden');
-        (card as HTMLElement).style.opacity = '1';
-        (card as HTMLElement).style.transform = 'none';
-      });
-      setResetTrigger(false);
+      setSelectedCards(Array(selectedCards.length).fill(null)); // 상태 초기화
+      setResetTrigger(false); // 트리거 초기화
     }
-  }, [resetTrigger, setSelectedCards]);
+  }, [resetTrigger, setSelectedCards, selectedCards.length]);
 
   // 드래그 위치와 슬라이더 연동
   useEffect(() => {
@@ -34,38 +29,17 @@ const CardSlider = () => {
   }, [dragPosition, totalCards]);
 
   const handleCardClick = (index: number) => {
-    if (!selectedCards.includes(null)) return;
-
-    const card = document.querySelector(`.card-${index}`) as HTMLElement;
-
-    if (card) {
-      card.style.opacity = '0';
-      card.style.transition = 'transform 0.5s, opacity 0.5s';
-      card.style.transform = 'translateY(150px) scale(0.5)';
-      setTimeout(() => {
-        card.classList.add('hidden');
-      }, 500);
-    }
+    if (!selectedCards.includes(null)) return; // 모든 카드가 선택된 경우 무시
 
     setSelectedCards((prev) => {
-      // null이 아닌 index가 이미 배열에 있는 경우 무시
-      if (prev.includes(index)) return prev;
+      if (prev.includes(index)) return prev; // 중복된 선택 무시
 
-      // 첫 번째 null의 위치를 찾아 해당 자리에 index를 삽입
       const nextState = [...prev];
-      const nullIndex = nextState.findIndex((card) => card === null);
+      const nullIndex = nextState.findIndex((card) => card === null); // null 위치 찾기
 
       if (nullIndex !== -1) {
-        // 중복되지 않는 랜덤 번호 생성
-        let randomNumber;
-        do {
-          randomNumber = Math.floor(Math.random() * 64); // 0부터 63까지
-        } while (nextState.includes(randomNumber));
-
-        // 랜덤 번호를 null 자리로 삽입
-        nextState[nullIndex] = randomNumber;
+        nextState[nullIndex] = index; // 선택된 index 추가
       }
-
       return nextState;
     });
   };
@@ -96,6 +70,11 @@ const CardSlider = () => {
               className={`card-${index} relative w-[60px] h-[95px] cursor-pointer hover:scale-105 transition-transform ${
                 selectedCards.includes(index) ? 'opacity-0 pointer-events-none' : ''
               }`}
+              style={{
+                opacity: selectedCards.includes(index) ? '0' : '1',
+                transform: selectedCards.includes(index) ? 'translateY(150px) scale(0.5)' : 'none',
+                transition: 'transform 0.5s, opacity 0.5s',
+              }}
             >
               <img
                 src="/card-back-icon.jpg"

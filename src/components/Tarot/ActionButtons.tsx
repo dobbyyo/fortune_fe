@@ -1,6 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { resetTriggerState, selectedCardsState } from '@/stores/useTarotCardStore';
-import { tabState } from '@/stores/useTabStore';
+import { tabState, resetTriggerState, selectedCardsState } from '@/stores/useTarotCardStore';
 import { useTarotCardInterpretationMutation } from '@/services/queries/tarot.query';
 import { removeLocalStorage, setLocalStorage } from '@/lib/localStorage';
 

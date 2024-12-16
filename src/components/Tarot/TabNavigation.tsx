@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { tabState } from '@/stores/useTabStore';
+import { tabState } from '@/stores/useTarotCardStore';
 import { selectedCardsState } from '@/stores/useTarotCardStore';
 
 const TabNavigation = () => {

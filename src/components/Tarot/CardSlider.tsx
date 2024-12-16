@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { dragPositionState, resetTriggerState, selectedCardsState } from '@/stores/useTarotCardStore';
 
 const CardSlider = () => {
   const totalCards = 64;
   const sliderRef = useRef(null);
   const [selectedCards, setSelectedCards] = useRecoilState(selectedCardsState);
-  const dragPosition = useRecoilValue(dragPositionState);
+  const [dragPosition, setDragPosition] = useRecoilState(dragPositionState); // DragControl의 상태와 연동
   const [resetTrigger, setResetTrigger] = useRecoilState(resetTriggerState);
 
   useEffect(() => {
@@ -18,15 +18,6 @@ const CardSlider = () => {
       setResetTrigger(false); // 트리거 초기화
     }
   }, [resetTrigger, setSelectedCards, selectedCards.length]);
-
-  // 드래그 위치와 슬라이더 연동
-  useEffect(() => {
-    if (sliderRef.current) {
-      const swiperInstance = (sliderRef.current as any).swiper;
-      const slideIndex = Math.floor((dragPosition / 100) * totalCards);
-      swiperInstance.slideTo(slideIndex);
-    }
-  }, [dragPosition, totalCards]);
 
   const handleCardClick = (index: number) => {
     if (!selectedCards.includes(null)) return; // 모든 카드가 선택된 경우 무시
@@ -44,6 +35,31 @@ const CardSlider = () => {
     });
   };
 
+  useEffect(() => {
+    if (sliderRef.current) {
+      const swiperInstance = (sliderRef.current as any).swiper;
+
+      // 슬라이더의 전체 길이와 마지막 카드 위치 계산
+      const slidesGrid = swiperInstance.slidesGrid;
+      const maxPosition = slidesGrid[slidesGrid.length - 1]; // 마지막 카드 위치
+      const viewportWidth = swiperInstance.width; // 슬라이더의 뷰포트 크기
+
+      // 마지막 카드가 오른쪽에 맞춰지도록 위치 보정
+      const adjustedMaxPosition = maxPosition - viewportWidth;
+
+      // 드래그 포지션을 슬라이더 위치로 변환
+      const slidePosition = (dragPosition / 100) * adjustedMaxPosition;
+      swiperInstance.setTranslate(-Math.min(slidePosition, adjustedMaxPosition)); // 슬라이더 이동
+
+      // 슬라이더 이동 이벤트 처리
+      swiperInstance.on('slideChange', () => {
+        const currentIndex = swiperInstance.activeIndex; // 현재 슬라이더의 인덱스
+        const newDragPosition = (currentIndex / (totalCards - 1)) * 100; // 드래그 컨트롤 위치 계산
+        setDragPosition(newDragPosition); // 드래그 위치 업데이트
+      });
+    }
+  }, [dragPosition, setDragPosition, totalCards]);
+
   return (
     <div className="w-full sm:p-4">
       <Swiper
@@ -52,6 +68,7 @@ const CardSlider = () => {
         grabCursor={false}
         navigation={false}
         pagination={false}
+        allowTouchMove={false} // 터치 및 드래그 비활성화
         breakpoints={{
           320: {
             slidesPerView: 12,

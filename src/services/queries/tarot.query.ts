@@ -1,18 +1,27 @@
 import {
   ApiTarotCardInterpretationBookmarkedResponse,
+  ApiTarotCardSharedResponse,
   ApiTarotCardsResponse,
   TarotBookmarkDeletePayloadType,
   TarotBookmarkPayload,
+  TarotSharePayload,
 } from '@/types/tarotType';
-import { useMutation } from '@tanstack/react-query';
-import { tarotCardResult, tarotCardResultBookmark, tarotCardResultBookmarkDelete } from '../api/tarot.service';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+  getTarotCardShare,
+  tarotCardResult,
+  tarotCardResultBookmark,
+  tarotCardResultBookmarkDelete,
+  tarotCardShare,
+} from '../api/tarot.service';
 import { useNavigate } from 'react-router-dom';
-import { TarotBookmarkState, tarotCardsState } from '@/stores/useTarotCardStore';
+import { TarotBookmarkState, tarotCardsState, tarotSharedState } from '@/stores/useTarotCardStore';
 import { useSetRecoilState } from 'recoil';
 import { setLocalStorage } from '@/lib/localStorage';
 import { loadingState } from '@/stores/useLoadingStore';
 import { SuccessResponse } from '@/types/apiType';
 import { errorState } from '@/stores/useErrorStore';
+import { config } from '@/config/config';
 
 export const useTarotCardInterpretationMutation = () => {
   const navigate = useNavigate();
@@ -112,5 +121,75 @@ export const useTarotCardBookmarkDeleteMutation = () => {
       setLoading(false);
       setError(true);
     },
+  });
+};
+
+export const useTarotCardShareMutation = () => {
+  const setLoading = useSetRecoilState(loadingState);
+  const setError = useSetRecoilState(errorState);
+  const setShared = useSetRecoilState(tarotSharedState);
+
+  return useMutation<
+    ApiTarotCardSharedResponse,
+    Error,
+    {
+      payload: TarotSharePayload;
+    }
+  >({
+    mutationKey: ['tarotCardShare'],
+    mutationFn: async ({ payload }: { payload: TarotSharePayload }) => {
+      setLoading(true);
+      const response = await tarotCardShare(payload);
+
+      return response;
+    },
+    onSuccess: async (response) => {
+      const { currentUrl } = config;
+
+      const { shareCards } = response.data;
+      const newShareId = shareCards.id;
+
+      setShared(newShareId);
+
+      const shareUrl = `${currentUrl}/tarot/result/share/${newShareId}`;
+
+      // Web Share API 호출
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: '오늘의 타로 결과',
+            text: '타로 결과를 확인해보세요!',
+            url: shareUrl,
+          });
+          console.log('공유 성공');
+        } else {
+          alert('이 브라우저는 공유 기능을 지원하지 않습니다.');
+        }
+      } catch (error) {
+        console.error('공유 실패 또는 취소:', error);
+      }
+
+      setLoading(false);
+    },
+    onSettled: () => {
+      setLoading(false);
+    },
+    onError: (error) => {
+      console.error('공유 링크 생성 실패:', error);
+      alert('공유 링크 생성에 실패했습니다.');
+      setLoading(false);
+      setError(true);
+    },
+  });
+};
+
+export const useGetTarotCardShareQuery = (id: number, options = {}) => {
+  return useQuery({
+    queryKey: ['tarotCardShare', id],
+    queryFn: async () => {
+      const response = await getTarotCardShare(id);
+      return response.data;
+    },
+    ...options,
   });
 };

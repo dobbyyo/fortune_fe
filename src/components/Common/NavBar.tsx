@@ -5,11 +5,13 @@ const NavBar = ({
   isResult,
   onBookmark,
   isBookmark,
+  onShare,
 }: {
   title: string;
   isResult: boolean;
   onBookmark?: () => void;
   isBookmark: boolean;
+  onShare?: () => void;
 }) => {
   return (
     <div className="navbar w-full flex items-center px-4 relative">
@@ -32,9 +34,14 @@ const NavBar = ({
               <img src="/off-bookmark-icon.jpg" alt="Bookmark" className="w-full h-full object-cover" />
             )}
           </button>
-          <button className="w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] flex items-center justify-center">
-            <img src="/share-icon.jpg" alt="Share" className="w-full h-full object-cover" />
-          </button>
+          {onShare && (
+            <button
+              onClick={onShare}
+              className="w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] flex items-center justify-center"
+            >
+              <img src="/share-icon.jpg" alt="Share" className="w-full h-full object-cover" />
+            </button>
+          )}
         </div>
       )}
     </div>

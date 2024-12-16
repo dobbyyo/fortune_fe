@@ -3,7 +3,11 @@ import { MetaTag } from '@/components/Seo';
 import { tarotMetaData } from '@/config/metaData';
 import { cleanData } from '@/hooks/cleanData';
 import { getLocalStorage } from '@/lib/localStorage';
-import { useTarotCardBookmarkDeleteMutation, useTarotCardBookmarkMutation } from '@/services/queries/tarot.query';
+import {
+  useTarotCardBookmarkDeleteMutation,
+  useTarotCardBookmarkMutation,
+  useTarotCardShareMutation,
+} from '@/services/queries/tarot.query';
 import { authState, userState } from '@/stores/useAuthStore';
 import { tarotCardsState } from '@/stores/useTarotCardStore';
 import { useEffect } from 'react';
@@ -33,6 +37,7 @@ const TarotResult = () => {
 
   const { mutate: bookMarkMutate } = useTarotCardBookmarkMutation();
   const { mutate: deleteBookmarkMutate } = useTarotCardBookmarkDeleteMutation();
+  const { mutate: shareTarotCards } = useTarotCardShareMutation();
 
   const onBookmark = () => {
     if (isAuthenticated.isAuthenticated && userData) {
@@ -61,6 +66,21 @@ const TarotResult = () => {
     }
   };
 
+  const onShare = () => {
+    const payload = {
+      mainTitle: '오늘의 타로',
+      cards: tarotCards.map((card) => ({
+        cardId: card.id,
+        subTitle: card.subTitle,
+        isReversed: card.isReversed,
+        cardInterpretation: card.interpretation.interpretation,
+      })),
+    };
+
+    // 간단히 mutate 호출만 수행
+    shareTarotCards({ payload });
+  };
+
   return (
     <>
       <MetaTag
@@ -72,7 +92,13 @@ const TarotResult = () => {
         ogDescription={ogDescription}
       />
       <div className="flex flex-col items-center justify-center h-auto">
-        <NavBar title="오늘의 타로" isResult={true} onBookmark={onBookmark} isBookmark={isTarotBookmark} />
+        <NavBar
+          title="오늘의 타로"
+          isResult={true}
+          onBookmark={onBookmark}
+          isBookmark={isTarotBookmark}
+          onShare={onShare}
+        />
 
         <div className="flex flex-col gap-12 mt-8 w-full px-4 mb-[60px]">
           {tarotCards.map((card) => (

@@ -70,3 +70,8 @@ export const TarotBookmarkState = atom<boolean>({
   key: 'bookmarkState',
   default: false,
 });
+
+export const tarotSharedState = atom<number | null>({
+  key: 'tarotSharedState',
+  default: null,
+});

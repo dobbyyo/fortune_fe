@@ -1,5 +1,6 @@
 import { NavBar } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
+import { TarotResultLists } from '@/components/Tarot/TarotResult';
 import { tarotMetaData } from '@/config/metaData';
 import { cleanData } from '@/hooks/cleanData';
 import { getLocalStorage } from '@/lib/localStorage';
@@ -23,62 +24,48 @@ const TarotResult = () => {
     ogDescription,
   } = tarotMetaData.tarotResult;
 
-  const [tarotCards, setTarotCards] = useRecoilState(tarotCardsState);
-  const storedTarotCards = getLocalStorage('tarotCards');
+  const storedTarotCards = getLocalStorage('tarotCards') || [];
+  const isTarotBookmark = getLocalStorage('tarotBookmark');
   const isAuthenticated = useRecoilValue(authState);
   const userData = useRecoilValue(userState);
-  const isTarotBookmark = getLocalStorage('tarotBookmark');
+  const [tarotCards, setTarotCards] = useRecoilState(tarotCardsState);
 
   useEffect(() => {
-    if (storedTarotCards) {
-      setTarotCards(storedTarotCards);
-    }
-  }, []);
+    setTarotCards((prev) => (prev.length ? prev : storedTarotCards));
+  }, [storedTarotCards, setTarotCards]);
 
   const { mutate: bookMarkMutate } = useTarotCardBookmarkMutation();
   const { mutate: deleteBookmarkMutate } = useTarotCardBookmarkDeleteMutation();
   const { mutate: shareTarotCards } = useTarotCardShareMutation();
 
-  const onBookmark = () => {
-    if (isAuthenticated.isAuthenticated && userData) {
-      if (isTarotBookmark && isTarotBookmark.isBookmark) {
-        const payload = {
-          userId: Number(userData.id),
-          savedCardId: Number(isTarotBookmark.id),
-        };
-        return deleteBookmarkMutate({ payload });
-      }
+  const createPayload = () => ({
+    mainTitle: '오늘의 타로',
+    cards: tarotCards.map((card) => ({
+      cardId: card.id,
+      subTitle: card.subTitle,
+      isReversed: card.isReversed,
+      cardInterpretation: card.interpretation.interpretation,
+    })),
+  });
 
-      bookMarkMutate({
-        payload: {
-          userId: userData.id,
-          mainTitle: '오늘의 타로',
-          cards: tarotCards.map((card) => ({
-            cardId: card.id,
-            subTitle: card.subTitle,
-            isReversed: card.isReversed,
-            cardInterpretation: card.interpretation.interpretation,
-          })),
-        },
+  const onBookmark = () => {
+    if (!isAuthenticated.isAuthenticated || !userData) {
+      return alert('로그인이 필요한 서비스입니다.');
+    }
+
+    if (isTarotBookmark?.isBookmark) {
+      deleteBookmarkMutate({
+        payload: { userId: userData.id, savedCardId: isTarotBookmark.id },
       });
     } else {
-      alert('로그인이 필요한 서비스입니다.');
+      bookMarkMutate({
+        payload: { ...createPayload(), userId: userData.id },
+      });
     }
   };
 
   const onShare = () => {
-    const payload = {
-      mainTitle: '오늘의 타로',
-      cards: tarotCards.map((card) => ({
-        cardId: card.id,
-        subTitle: card.subTitle,
-        isReversed: card.isReversed,
-        cardInterpretation: card.interpretation.interpretation,
-      })),
-    };
-
-    // 간단히 mutate 호출만 수행
-    shareTarotCards({ payload });
+    shareTarotCards({ payload: createPayload() });
   };
 
   return (
@@ -102,35 +89,7 @@ const TarotResult = () => {
 
         <div className="flex flex-col gap-12 mt-8 w-full px-4 mb-[60px]">
           {tarotCards.map((card) => (
-            <div key={card.id} className="flex flex-col items-center w-full">
-              <h3 className="mb-4 text-clamp30 font-medium text-center">[{cleanData(card.subTitle)}]</h3>
-
-              <div className="w-[192px] h-[255px] sm:w-[320px] sm:h-[400px] bg-gray-300 rounded-md shadow-md flex items-center justify-center">
-                <img src={cleanData(card.image_url)} alt={cleanData(card.name)} className="w-full h-full rounded-md" />
-              </div>
-
-              <p className="mt-4 text-clamp30 font-medium  text-center">{cleanData(card.name)}</p>
-
-              <div className="flex flex-col justify-center items-center w-[320px] sm:w-[600px] md:w-[700px] lg:w-[800px]">
-                <div className="mt-4 text-start flex flex-col items-start w-full">
-                  <div className="bg-[#D9D9D9] w-full float-start justify-center items-center  mb-[16px] py-2 pl-2">
-                    <h4 className="text-clamp30 font-bold">🔥 카드 해석</h4>
-                  </div>
-                  <p className="text-clamp25 font-normal indent-2 mb-[30px]">
-                    {cleanData(card.interpretation.interpretation)}
-                  </p>
-                </div>
-
-                <div className="mt-4 text-start flex flex-col items-start w-full">
-                  <div className="bg-[#D9D9D9] w-full float-start justify-center items-center  mb-[16px] py-2 pl-2">
-                    <h4 className="text-clamp30 font-bold">🔎 카드 의미</h4>
-                  </div>
-                  <p className="text-clamp25 font-normal indent-2  mb-[30px]">
-                    {cleanData(card.interpretation.meaning)}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <TarotResultLists key={card.id} card={card} />
           ))}
         </div>
       </div>

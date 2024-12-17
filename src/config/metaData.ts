@@ -34,6 +34,14 @@ export const tarotMetaData = {
     ogTitle: '포춘 이스케이프 - 타로 결과',
     ogDescription: '당신의 타로 운세 결과를 확인하세요.',
   },
+  shareResult: {
+    title: '포춘 이스케이프 - 타로 공유하기',
+    description: '포춘 이스케이프에서 타로 카드를 공유합니다.',
+    keywords: '타로, 타로카드, 타로공유',
+    canonical: 'https://fortunescape.co.kr/tarot/shareResult',
+    ogTitle: '포춘 이스케이프 - 타로 공유하기',
+    ogDescription: '타로 카드를 공유합니다.',
+  },
 };
 
 export const sajuMetaData = {

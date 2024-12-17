@@ -1,6 +1,6 @@
 import { Line, NavBar } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
-import { ActionButtons, CardSlider, CardTitle, DragControl, SelectedCards, TabNavigation } from '@/components/Tarot';
+import { ActionButtons, CardSlider, CardTitle, SelectedCards, TabNavigation } from '@/components/Tarot';
 import { tarotMetaData } from '@/config/metaData';
 
 const Tarot = () => {
@@ -31,7 +31,7 @@ const Tarot = () => {
         <div className="w-full bg-[#f1f1f1] mt-[49px]">
           <CardTitle />
           <CardSlider />
-          <DragControl />
+          {/* <DragControl /> */}
           <SelectedCards />
           <ActionButtons />
         </div>

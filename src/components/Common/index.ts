@@ -6,3 +6,5 @@ export { default as ErrorModal } from './ErrorModal';
 export { default as BackNavBar } from './BackNavBar';
 export { default as Line } from './Line';
 export { default as NotData } from './NotData';
+export { default as ReSizeImage } from './ReSizeImage';
+export { default as ResponsiveImage } from './ResponsiveImage';

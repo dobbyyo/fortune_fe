@@ -11,7 +11,7 @@ const CardSection: FC<CardSectionProps> = ({ title, content }) => {
       <div className="bg-[#D9D9D9] w-full mb-4 py-2 pl-2">
         <h4 className="text-clamp30 font-bold">{title}</h4>
       </div>
-      <p className="text-clamp25 font-normal indent-2 mb-[30px]">{content}</p>
+      <p className="mx-1 text-clamp25 font-normal mb-[30px]">{content}</p>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const TarotCardsCardLists = () => {
           <h3 className="mb-[17px] text-clamp30 font-bold text-center">{card.subTitle}</h3>
 
           <div className="w-[192px] h-[255px] sm:w-[320px] sm:h-[400px] bg-gray-300 rounded-md shadow-md flex items-center justify-center">
-            <img src={card.image_url} alt={card.name} className="w-full h-full rounded-md" />
+            <img src={card.image_url} alt={card.name} className="w-full h-full rounded-md" loading="lazy" />
           </div>
 
           <p className="mt-[10px] text-clamp25 text-center font-medium">{card.name}</p>

@@ -1,4 +1,5 @@
 import DropDown from './DropDown';
+import ResponsiveImage from './ResponsiveImage';
 
 const NavBar = ({
   title,
@@ -29,9 +30,19 @@ const NavBar = ({
             className="w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] flex items-center justify-center"
           >
             {isBookmark ? (
-              <img src="/on-bookmark-icon.jpg" alt="Bookmark" className="w-full h-full object-cover" />
+              <ResponsiveImage
+                webpSrc="/tarot/webp/bookmark_2.webp"
+                pngSrc="/tarot/png/bookmark_2.png"
+                alt="Bookmark"
+                className="w-full h-full object-cover"
+              />
             ) : (
-              <img src="/off-bookmark-icon.jpg" alt="Bookmark" className="w-full h-full object-cover" />
+              <ResponsiveImage
+                webpSrc="/tarot/webp/bookmark_1.webp"
+                pngSrc="/tarot/png/bookmark_1.png"
+                alt="Bookmark"
+                className="w-full h-full object-cover"
+              />
             )}
           </button>
           {onShare && (
@@ -39,7 +50,12 @@ const NavBar = ({
               onClick={onShare}
               className="w-[25px] h-[25px] sm:w-[40px] sm:h-[40px] flex items-center justify-center"
             >
-              <img src="/share-icon.jpg" alt="Share" className="w-full h-full object-cover" />
+              <ResponsiveImage
+                webpSrc="/tarot/webp/sharing.webp"
+                pngSrc="/tarot/png/sharing.png"
+                alt="Share"
+                className="w-full h-full object-cover"
+              />
             </button>
           )}
         </div>

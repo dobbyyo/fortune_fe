@@ -2,7 +2,6 @@ import { NavBar } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
 import { TarotResultLists } from '@/components/Tarot/TarotResult';
 import { tarotMetaData } from '@/config/metaData';
-import { cleanData } from '@/hooks/cleanData';
 import { getLocalStorage } from '@/lib/localStorage';
 import {
   useTarotCardBookmarkDeleteMutation,

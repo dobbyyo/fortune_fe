@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { dragPositionState, resetTriggerState, selectedCardsState } from '@/stores/useTarotCardStore';
+import { ResponsiveImage } from '../Common';
 
 const CardSlider = () => {
   const totalCards = 64;
@@ -99,8 +100,9 @@ const CardSlider = () => {
                 transition: 'transform 0.5s, opacity 0.5s',
               }}
             >
-              <img
-                src="/card-back-icon.jpg"
+              <ResponsiveImage
+                webpSrc="/tarot/webp/tarot-back.webp"
+                pngSrc="/tarot/png/tarot-back.png"
                 alt={`Card ${index + 1}`}
                 className="w-full h-full object-cover rounded shadow-md"
               />

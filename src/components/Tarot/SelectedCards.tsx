@@ -1,6 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { tabState, selectedCardsState, tabCategoriesState } from '@/stores/useTarotCardStore';
 import { useEffect } from 'react';
+import { ResponsiveImage } from '../Common';
 
 const SelectedCards = () => {
   const activeTab = useRecoilValue(tabState);
@@ -25,13 +26,14 @@ const SelectedCards = () => {
               </div>
               <div className={'w-[60px] h-[95px] bg-[#D9D9D9] rounded flex items-center justify-center shadow-md'}>
                 {selectedCards[index] !== null ? (
-                  <img
-                    src="/card-back-icon.jpg"
-                    alt={`Selected Card ${index + 1}`}
-                    className="w-full h-full object-cover rounded"
+                  <ResponsiveImage
+                    webpSrc="/tarot/webp/tarot-back.webp"
+                    pngSrc="/tarot/png/tarot-back.png"
+                    alt={`Card ${index + 1}`}
+                    className="w-[60px] h-full object-cover rounded"
                   />
                 ) : (
-                  <div className="w-[60px] h-[95px]object-cover rounded" />
+                  <div className="w-[60px] h-[95px] object-cover rounded" />
                 )}
               </div>
             </div>

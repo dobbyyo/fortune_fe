@@ -1,4 +1,4 @@
-import { BackNavBar, Line, LoadingBar } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar, ResponsiveImage } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
 import { myPageMetaData } from '@/config/metaData';
 import useRequireAuth from '@/hooks/useRequireAuth';
@@ -37,7 +37,15 @@ const Language = () => {
         <div className="w-full p-4 space-y-4">
           <div className="flex justify-between  items-center py-4 border-b">
             <span className="text-clamp35 font-bold">한국어</span>
-            <img src="/myPage/redCheck-icon.jpg" alt="선택된 확인 아이콘" className="w-[35px] h-[35px] mr-4" />
+
+            <div className="w-[20px] h-[20px] mr-4">
+              <ResponsiveImage
+                webpSrc="/setting/webp/check.webp"
+                pngSrc="/setting/png/check.png"
+                alt="선택된 확인 아이콘"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>

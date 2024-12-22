@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import LogoutModal from '../MyPage/LogoutModal';
+import { ResponsiveImage } from '../Common';
 
 const Header = () => {
   const [userDatas, setUserDatas] = useRecoilState(userState);
@@ -63,7 +64,13 @@ const Header = () => {
       <div className="flex-1 flex items-center">
         <div className="avatar">
           <div className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[111px] md:h-[111px] rounded-xl bg-[#DECEFF]">
-            <img src="/header-icon.jpg" alt="Avatar" onClick={goHome} className="cursor-pointer" />
+            <ResponsiveImage
+              webpSrc="/login/webp/login-logo.webp"
+              pngSrc="/login/png/login-logo.png"
+              alt="Avatar"
+              handleClick={goHome}
+              className="cursor-pointer w-full h-full object-cover"
+            />
           </div>
         </div>
         <div className="hidden sm:flex ml-3 text-clamp50 font-bold cursor-pointer" onClick={goHome}>

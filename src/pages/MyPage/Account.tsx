@@ -1,4 +1,4 @@
-import { BackNavBar, Line, LoadingBar } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar, ResponsiveImage } from '@/components/Common';
 import LogoutModal from '@/components/MyPage/LogoutModal';
 import { MetaTag } from '@/components/Seo';
 import { myPageMetaData } from '@/config/metaData';
@@ -58,19 +58,41 @@ const Account = () => {
         <div className="w-full p-4 space-y-4">
           {/* 카카오 연결 */}
           <div className="flex items-center py-4 border-b">
-            <img src="/myPage/yellowKakao-icon.jpg" alt="카카오 아이콘" className="w-[35px] h-[35px] mr-4" />
+            <div className="w-[20px] h-[20px] mr-4">
+              <ResponsiveImage
+                webpSrc="/setting/webp/kakao.webp"
+                pngSrc="/setting/png/kakao.png"
+                alt="카카오 아이콘"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
             <span className="text-clamp35 font-normal">카카오톡으로 연결됨</span>
           </div>
 
           {/* 로그아웃 */}
           <button className="flex items-center w-full py-4 border-b" onClick={onOpenLogoutModal}>
-            <img src="/myPage/logout-icon.jpg" alt="로그아웃 아이콘" className="w-[35px] h-[35px] mr-4" />
+            <div className="w-[20px] h-[20px] mr-4">
+              <ResponsiveImage
+                webpSrc="/setting/webp/logout.webp"
+                pngSrc="/setting/png/logout.png"
+                alt="로그아웃 아이콘"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <span className="text-clamp35 font-normal">로그아웃</span>
           </button>
 
           {/* 탈퇴하기 */}
           <button className="flex items-center w-full py-4" onClick={goWithdrawal}>
-            <img src="/myPage/ghost-icon.jpg" alt="탈퇴하기 아이콘" className="w-[35px] h-[35px] mr-4" />
+            <div className="w-[20px] h-[20px] mr-4">
+              <ResponsiveImage
+                webpSrc="/setting/webp/withdrawal.webp"
+                pngSrc="/setting/png/withdrawal.png"
+                alt="탈퇴하기 아이콘"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <span className="text-clamp35 font-normal">탈퇴하기</span>
           </button>
         </div>

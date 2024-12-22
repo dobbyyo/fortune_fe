@@ -1,4 +1,4 @@
-import { BackNavBar, Line, LoadingBar } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar, ResponsiveImage } from '@/components/Common';
 import { NoticeModal } from '@/components/MyPage/Notice';
 import { MetaTag } from '@/components/Seo';
 import { myPageMetaData } from '@/config/metaData';
@@ -71,8 +71,13 @@ const Notice = () => {
             <div key={notice.id} className="py-4 border-b">
               <div className="flex justify-between items-center">
                 <h3 className="text-clamp35 font-medium ">{notice.title}</h3>
-                <button onClick={() => openModal(notice)} className="w-[35px] h-[35px]">
-                  <img src="/common/bottomArrow-icon.jpg" className="w-[35px] h-[35px]" />
+                <button onClick={() => openModal(notice)} className="w-[20px] h-[20px]">
+                  <ResponsiveImage
+                    webpSrc="/announcement/webp/arrow_under.webp"
+                    pngSrc="/announcement/png/arrow_under.jpg"
+                    alt="아이콘"
+                    className="w-full h-full object-cover"
+                  />
                 </button>
               </div>
               <p className="text-clamp30 font-normal text-start text-gray-400">

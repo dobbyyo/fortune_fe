@@ -1,4 +1,4 @@
-import { BackNavBar, Line, LoadingBar, NotData } from '@/components/Common';
+import { BackNavBar, Line, LoadingBar, NotData, ResponsiveImage } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
 import { myPageMetaData } from '@/config/metaData';
 import useRequireAuth from '@/hooks/useRequireAuth';
@@ -102,7 +102,7 @@ const BookmarkNamingCards = () => {
         ogDescription={ogDescription}
       />
       <div className="w-full h-full flex flex-col items-center">
-        <BackNavBar title="꿈해몽 저장보기" />
+        <BackNavBar title="작명 저장보기" />
         <Line />
 
         <div className="w-full space-y-4 px-2">
@@ -112,19 +112,27 @@ const BookmarkNamingCards = () => {
             <>
               {bookmarksData &&
                 bookmarksData.savedNaming.map((item) => (
-                  <div key={item.id} className="border rounded-lg p-4 flex items-center justify-between shadow-sm">
+                  <div
+                    key={item.id}
+                    className="relative border rounded-lg p-4 flex items-center justify-between shadow-sm"
+                  >
                     <div className="mr-5">
-                      <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
-                        <img
-                          src={isBookmarked(item.id) ? '/on-bookmark-icon.jpg' : '/off-bookmark-icon.jpg'}
-                          alt="북마크"
-                          className="w-full h-full object-contain"
-                        />
-                      </button>
+                      <div className="absolute left-2 top-6">
+                        <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
+                          <ResponsiveImage
+                            webpSrc={
+                              isBookmarked(item.id) ? '/dream/webp/bookmark_2.webp' : '/dream/webp/bookmark_1.webp'
+                            }
+                            pngSrc={isBookmarked(item.id) ? '/dream/png/bookmark_2.png' : '/dream/png/bookmark_1.png'}
+                            alt="북마크"
+                            className="w-full h-full object-cover"
+                          />
+                        </button>
+                      </div>
                     </div>
                     <div>
-                      <h3 className="text-[20px] sm:text-[35px] font-bold text-center mb-5">{item.name}</h3>
-                      <p className="text-[15px] sm:text-[30px] font-normal text-start">{item.description}</p>
+                      <h3 className="text-[20px] sm:text-[25px] font-bold text-center mb-5">{item.name}</h3>
+                      <p className="text-[15px] sm:text-[20px] font-normal text-start">{item.description}</p>
                     </div>
                   </div>
                 ))}

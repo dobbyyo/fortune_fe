@@ -58,7 +58,7 @@ const BirthInfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         <h2 className="text-clamp35 font-bold text-center my-2">생일정보 수정</h2>
         <div className="flex flex-col rounded-[20px] border-2 border-[#404040] py-5 px-3 space-y-5">
           <div className="flex justify-between items-center">
-            <span className="text-clamp30 font-medium">이름</span>
+            <span className="text-[12px] sm:text-[18px] font-medium">이름</span>
             <input
               type="text"
               value={name}
@@ -69,7 +69,7 @@ const BirthInfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             />
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-clamp30 font-medium">생년월일 (양력)</span>
+            <span className="text-[12px] sm:text-[18px] font-medium">생년월일 (양력)</span>
             <input
               type="date"
               value={birthDate}
@@ -78,7 +78,7 @@ const BirthInfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             />
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-clamp30 font-medium">태어난 시간</span>
+            <span className="text-[12px] sm:text-[18px] font-medium">태어난 시간</span>
             <select
               value={birthTime}
               onChange={(e) => setBirthTime(e.target.value)}
@@ -95,7 +95,7 @@ const BirthInfoModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             </select>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-clamp30 font-medium">성별</span>
+            <span className="text-[12px] sm:text-[18px] font-medium">성별</span>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}

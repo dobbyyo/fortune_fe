@@ -30,10 +30,10 @@ const SelectedCards = () => {
                     webpSrc="/tarot/webp/tarot-back.webp"
                     pngSrc="/tarot/png/tarot-back.png"
                     alt={`Card ${index + 1}`}
-                    className="w-[60px] h-full object-cover rounded"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-[60px] h-[95px] object-cover rounded" />
+                  <div className="w-full h-full object-cover" />
                 )}
               </div>
             </div>

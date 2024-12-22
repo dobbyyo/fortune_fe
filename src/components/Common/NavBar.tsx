@@ -20,7 +20,7 @@ const NavBar = ({
         <DropDown />
       </div>
       <div className="navbar-center absolute left-1/2 transform -translate-x-1/2">
-        <h2 className="text-clamp50 font-bold text-center">{title}</h2>
+        <h2 className="text-[25px] font-bold text-center">{title}</h2>
       </div>
 
       {isResult && (

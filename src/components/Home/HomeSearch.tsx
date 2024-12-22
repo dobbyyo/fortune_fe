@@ -30,22 +30,22 @@ const HomeSearch = () => {
   return (
     <form
       onSubmit={handleSearch}
-      className="px-2 flex items-center w-full h-[60px] sm:h-[70px] md:h-[84px] bg-white border border-[#404040] rounded-[5px]"
+      className="px-2 flex items-center w-full h-[60px] sm:h-[70px] bg-white border border-[#404040] rounded-[5px]"
     >
-      <div>
+      <div className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] md:w-[30px] md:h-[30px]">
         <ResponsiveImage
           webpSrc="/home/webp/search.webp"
           pngSrc="/home/png/search.png"
           alt="search"
-          className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] md:w-[30px] md:h-[30px]"
+          className="h-full"
         />
       </div>
       <input
         type="text"
         placeholder="검색할 내용을 입력해주세요."
         className="flex-1 p-2 text-gray-700 bg-transparent border-none 
-    focus:outline-none text-clamp30 
-    placeholder:text-clamp30 placeholder:font-normal"
+          focus:outline-none text-[14px] sm:text-[20px]
+          placeholder:text-[14px] sm:placeholder:text-[20px] placeholder:font-normal"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

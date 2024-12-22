@@ -54,10 +54,10 @@ const TodayFortune = () => {
           ].map((item, index) => (
             <div className="py-2" key={item.title}>
               <div key={index} className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-                <h3 className="font-bold text-clamp35 text-start px-2">🍀{item.title}</h3>
+                <h3 className="font-bold text-clamp30 text-start px-2">🍀{item.title}</h3>
               </div>
               <div className="flex justify-start items-center mt-2">
-                <p className="font-normal text-clamp30 text-start px-2">{item.content}</p>
+                <p className="font-normal text-clamp25 text-start px-2">{item.content}</p>
               </div>
             </div>
           ))}
@@ -67,10 +67,10 @@ const TodayFortune = () => {
           {/* 행운의 요소 */}
           <div className="py-2 mt-5">
             <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-              <h3 className="font-bold text-clamp35 text-start px-2">🍀행운을 가져오는 것들</h3>
+              <h3 className="font-bold text-clamp30 text-start px-2">🍀행운을 가져오는 것들</h3>
             </div>
             <div className="flex justify-start items-center mt-2">
-              <ul className="font-normal text-clamp30 text-start px-2">
+              <ul className="font-normal text-clamp25 text-start px-2">
                 {explainsFortune.explanationData.luckyElements.map((element, index) => (
                   <li key={index}>{element}</li>
                 ))}
@@ -81,10 +81,10 @@ const TodayFortune = () => {
           {/* 행운의 코디 */}
           <div className="py-2 mt-5">
             <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-              <h3 className="font-bold text-clamp35 text-start px-2">🍀행운을 가져오는 것들</h3>
+              <h3 className="font-bold text-clamp30 text-start px-2">🍀행운을 가져오는 것들</h3>
             </div>
             <div className="flex justify-start items-center mt-2">
-              <p className="font-normal text-clamp30 text-start px-2">{explainsFortune.explanationData.luckyOutfit}</p>
+              <p className="font-normal text-clamp25 text-start px-2">{explainsFortune.explanationData.luckyOutfit}</p>
             </div>
           </div>
         </>

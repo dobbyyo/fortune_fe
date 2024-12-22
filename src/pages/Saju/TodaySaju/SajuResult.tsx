@@ -116,7 +116,7 @@ const SajuResult = () => {
           {tabs.map((tab) => (
             <a
               key={tab.key}
-              className={`w-full tab h-full px-4 text-center text-clamp30 font-normal ${
+              className={`w-full tab h-full px-0 sm:px-4 text-center text-clamp30 font-normal ${
                 activeTab === tab.name ? 'tab-active !border-[#A47AF1]' : 'border-transparent'
               }`}
               onClick={() => setActiveTab(tab.name)}
@@ -126,7 +126,7 @@ const SajuResult = () => {
           ))}
         </div>
 
-        <div className="w-full p-4">{renderTabContent()}</div>
+        <div className="w-full p-2">{renderTabContent()}</div>
       </div>
     </>
   );

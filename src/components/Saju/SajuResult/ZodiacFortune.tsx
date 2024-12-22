@@ -1,4 +1,4 @@
-import { LoadingBar } from '@/components/Common';
+import { LoadingBar, ResponsiveImage } from '@/components/Common';
 import { getLocalStorage, setLocalStorage } from '@/lib/localStorage';
 import { useZodiacFortuneQuery } from '@/services/queries/saju.query';
 import { userIdSelector } from '@/stores/useAuthStore';
@@ -37,7 +37,7 @@ const ZodiacFortune = () => {
     }
   }, [data, localFortuneZodiacData, fortuneZodiac]);
 
-  if (!userId || !fortuneZodiac) {
+  if ((!userId || !fortuneZodiac) && !localFortuneZodiacData) {
     return <LoadingBar />;
   }
 
@@ -47,10 +47,11 @@ const ZodiacFortune = () => {
         <>
           <div className="flex flex-col items-center">
             <div className="w-[100px] h-[100px] rounded-full flex items-center justify-center mb-4">
-              <img
-                src={fortuneZodiac.zodiacFortune.image_url}
+              <ResponsiveImage
+                webpSrc={fortuneZodiac.zodiacFortune.image_url}
+                pngSrc={fortuneZodiac.zodiacFortune.image_url}
                 alt={fortuneZodiac.zodiacFortune.name}
-                className="w-[100px] h-[100px]"
+                className="w-full h-full object-cover"
               />
             </div>
 
@@ -63,11 +64,11 @@ const ZodiacFortune = () => {
               {Object.entries(fortuneZodiac.zodiacFortune.yearlyFortunes).map(([year, fortune]) => (
                 <div className="py-2 mt-5" key={year}>
                   <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-                    <h3 className="font-bold text-clamp35 text-start px-2">💜 {year}년생</h3>
+                    <h3 className="font-bold text-clamp30 text-start px-2">💜 {year}년생</h3>
                   </div>
 
                   <div className="flex justify-start items-center mt-2">
-                    <p className="font-normal text-clamp30 text-start px-2">{fortune}</p>
+                    <p className="font-normal text-clamp25 text-start px-2">{fortune}</p>
                   </div>
                 </div>
               ))}

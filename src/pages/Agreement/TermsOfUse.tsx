@@ -85,8 +85,8 @@ const TermsOfUse = () => {
           <div className="p-4 rounded-lg shadow-md">
             {terms.map((term, index) => (
               <div key={index} className="mb-6">
-                <h3 className="font-bold text-left text-gray-900 text-[16px] sm:text-[18px] mb-2">{term.title}</h3>
-                <p className="whitespace-pre-wrap text-start text-gray-800 text-[14px] sm:text-[16px] leading-relaxed">
+                <h3 className="font-bold text-left text-gray-900 text-[13px] sm:text-[15px] mb-2">{term.title}</h3>
+                <p className="whitespace-pre-wrap text-start text-gray-800 text-[13px] sm:text-[15px] leading-relaxed">
                   {term.content}
                 </p>
               </div>

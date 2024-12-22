@@ -35,7 +35,7 @@ const SignupButton = () => {
   };
 
   return (
-    <form className="w-full" onSubmit={handleSubmit}>
+    <form className="w-full sm:w-[50%] mb-6 px-2 sm:px-0" onSubmit={handleSubmit}>
       <button className="mt-[50px] btn btn-primary w-full" type="submit">
         계정 생성하기
       </button>

@@ -32,10 +32,10 @@ const SignupForm = () => {
   });
 
   return (
-    <div className="w-full pb-[26px]">
+    <div className="w-full pb-[26px] px-2 sm:px-0">
       <form className="space-y-[14px] flex flex-col justify-center items-center">
-        <div className="w-[320px]">
-          <label htmlFor="email" className="label text-[25px] font-medium">
+        <div className="w-full sm:w-[320px]">
+          <label htmlFor="email" className="label text-[20px] font-medium">
             이메일 *
           </label>
           <input
@@ -48,8 +48,8 @@ const SignupForm = () => {
           />
         </div>
 
-        <div className="w-[320px]">
-          <label htmlFor="username" className="label  text-[25px] font-medium">
+        <div className="w-full sm:w-[320px]">
+          <label htmlFor="username" className="label  text-[20px] font-medium">
             이름 *
           </label>
           <input
@@ -62,8 +62,8 @@ const SignupForm = () => {
           />
         </div>
 
-        <div className="w-[320px]">
-          <label htmlFor="gender" className="label text-[25px] font-medium">
+        <div className="w-full sm:w-[320px]">
+          <label htmlFor="gender" className="label text-[20px] font-medium">
             성별 *
           </label>
           <select
@@ -80,8 +80,8 @@ const SignupForm = () => {
           </select>
         </div>
 
-        <div className="w-[320px]">
-          <label htmlFor="birthDate" className="label text-[25px] font-medium">
+        <div className="w-full sm:w-[320px]">
+          <label htmlFor="birthDate" className="label text-[20px] font-medium">
             생일 *
           </label>
           <input
@@ -93,8 +93,8 @@ const SignupForm = () => {
           />
         </div>
 
-        <div className="w-[320px]">
-          <label htmlFor="birthTime" className="label text-[25px] font-medium">
+        <div className="w-full sm:w-[320px]">
+          <label htmlFor="birthTime" className="label text-[20px] font-medium">
             태어난 시간 *
           </label>
           <select

@@ -89,14 +89,14 @@ const PersonalInformationTerms = () => {
         <Line />
         <div className="w-full px-4 mt-6">
           <div className="p-4 rounded-lg shadow-md">
-            <p className="text-left w-full text-[20px] mb-10">
+            <p className="text-left w-full text-[15px] mb-10">
               [너의 이름은](이하 "회사")는 사용자의 개인정보를 소중히 여기며, 개인정보 보호법 및 관련 법령을 준수합니다.
               본 약관은 사용자가 서비스를 이용함에 있어 제공한 개인정보가 어떻게 처리되는지 안내합니다.
             </p>
             {policies.map((policy, index) => (
               <div key={index} className="mb-6">
-                <h3 className="font-bold text-left text-gray-900 text-[16px] sm:text-[18px] mb-2">{policy.title}</h3>
-                <p className="whitespace-pre-wrap text-start text-gray-800 text-[14px] sm:text-[16px] leading-relaxed">
+                <h3 className="font-bold text-left text-gray-900 text-[13px] sm:text-[15px] mb-2">{policy.title}</h3>
+                <p className="whitespace-pre-wrap text-start text-gray-800 text-[13px] sm:text-[15px] leading-relaxed">
                   {policy.content}
                 </p>
               </div>

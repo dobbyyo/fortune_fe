@@ -1,4 +1,4 @@
-import { Line, LoadingBar, NavBar, ResponsiveImage } from '@/components/Common';
+import { Line, LoadingBar, NavBar } from '@/components/Common';
 import { SajuCategory } from '@/components/Saju/Saju';
 import { MetaTag } from '@/components/Seo';
 import { sajuMetaData } from '@/config/metaData';

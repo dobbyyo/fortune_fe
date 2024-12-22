@@ -1,4 +1,4 @@
-import { Line, NavBar } from '@/components/Common';
+import { Line, NavBar, ResponsiveImage } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
 import { dreamMetaData } from '@/config/metaData';
 import { useAiDreamMutation } from '@/services/queries/dream.query';
@@ -19,7 +19,7 @@ const DreamHome = () => {
   const [title, setTitle] = useRecoilState(aiDreamMainTitleTab);
   const [description, setDescription] = useState('');
 
-  const handleCategoryClick = (category: { id: number; label: string; icon: string }) => {
+  const handleCategoryClick = (category: { id: number; label: string; pngIcon: string; webpIcon: string }) => {
     setTitle(category.label);
   };
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,13 +27,13 @@ const DreamHome = () => {
   };
 
   const namingCategories = [
-    { id: 1, label: '사람/행동', icon: '/dream/human-icon.svg' },
-    { id: 2, label: '죽음/영혼', icon: '/dream/ghost-icon.svg' },
-    { id: 3, label: '동물/곤충', icon: '/dream/animal-icon.svg' },
-    { id: 4, label: '식품/과일', icon: '/dream/clover-icon.svg' },
-    { id: 5, label: '자연현상', icon: '/dream/hurricane-icon.svg' },
-    { id: 6, label: '생활용품', icon: '/dream/note-icon.svg' },
-    { id: 7, label: '태몽', icon: '/dream/baby-icon.svg' },
+    { id: 1, label: '사람/행동', pngIcon: '/dream/png/person.png', webpIcon: '/dream/webp/person.webp' },
+    { id: 2, label: '죽음/영혼', pngIcon: '/dream/png/death.png', webpIcon: '/dream/webp/death.webp' },
+    { id: 3, label: '동물/곤충', pngIcon: '/dream/png/animal.png', webpIcon: '/dream/webp/animals.webp' },
+    { id: 4, label: '식품/과일', pngIcon: '/dream/png/plants.png', webpIcon: '/dream/webp/plants.webp' },
+    { id: 5, label: '자연현상', pngIcon: '/dream/png/natural.png', webpIcon: '/dream/webp/natural.webp' },
+    { id: 6, label: '생활용품', pngIcon: '/dream/png/daily.png', webpIcon: '/dream/webp/daily.webp' },
+    { id: 7, label: '태몽', pngIcon: '/dream/png/birth.png', webpIcon: '/dream/webp/birth.webp' },
   ];
 
   const payload = {
@@ -80,12 +80,15 @@ const DreamHome = () => {
                   w-[80px] h-[80px] sm:w-[140px] sm:h-[110px]
                   ${isActive ? 'bg-[#eded]' : 'bg-white'} hover:bg-gray-200 rounded-lg`}
                 >
-                  <img
-                    src={category.icon}
-                    alt={category.label}
-                    className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mb-2"
-                  />
-                  <span className="text-[12px] sm:text-[25px] font-medium">{category.label}</span>
+                  <div className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mb-2">
+                    <ResponsiveImage
+                      webpSrc={category.webpIcon}
+                      pngSrc={category.pngIcon}
+                      alt={category.label}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="text-[10px] sm:text-[25px] font-medium">{category.label}</span>
                 </button>
               );
             })}
@@ -104,6 +107,7 @@ const DreamHome = () => {
             />
           </div>
         </div>
+
         <button
           onClick={handleGenerate}
           className="w-full sm:w-[240px] py-3 bg-[#A47aF1] text-white text-clamp25 font-bold sm:rounded-[30px]"

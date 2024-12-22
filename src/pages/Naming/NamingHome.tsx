@@ -52,7 +52,7 @@ const NamingHome = () => {
           {tabs.map((tab) => (
             <a
               key={tab.key}
-              className={`w-full tab h-full px-4 text-center text-clamp30 font-normal ${
+              className={`w-full tab h-full px-0 sm:px-4 text-center text-clamp30 font-normal ${
                 activeTab === tab.name ? 'tab-active !border-[#A47AF1]' : 'border-transparent'
               }`}
               onClick={() => setActiveTab(tab.name)}

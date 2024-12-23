@@ -129,7 +129,7 @@ const NamingResult = () => {
                   </button>
                 </div>
 
-                <div>
+                <div className="w-full flex flex-col justify-center items-center">
                   <h3 className="text-[20px] sm:text-[25px] font-bold text-center mb-5">{item.name}</h3>
                   <p className="text-[15px] sm:text-[20px] font-normal text-start">{item.description}</p>
                 </div>

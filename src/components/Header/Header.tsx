@@ -2,7 +2,7 @@ import { useCheckAuthQuery } from '@/services/queries/auth.query';
 import { useMyDataQuery } from '@/services/queries/user.query';
 import { authState, userState } from '@/stores/useAuthStore';
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import LogoutModal from '../MyPage/LogoutModal';
 import { ResponsiveImage } from '../Common';
@@ -60,10 +60,13 @@ const Header = () => {
   }, [myInfo, isFetchingData, checkLoginSuccess, checkLogin]);
 
   return (
-    <header className="navbar absolute top-0 left-0 w-full h-[80px] sm:h-[120px] md:h-[150px] bg-white flex items-center px-4 shadow-md z-50 md:px-8">
+    <header className="navbar absolute top-0 left-0 w-full h-[80px] sm:h-[120px] bg-white flex items-center px-4 shadow-md z-50 md:px-8">
       <div className="flex-1 flex items-center">
         <div className="avatar">
-          <div className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] md:w-[111px] md:h-[111px] rounded-xl bg-[#DECEFF]">
+          <div
+            className="relative w-[50px] h-[50px] sm:w-[80px] sm:h-[80px] 
+                     md:w-[100px] md:h-[100px] rounded-xl bg-[#DECEFF]"
+          >
             <ResponsiveImage
               webpSrc="/login/webp/login-logo.webp"
               pngSrc="/login/png/login-logo.png"
@@ -73,12 +76,12 @@ const Header = () => {
             />
           </div>
         </div>
-        <div className="hidden sm:flex ml-3 text-clamp50 font-bold cursor-pointer" onClick={goHome}>
+        <Link to={'/'} className="flex ml-3 font-bold cursor-pointer sm:text-[30px]">
           너의 이름은
-        </div>
+        </Link>
       </div>
 
-      <div className="flex-none gap-2 ">
+      <div className="flex justify-center items-center">
         {auth.isAuthenticated && userDatas ? (
           <>
             <div className="dropdown dropdown-end">
@@ -87,7 +90,7 @@ const Header = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar w-[36px] h-[36px] sm:w-[46px] sm:h-[46px] md:w-[56px] md:h-[56px]"
               >
-                <div className="rounded-full w-[35px] h-[35px] sm:w-[46px] sm:h-[46px]">
+                <div className="rounded-full w-[30px] h-[30px] sm:w-[46px] sm:h-[46px]">
                   <img
                     alt="사용자 프로필 이미지"
                     src={userDatas.profile.profile_url as string}
@@ -97,23 +100,14 @@ const Header = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={onOpenLogoutModal}
-              className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] ml-[20px] sm:ml-[30px] md:ml-[40px]
-             bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold text-white border-none"
-            >
+            <button onClick={onOpenLogoutModal} className="header-btn">
               로그아웃
             </button>
           </>
         ) : (
-          <button
-            onClick={goLogin}
-            className="btn btn-primary w-[120px] h-[50px] sm:w-[140px] sm:h-[60px] md:w-[160px] md:h-[68px] 
-            ml-[20px] sm:ml-[30px] md:ml-[40px] bg-[#A57AF1] text-[20px] sm:text-[25px] md:text-[30px] font-bold
-             text-white border-none"
-          >
+          <Link to={'/login'} className="header-btn">
             로그인
-          </button>
+          </Link>
         )}
       </div>
 

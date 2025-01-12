@@ -16,10 +16,7 @@ const BaseLayout = ({ children }: { children: ReactNode }) => {
       <Header />
       {isLoading && <LoadingBar />}
       {isError && <ErrorModal />}
-      <main
-        className="max-w-[800px] min-w-[320px] w-full px-2 sm:px-4 pt-[80px] sm:pt-[120px] md:pt-[150px]
-       mt-4 sm:mt-10 bg-white"
-      >
+      <main className="max-w-[800px] min-w-[320px] w-full px-2 sm:px-4 bg-white mt-[80px] sm:mt-[130px]">
         {children}
       </main>
     </div>

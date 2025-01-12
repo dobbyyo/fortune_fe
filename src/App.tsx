@@ -4,11 +4,11 @@ import queryClient from './lib/queryClient';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RecoilRoot } from 'recoil';
 import { CookiesProvider } from 'react-cookie';
-import { Router } from './routes';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { HelmetProvider } from 'react-helmet-async';
+import AppContent from './provider/AppContent';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <CookiesProvider>
         <RecoilRoot>
           <QueryClientProvider client={queryClient}>
-            <Router />
+            <AppContent />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </RecoilRoot>

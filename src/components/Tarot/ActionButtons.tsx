@@ -1,7 +1,6 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { tabState, resetTriggerState, selectedCardsState } from '@/stores/useTarotCardStore';
-import { useTarotCardInterpretationMutation } from '@/services/queries/tarot.query';
-import { removeLocalStorage, setLocalStorage } from '@/lib/localStorage';
+import { useNavigate } from 'react-router-dom';
 
 const ActionButtons = () => {
   const activeTab = useRecoilValue(tabState); // 현재 탭 상태 가져오기
@@ -9,6 +8,7 @@ const ActionButtons = () => {
   // 결과 버튼 활성화 여부: 모든 카드를 선택해야 활성화
   const isResultDisabled = selectedCards.some((card) => card === null);
   const setResetTrigger = useSetRecoilState(resetTriggerState);
+  const navigate = useNavigate();
 
   // 탭에 따른 subTitle 매핑
   const subTitles = (() => {
@@ -25,41 +25,14 @@ const ActionButtons = () => {
         return [];
     }
   })();
-  const getRandomBoolean = () => Math.random() < 0.5;
 
   const handleReset = () => {
-    // 선택된 카드를 초기화
     setResetTrigger((prev) => !prev);
     setSelectedCards(() => Array(subTitles.length).fill(null)); // subTitles 길이만큼 null 배열 생성
   };
 
-  const { mutate } = useTarotCardInterpretationMutation();
-
   const handleSubmit = async () => {
-    removeLocalStorage('tarotCards');
-
-    // 중복되지 않는 랜덤 숫자 생성 함수
-    const generateUniqueRandomIds = (count: number, max: number) => {
-      const uniqueIds = new Set<number>();
-      while (uniqueIds.size < count) {
-        const randomId = Math.floor(Math.random() * max); // 0부터 max-1까지 랜덤 숫자
-        uniqueIds.add(randomId);
-      }
-      return Array.from(uniqueIds);
-    };
-
-    // 랜덤 카드 ID 생성 (중복 방지)
-    const randomCardIds = generateUniqueRandomIds(selectedCards.length, 64);
-
-    // requestData 생성
-    const requestData = randomCardIds.map((randomCardId, index) => ({
-      cardId: randomCardId + 1, // 1부터 시작하도록 조정
-      subTitle: subTitles[index], // subTitle 매핑
-      isReversed: getRandomBoolean(), // 랜덤 boolean
-    }));
-
-    setLocalStorage('tarotBookmark', false);
-    mutate(requestData);
+    navigate('/tarot/card');
   };
 
   return (

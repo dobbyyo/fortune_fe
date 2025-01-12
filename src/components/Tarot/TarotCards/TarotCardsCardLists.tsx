@@ -1,22 +1,27 @@
-import { ResponsiveImage } from '@/components/Common';
-import { getLocalStorage } from '@/lib/localStorage';
-import { tarotCardsState } from '@/stores/useTarotCardStore';
+import { LoadingBar, ResponsiveImage } from '@/components/Common';
+import { useTarotCardInterpretationMutation, useTarotCardsDrawQuery } from '@/services/queries/tarot.query';
+import { tabState, tarotCardsState } from '@/stores/useTarotCardStore';
 import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const TarotCardsCardLists = () => {
-  const [tarotCards, setTarotCards] = useRecoilState(tarotCardsState);
-  const storedTarotCards = getLocalStorage('tarotCards');
+  const activeTab = useRecoilValue(tabState);
+  const setTarotCards = useSetRecoilState(tarotCardsState);
+  const { data: tarotCards, isLoading } = useTarotCardsDrawQuery({
+    mainTitle: activeTab,
+  });
 
   useEffect(() => {
-    if (storedTarotCards) {
-      setTarotCards(storedTarotCards);
-    }
-  }, []);
+    if (tarotCards) setTarotCards(tarotCards?.tarotCards);
+  }, [tarotCards]);
+
+  if (isLoading) {
+    return <LoadingBar />;
+  }
 
   return (
     <div className="flex flex-col mt-6 gap-10 ">
-      {tarotCards.map((card) => (
+      {tarotCards?.tarotCards.map((card) => (
         <div key={card.id} className="flex flex-col items-center">
           <h3 className="mb-[17px] text-clamp30 font-bold text-center">{card.subTitle}</h3>
 

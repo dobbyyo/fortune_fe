@@ -43,5 +43,5 @@ const SelectedCards = () => {
     </div>
   );
 };
-// "font-normal mb-2 text-clamp20"
+
 export default SelectedCards;

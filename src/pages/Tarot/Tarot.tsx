@@ -23,7 +23,7 @@ const Tarot = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="flex flex-col items-center justify-center">
+      <div className="baseStyle">
         <NavBar title="타로" isResult={false} isBookmark={false} />
         <Line />
         <TabNavigation />

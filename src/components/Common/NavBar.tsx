@@ -15,7 +15,7 @@ const NavBar = ({
   onShare?: () => void;
 }) => {
   return (
-    <div className="navbar w-full flex items-center px-4 relative">
+    <div className="navbar w-full flex items-center  -4 relative">
       <div className="navbar-start absolute left-0">
         <DropDown />
       </div>

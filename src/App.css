@@ -39,3 +39,35 @@
 .read-the-docs {
   color: #888;
 }
+
+.bigText {
+  font-size: 20px;
+}
+
+.mediumText {
+  font-size: 18px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.smallText {
+  font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+.baseStyle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-btn {
+  @apply w-[80px] h-[40px] sm:w-[120px] sm:h-[60px] bg-[#A57AF1] 
+           hover:bg-[#8c66d9] font-bold text-white rounded-md 
+           shadow-lg transition-all duration-200 text-[14px] sm:text-[16px]
+           text-center flex justify-center items-center;
+}

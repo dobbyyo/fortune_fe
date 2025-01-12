@@ -1,5 +1,25 @@
 import { SuccessResponse } from '@/types/apiType';
 
+// 타로카도 뽑기
+export interface TarotCardType {
+  id: number;
+  name: string;
+  type: string;
+  card_num: number;
+  suit: string | null;
+  image_url: string;
+  upright_meaning: string;
+  reversed_meaning: string;
+  subTitle: string;
+  isReversed: boolean;
+}
+
+export interface TarotCardDrawResponse {
+  tarotCards: TarotCardType[];
+}
+
+export type ApiTarotCardsDrawResponse = SuccessResponse<TarotCardDrawResponse>;
+
 // 타로카드 해석
 export interface TarotCard {
   id: number;

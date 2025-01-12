@@ -6,6 +6,7 @@ import {
   todayFortuneExplain,
   todayFortuneSave,
   todayZodiacFortuneExplain,
+  tomorrowFortuneExplain,
 } from '../api/saju.service';
 import { useSetRecoilState } from 'recoil';
 import { loadingState } from '@/stores/useLoadingStore';
@@ -118,5 +119,18 @@ export const useTodayFortuneDeleteMutation = () => {
       setLoading(false);
       setError(true);
     },
+  });
+};
+
+// 내일의 운세 조회
+export const useTomorrowFortuneExplainQuery = (userId: number | undefined, options = {}) => {
+  return useQuery({
+    queryKey: ['tomorrowFortuneExplain', userId],
+    queryFn: async () => {
+      const response = await tomorrowFortuneExplain(Number(userId));
+      return response.data;
+    },
+    retry: 1,
+    ...options,
   });
 };

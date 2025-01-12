@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoutModal from '../MyPage/LogoutModal';
 import { useRecoilValue } from 'recoil';
-import { authState, userState } from '@/stores/useAuthStore';
+import { authState } from '@/stores/useAuthStore';
 import { useMyDataQuery } from '@/services/queries/user.query';
 
 const RightHeader = () => {

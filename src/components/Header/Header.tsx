@@ -20,10 +20,6 @@ const Header = () => {
     navigate('/myPage');
   }, []);
 
-  const goLogin = useCallback(() => {
-    navigate('/login');
-  }, []);
-
   const { data: checkLogin, isSuccess: checkLoginSuccess } = useCheckAuthQuery();
   const { data: myData, isLoading: isFetchingData } = useMyDataQuery({
     enabled: checkLogin?.status === 200,

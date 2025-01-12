@@ -1,16 +1,9 @@
 import { useTarotCardInterpretationMutation } from '@/services/queries/tarot.query';
 import { tarotCardsState } from '@/stores/useTarotCardStore';
-import { useCallback, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 const TarotCardsActionButton = () => {
-  const navigate = useNavigate();
-
-  const goTarotResultPage = useCallback(() => {
-    navigate('/tarot/result');
-  }, []);
-
   const tarotCards = useRecoilValue(tarotCardsState);
 
   const { mutate } = useTarotCardInterpretationMutation();

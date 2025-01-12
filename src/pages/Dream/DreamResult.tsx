@@ -1,4 +1,4 @@
-import { BackNavBar, Line, NavBar, ResponsiveImage } from '@/components/Common';
+import { BackNavBar, Line, ResponsiveImage } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
 import { dreamMetaData } from '@/config/metaData';
 import { useAiDreamBookmarkDeleteMutation, useAiDreamBookmarkMutation } from '@/services/queries/dream.query';
@@ -6,7 +6,6 @@ import { authState } from '@/stores/useAuthStore';
 import { aiDreamMainTitleTab, aiDreamState, savedAiDreamState } from '@/stores/useDreamStore';
 import { AiDreamData } from '@/types/dreamType';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 const DreamResult = () => {

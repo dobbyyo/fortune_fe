@@ -22,7 +22,7 @@ import { loadingState } from '@/stores/useLoadingStore';
 import { SuccessResponse } from '@/types/apiType';
 import { errorState } from '@/stores/useErrorStore';
 import { config } from '@/config/config';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const useTarotCardsDrawQuery = ({ mainTitle }: { mainTitle: string }) => {
   return useQuery({

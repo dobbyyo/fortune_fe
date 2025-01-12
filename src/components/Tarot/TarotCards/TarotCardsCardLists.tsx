@@ -1,8 +1,8 @@
 import { LoadingBar, ResponsiveImage } from '@/components/Common';
-import { useTarotCardInterpretationMutation, useTarotCardsDrawQuery } from '@/services/queries/tarot.query';
+import { useTarotCardsDrawQuery } from '@/services/queries/tarot.query';
 import { tabState, tarotCardsState } from '@/stores/useTarotCardStore';
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const TarotCardsCardLists = () => {
   const activeTab = useRecoilValue(tabState);

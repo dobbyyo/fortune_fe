@@ -5,6 +5,7 @@ import {
   ApiTodayFortuneResponse,
   ApiTodayFortuneSaveResponse,
   ApiTodayZodiacFortuneExplanationResponse,
+  ApiTomorrowFortuneExplanationResponse,
   todayFortuneSavePayloadType,
 } from '@/types/fortuneType';
 
@@ -30,11 +31,22 @@ export const todayFortuneExplain = async (userId: number): Promise<ApiTodayFortu
   }
 };
 
+// 내일의 운세 해석
+export const tomorrowFortuneExplain = async (userId: number): Promise<ApiTomorrowFortuneExplanationResponse> => {
+  try {
+    const { data } = await api.get<ApiTomorrowFortuneExplanationResponse>(`/fortunes/tomorrow?userId=${userId}`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // 띠 운세 조회
 export const todayZodiacFortuneExplain = async (userId: number): Promise<ApiTodayZodiacFortuneExplanationResponse> => {
   try {
     const { data } = await api.get<ApiTodayZodiacFortuneExplanationResponse>(`/fortunes/zodiac?userId=${userId}`);
-
+    console.log('data', data);
     return data;
   } catch (error) {
     throw error;

@@ -86,7 +86,7 @@ const TarotResult = () => {
           onShare={onShare}
         />
 
-        <div className="flex flex-col gap-12 mt-8 w-full px-4 mb-[60px]">
+        <div className="baseStyle">
           {tarotCards.map((card) => (
             <TarotResultLists key={card.id} card={card} />
           ))}

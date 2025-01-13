@@ -1,4 +1,5 @@
-import { Line, NavBar } from '@/components/Common';
+import { Line } from '@/components/Common';
+import BaseNavBar from '@/components/Common/BaseNavBar';
 import { MetaTag } from '@/components/Seo';
 import { ActionButtons, CardSlider, CardTitle, SelectedCards, TabNavigation } from '@/components/Tarot';
 import { tarotMetaData } from '@/config/metaData';
@@ -24,11 +25,11 @@ const Tarot = () => {
         ogDescription={ogDescription}
       />
       <div className="baseStyle">
-        <NavBar title="타로" isResult={false} isBookmark={false} />
+        <BaseNavBar title="타로" />
         <Line />
         <TabNavigation />
 
-        <div className="w-full bg-[#f1f1f1] mt-[49px]">
+        <div className="w-full bg-[#f1f1f1] mt-[1px]">
           <CardTitle />
           <CardSlider />
           <SelectedCards />

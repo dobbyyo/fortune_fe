@@ -3,14 +3,13 @@ import { tabState, resetTriggerState, selectedCardsState } from '@/stores/useTar
 import { useNavigate } from 'react-router-dom';
 
 const ActionButtons = () => {
-  const activeTab = useRecoilValue(tabState); // 현재 탭 상태 가져오기
+  const activeTab = useRecoilValue(tabState);
   const [selectedCards, setSelectedCards] = useRecoilState(selectedCardsState);
-  // 결과 버튼 활성화 여부: 모든 카드를 선택해야 활성화
+
   const isResultDisabled = selectedCards.some((card) => card === null);
   const setResetTrigger = useSetRecoilState(resetTriggerState);
   const navigate = useNavigate();
 
-  // 탭에 따른 subTitle 매핑
   const subTitles = (() => {
     switch (activeTab) {
       case '오늘의 타로':
@@ -28,7 +27,7 @@ const ActionButtons = () => {
 
   const handleReset = () => {
     setResetTrigger((prev) => !prev);
-    setSelectedCards(() => Array(subTitles.length).fill(null)); // subTitles 길이만큼 null 배열 생성
+    setSelectedCards(() => Array(subTitles.length).fill(null));
   };
 
   const handleSubmit = async () => {
@@ -36,11 +35,11 @@ const ActionButtons = () => {
   };
 
   return (
-    <div className="mt-8 flex justify-center sm:gap-[109px] pb-20">
+    <div className="mt-8 flex justify-center sm:gap-[20px] sm:mb-[100px]">
       <button
         onClick={handleReset}
         className="border-none btn w-[160px] h-[50px] sm:w-[195px] sm:h-[41px] px-2 sm:px-4 py-2 
-				bg-[#787878] text-white rounded-none sm:rounded-[20px] hover:bg-[#808080] transition text-[20px] font-bold"
+				bg-[#787878] text-white rounded-none sm:rounded-[20px] hover:bg-[#808080] transition text-[16px] sm:text-[20px] font-bold"
       >
         다시 선택하기
       </button>
@@ -48,7 +47,7 @@ const ActionButtons = () => {
       <button
         onClick={handleSubmit}
         className={`border-none btn w-[160px] h-[50px] sm:w-[195px] sm:h-[41px] px-2 sm:px-4 py-2 
-					rounded-none sm:rounded-[20px] text-[20px] font-bold text-black ${
+					rounded-none sm:rounded-[20px] text-[16px] sm:text-[20px] font-bold text-black ${
             isResultDisabled
               ? 'disabled:opacity-50 bg-[#d1d1d1] text-[#a1a1a1] cursor-not-allowed'
               : 'bg-[#DECEFF] hover:bg-[#d8ceeb] transition'

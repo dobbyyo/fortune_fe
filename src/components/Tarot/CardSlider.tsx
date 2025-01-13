@@ -13,24 +13,23 @@ const CardSlider = () => {
   const [resetTrigger, setResetTrigger] = useRecoilState(resetTriggerState);
 
   useEffect(() => {
-    // 리셋 트리거가 활성화되면 카드 상태 초기화
     if (resetTrigger) {
-      setSelectedCards(Array(selectedCards.length).fill(null)); // 상태 초기화
-      setResetTrigger(false); // 트리거 초기화
+      setSelectedCards(Array(selectedCards.length).fill(null));
+      setResetTrigger(false);
     }
   }, [resetTrigger, setSelectedCards, selectedCards.length]);
 
   const handleCardClick = (index: number) => {
-    if (!selectedCards.includes(null)) return; // 모든 카드가 선택된 경우 무시
+    if (!selectedCards.includes(null)) return;
 
     setSelectedCards((prev) => {
-      if (prev.includes(index)) return prev; // 중복된 선택 무시
+      if (prev.includes(index)) return prev;
 
       const nextState = [...prev];
-      const nullIndex = nextState.findIndex((card) => card === null); // null 위치 찾기
+      const nullIndex = nextState.findIndex((card) => card === null);
 
       if (nullIndex !== -1) {
-        nextState[nullIndex] = index; // 선택된 index 추가
+        nextState[nullIndex] = index;
       }
       return nextState;
     });
@@ -67,7 +66,7 @@ const CardSlider = () => {
           <SwiperSlide key={index}>
             <div
               onClick={() => handleCardClick(index)}
-              className={`card-${index} relative w-[60px] h-[95px] cursor-pointer hover:scale-105 transition-transform ${
+              className={`card-${index} relative w-[40px] h-[65px] sm:w-[60px] sm:h-[95px] cursor-pointer hover:scale-105 transition-transform ${
                 selectedCards.includes(index) ? 'opacity-0 pointer-events-none' : ''
               }`}
               style={{

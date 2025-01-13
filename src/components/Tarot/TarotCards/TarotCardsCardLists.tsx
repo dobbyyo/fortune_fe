@@ -23,7 +23,7 @@ const TarotCardsCardLists = () => {
     <div className="flex flex-col mt-6 gap-10 ">
       {tarotCards?.tarotCards.map((card) => (
         <div key={card.id} className="flex flex-col items-center">
-          <h3 className="mb-[17px] text-clamp30 font-bold text-center">{card.subTitle}</h3>
+          <h3 className="mb-[17px] mediumText font-bold text-center">{card.subTitle}</h3>
 
           <div className="h-full bg-gray-300 rounded-md shadow-md flex items-center justify-center">
             <ResponsiveImage
@@ -34,7 +34,7 @@ const TarotCardsCardLists = () => {
             />
           </div>
 
-          <p className="mt-[10px] text-clamp20 text-center font-medium">{card.name}</p>
+          <p className="mt-[10px] smallText text-center font-medium">{card.name}</p>
         </div>
       ))}
     </div>

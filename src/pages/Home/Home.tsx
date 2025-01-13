@@ -26,7 +26,7 @@ const Home = () => {
         ogDescription={ogDescription}
       />
 
-      <div className="flex flex-col items-center justify-center">
+      <div className="baseStyle">
         <HomeSearch />
         <CategoryWrapper />
       </div>

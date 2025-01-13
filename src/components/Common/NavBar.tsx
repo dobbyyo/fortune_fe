@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import DropDown from './DropDown';
 import ResponsiveImage from './ResponsiveImage';
 import { Link } from 'react-router-dom';
 

@@ -1,9 +1,9 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, MouseEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ResponsiveImage } from '../Common';
 
 const HomeSearch = () => {
-  const navigate = useNavigate(); // React Router 사용
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
   // 키워드 매핑 데이터
@@ -14,9 +14,8 @@ const HomeSearch = () => {
     tarot: ['타로', '타로점', '타로운세', '타로카드', '별자리', '띠', '연애', '취업'],
   };
 
-  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  // 공통 검색 핸들러
+  const handleSearchAction = () => {
     for (const [category, keywords] of Object.entries(keywordMapping)) {
       if (keywords.some((keyword) => searchTerm.includes(keyword))) {
         navigate(`/${category}`);
@@ -27,12 +26,24 @@ const HomeSearch = () => {
     alert('해당 키워드와 매칭되는 카테고리가 없습니다.');
   };
 
+  // onSubmit 핸들러
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSearchAction();
+  };
+
+  // onClick 핸들러
+  const handleSearchClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    handleSearchAction();
+  };
+
   return (
     <form
-      onSubmit={handleSearch}
-      className="px-2 flex items-center w-full h-[60px] sm:h-[70px] bg-white border border-[#404040] rounded-[5px]"
+      onSubmit={handleSearchSubmit}
+      className="px-2 flex items-center w-[300px] sm:w-[700px] h-[60px] sm:h-[70px] bg-white border border-[#404040] rounded-[5px]"
     >
-      <div className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] md:w-[30px] md:h-[30px]">
+      <div className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] md:w-[30px] md:h-[30px]" onClick={handleSearchClick}>
         <ResponsiveImage
           webpSrc="/home/webp/search.webp"
           pngSrc="/home/png/search.png"

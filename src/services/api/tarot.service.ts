@@ -10,6 +10,20 @@ import {
   TarotSharePayload,
 } from '@/types/tarotType';
 
+export const tarotCardDraw = async (mainTitle: string): Promise<ApiTarotCardsResponse> => {
+  try {
+    const { data } = await api.get(`tarots/draw`, {
+      params: {
+        mainTitle,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const tarotCardResult = async (
   selectedCards: {
     cardId: number;

@@ -25,7 +25,7 @@ const Profile = () => {
           <div className="w-[100px] h-[100px] rounded-full overflow-hidden bg-gray-300">
             <img src={myData.profile.profile_url} alt="프로필 사진" className="w-full h-full object-cover" />
           </div>
-          <h2 className="mt-4 text-[20px] sm:text-[30px] font-bold">{myData.username}</h2>
+          <h2 className="mt-4 text-[18px] sm:text-[20px] font-bold">{myData.username}</h2>
           <div
             onClick={() => setModalOpen(true)}
             className="relative flex justify-center items-center cursor-pointer my-2"
@@ -46,7 +46,7 @@ const Profile = () => {
 
           <button
             onClick={onOpenLogoutModal}
-            className="mt-2 px-6 py-2 rounded-full bg-[#a47af1] text-white font-medium"
+            className="mt-2 px-6 py-2 rounded-full bg-[#a47af1] text-white font-medium mediumText"
           >
             로그아웃
           </button>

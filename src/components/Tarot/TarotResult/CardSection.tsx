@@ -9,9 +9,9 @@ const CardSection: FC<CardSectionProps> = ({ title, content }) => {
   return (
     <div className="mt-4 text-start flex flex-col items-start w-full">
       <div className="bg-[#D9D9D9] w-full mb-4 py-2 pl-2">
-        <h4 className="text-clamp30 font-bold">{title}</h4>
+        <h4 className="text-[16px] sm:text-[20px] font-bold">{title}</h4>
       </div>
-      <p className="mx-1 text-clamp25 font-normal mb-[30px]">{content}</p>
+      <p className="mx-1 text-[14px] sm:text-[18px] font-normal mb-[30px]">{content}</p>
     </div>
   );
 };

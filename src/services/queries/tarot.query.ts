@@ -9,12 +9,12 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query';
 import {
   getTarotCardShare,
+  tarotCardDraw,
   tarotCardResult,
   tarotCardResultBookmark,
   tarotCardResultBookmarkDelete,
   tarotCardShare,
 } from '../api/tarot.service';
-import { useNavigate } from 'react-router-dom';
 import { TarotBookmarkState, tarotCardsState, tarotSharedState } from '@/stores/useTarotCardStore';
 import { useSetRecoilState } from 'recoil';
 import { setLocalStorage } from '@/lib/localStorage';
@@ -22,6 +22,18 @@ import { loadingState } from '@/stores/useLoadingStore';
 import { SuccessResponse } from '@/types/apiType';
 import { errorState } from '@/stores/useErrorStore';
 import { config } from '@/config/config';
+import { useNavigate } from 'react-router-dom';
+
+export const useTarotCardsDrawQuery = ({ mainTitle }: { mainTitle: string }) => {
+  return useQuery({
+    queryKey: ['tarotCardsDraw'],
+    queryFn: async () => {
+      const response = await tarotCardDraw(mainTitle);
+
+      return response.data;
+    },
+  });
+};
 
 export const useTarotCardInterpretationMutation = () => {
   const navigate = useNavigate();
@@ -43,7 +55,7 @@ export const useTarotCardInterpretationMutation = () => {
 
       setTarotCards(tarotCards);
       setLocalStorage('tarotCards', tarotCards);
-      navigate('/tarot/card');
+      navigate('/tarot/result');
     },
     onSettled: () => {
       setLoading(false); // 로딩 상태 종료

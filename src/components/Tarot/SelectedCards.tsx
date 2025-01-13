@@ -20,11 +20,15 @@ const SelectedCards = () => {
           {categories.map((category, index) => (
             <div key={index} className="text-center flex flex-col items-center">
               <div
-                className={`font-normal mb-2 text-clamp20 ${activeTab === '오늘의 타로' && 'w-[94px] sm:w-[120px]'}`}
+                className={`font-normal mb-2 text-[13px] sm:text-[20px] ${activeTab === '오늘의 타로' && 'w-[90px] sm:w-[120px]'}`}
               >
                 {category}
               </div>
-              <div className={'w-[60px] h-[95px] bg-[#D9D9D9] rounded flex items-center justify-center shadow-md'}>
+              <div
+                className={
+                  'w-[40px] h-[60px] sm:w-[60px] sm:h-[80px] bg-[#D9D9D9] rounded flex items-center justify-center shadow-md'
+                }
+              >
                 {selectedCards[index] !== null ? (
                   <ResponsiveImage
                     webpSrc="/tarot/webp/tarot-back.webp"
@@ -43,5 +47,5 @@ const SelectedCards = () => {
     </div>
   );
 };
-// "font-normal mb-2 text-clamp20"
+
 export default SelectedCards;

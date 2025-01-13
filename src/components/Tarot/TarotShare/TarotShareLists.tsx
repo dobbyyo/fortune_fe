@@ -15,9 +15,9 @@ const TarotShareLists = () => {
       {useGetTarotCardShareData &&
         useGetTarotCardShareData.shareCards.cards.map((card) => (
           <div key={card.id} className="flex flex-col items-center w-full">
-            <h3 className="mb-4 text-clamp30 font-medium text-center">{card.sub_title}</h3>
+            <h3 className="mb-4 bigText font-medium text-center">{card.sub_title}</h3>
 
-            <div className="h-full rounded-md shadow-md">
+            <div className="h-full bg-gray-300 rounded-md shadow-md flex items-center justify-center">
               <ResponsiveImage
                 webpSrc={card.card.image_url}
                 pngSrc={card.card.image_url}

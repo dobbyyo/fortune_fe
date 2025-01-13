@@ -23,7 +23,7 @@ const TarotShare = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="flex flex-col items-center justify-center h-auto">
+      <div className="baseStyle">
         <NavBar title="오늘의 타로" isResult={false} isBookmark={false} />
         <TarotShareLists />
       </div>

@@ -52,6 +52,14 @@ export interface TodayFortuneExplanationType {
 
 export type ApiTodayFortuneExplanationResponse = SuccessResponse<TodayFortuneExplanationType>;
 
+// 내일의의 운세 해석
+
+export interface tomorrowFortuneExplanationType {
+  tomorrowFortune: TodayFortuneExplanationData;
+}
+
+export type ApiTomorrowFortuneExplanationResponse = SuccessResponse<tomorrowFortuneExplanationType>;
+
 // 띠 운세 조회
 export interface ZodiacFortuneData {
   id: number;
@@ -63,9 +71,7 @@ export interface ZodiacFortuneData {
   image_url: string;
   zodiacGeneral: string;
   zodiacToday: string;
-  yearlyFortunes: {
-    [key: string]: string;
-  };
+  zodiacYear: string;
 }
 
 export interface TodayZodiacFortuneExplanationType {

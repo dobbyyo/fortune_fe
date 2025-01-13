@@ -18,34 +18,34 @@ const SajuCategory = () => {
       webpIcon: '/saju/webp/tomorrow.webp',
       url: '/saju/tomorrow',
     },
-    {
-      id: 3,
-      label: '지정일 운세',
-      pngIcon: '/saju/png/designated_day.png',
-      webpIcon: '/saju/webp/designated_day.webp',
-      url: '/saju/select',
-    },
-    {
-      id: 4,
-      label: '신년운세',
-      pngIcon: '/saju/png/new_year.png',
-      webpIcon: '/saju/webp/new_year.webp',
-      url: '/saju/year',
-    },
-    {
-      id: 5,
-      label: '토정비결',
-      pngIcon: '/saju/png/tojeong.png',
-      webpIcon: '/saju/webp/tojeong.webp',
-      url: '/saju/tojeong',
-    },
-    {
-      id: 6,
-      label: '정통사주',
-      pngIcon: '/saju/png/orthodox.png',
-      webpIcon: '/saju/webp/orthodox.webp',
-      url: '/saju/traditional',
-    },
+    // {
+    //   id: 3,
+    //   label: '지정일 운세',
+    //   pngIcon: '/saju/png/designated_day.png',
+    //   webpIcon: '/saju/webp/designated_day.webp',
+    //   url: '/saju/select',
+    // },
+    // {
+    //   id: 4,
+    //   label: '신년운세',
+    //   pngIcon: '/saju/png/new_year.png',
+    //   webpIcon: '/saju/webp/new_year.webp',
+    //   url: '/saju/year',
+    // },
+    // {
+    //   id: 5,
+    //   label: '토정비결',
+    //   pngIcon: '/saju/png/tojeong.png',
+    //   webpIcon: '/saju/webp/tojeong.webp',
+    //   url: '/saju/tojeong',
+    // },
+    // {
+    //   id: 6,
+    //   label: '정통사주',
+    //   pngIcon: '/saju/png/orthodox.png',
+    //   webpIcon: '/saju/webp/orthodox.webp',
+    //   url: '/saju/traditional',
+    // },
   ];
 
   const onGoPage = (category: string) => {

@@ -46,7 +46,7 @@ const Account = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center mt-10">
+      <div className="baseStyle">
         {/* 헤더 */}
         <BackNavBar title="계정 설정" />
 
@@ -67,7 +67,7 @@ const Account = () => {
               />
             </div>
 
-            <span className="text-clamp35 font-normal">카카오톡으로 연결됨</span>
+            <span className="text-[16px] sm:text-[20px] font-normal">카카오톡으로 연결됨</span>
           </div>
 
           {/* 로그아웃 */}
@@ -80,7 +80,7 @@ const Account = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-clamp35 font-normal">로그아웃</span>
+            <span className="text-[16px] sm:text-[20px] font-normal">로그아웃</span>
           </button>
 
           {/* 탈퇴하기 */}
@@ -93,7 +93,7 @@ const Account = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-clamp35 font-normal">탈퇴하기</span>
+            <span className="text-[16px] sm:text-[20px] font-normal">탈퇴하기</span>
           </button>
         </div>
       </div>

@@ -28,8 +28,8 @@ const SajuToday = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
-        <NavBar title="오늘의 사주" isResult={false} isBookmark={false} />
+      <div className="baseStyle">
+        <NavBar title="오늘의 운세" isResult={false} isBookmark={false} />
         <HeaderInfo />
         <ItemList />
         <ResultButton />

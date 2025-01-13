@@ -1,4 +1,5 @@
-import { NavBar } from '@/components/Common';
+import { Line } from '@/components/Common';
+import BaseNavBar from '@/components/Common/BaseNavBar';
 import { MetaTag } from '@/components/Seo';
 import { TarotCardsActionButton, TarotCardsCardLists, TarotCardsTitle } from '@/components/Tarot/TarotCards';
 import { tarotMetaData } from '@/config/metaData';
@@ -24,7 +25,8 @@ const TarotCard = () => {
         ogDescription={ogDescription}
       />
       <div className="flex flex-col items-center justify-center">
-        <NavBar title="오늘의 타로" isResult={false} isBookmark={false} />
+        <BaseNavBar title="오늘의 타로" />
+        <Line />
 
         <TarotCardsTitle />
         <TarotCardsCardLists />

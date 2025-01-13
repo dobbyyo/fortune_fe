@@ -65,7 +65,7 @@ const SajuResult = () => {
     const fortuneConstellation = getFortuneData('fortuneConstellation', fortuneConstellationData);
 
     if (!explainFortune || !fortuneZodiac || !fortuneConstellation) {
-      return alert('데이터를 불러올 수 없습니다.');
+      return alert('오늘의 운세, 띠 운세, 별자리 운세를 모두 확인해주세요.');
     }
 
     if (!isAuthenticated?.isAuthenticated || !userData) {
@@ -101,7 +101,7 @@ const SajuResult = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full flex flex-col items-center py-4">
+      <div className="baseStyle">
         <NavBar
           title="오늘의 운세"
           isResult={true}
@@ -116,7 +116,7 @@ const SajuResult = () => {
           {tabs.map((tab) => (
             <a
               key={tab.key}
-              className={`w-full tab h-full px-0 sm:px-4 text-center text-clamp30 font-normal ${
+              className={`w-full tab h-full px-0 sm:px-4 text-center text-[14px] sm:text-[20px] font-normal ${
                 activeTab === tab.name ? 'tab-active !border-[#A47AF1]' : 'border-transparent'
               }`}
               onClick={() => setActiveTab(tab.name)}

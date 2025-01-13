@@ -5,6 +5,7 @@ import authRoutes from './AuthRoutes';
 import myPagesRoutes from './MyPageRoutes';
 import namingRoutes from './NamingRoutes';
 import dreamRoutes from './DreamRoutes';
+import NotFound from '@/pages/Notfound/NotFound';
 
 const Home = lazy(() => import('@/pages/Home'));
 
@@ -12,6 +13,11 @@ const mainRoutes = [
   {
     path: '/',
     element: <Home />,
+    isPrivate: false,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
     isPrivate: false,
   },
 ];

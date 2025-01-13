@@ -55,19 +55,19 @@ const StarSignFortune = () => {
               />
             </div>
             {/* 이름과 정보 */}
-            <h2 className="text-clamp35 font-bold">
+            <h2 className="text-[16px] sm:text-[20px] font-bold">
               {fortuneConstellation.constellation.name} ({fortuneConstellation.constellation.start_date} ~
               {fortuneConstellation.constellation.end_date})
             </h2>
 
             <div className="w-full py-2 mt-5">
               <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-                <h3 className="font-bold text-clamp30 text-start px-2">
+                <h3 className="font-bold text-[16px] sm:text-[20px] text-start px-2">
                   ⭐ {fortuneConstellation.constellation.name}의 특징
                 </h3>
               </div>
               <div className="flex justify-start items-center mt-2">
-                <p className="font-normal text-clamp25 text-start px-2">
+                <p className="font-normal text-[14px] sm:text-[18px] text-start px-2">
                   {fortuneConstellation.constellation.constellationGeneral}
                 </p>
               </div>
@@ -75,12 +75,12 @@ const StarSignFortune = () => {
 
             <div className="w-full py-2 mt-5">
               <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-                <h3 className="font-bold text-clamp30 text-start px-2">
+                <h3 className="font-bold text-[16px] sm:text-[20px] text-start px-2">
                   ⭐ 오늘의 {fortuneConstellation.constellation.name} 자리
                 </h3>
               </div>
               <div className="flex justify-start items-center mt-2">
-                <p className="font-normal text-clamp25 text-start px-2">
+                <p className="font-normal text-[14px] sm:text-[18px] text-start px-2">
                   {fortuneConstellation.constellation.constellationToday}
                 </p>
               </div>

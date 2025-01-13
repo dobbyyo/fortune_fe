@@ -9,8 +9,8 @@ const BackNavBar = ({ title }: { title: string }) => {
   };
 
   return (
-    <div className="relative w-full flex items-center">
-      <div className="absolute left-0 w-[50px] h-[50px] cursor-pointer">
+    <div className="navbar w-full flex items-center h-[40px] sm:h-[100px] relative">
+      <div className="absolute left-0 w-[30px] h-[30px] sm:w-[50px] sm:h-[50px] cursor-pointer">
         <ResponsiveImage
           webpSrc="/terms/webp/arrow_left.webp"
           pngSrc="/terms/png/arrow_left.png"
@@ -18,7 +18,7 @@ const BackNavBar = ({ title }: { title: string }) => {
           handleClick={handleBackClick}
         />
       </div>
-      <h1 className="pl-2 mx-auto font-bold text-[25px]">{title}</h1>
+      <h1 className="pl-2 mx-auto text-[20px] sm:text-[25px] font-bold">{title}</h1>
     </div>
   );
 };

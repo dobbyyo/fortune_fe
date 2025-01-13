@@ -1,7 +1,7 @@
 import { LoadingBar, ResponsiveImage } from '@/components/Common';
 import { getLocalStorage, setLocalStorage } from '@/lib/localStorage';
 import { useZodiacFortuneQuery } from '@/services/queries/saju.query';
-import { userIdSelector } from '@/stores/useAuthStore';
+import { userIdSelector, userState } from '@/stores/useAuthStore';
 import { loadingState } from '@/stores/useLoadingStore';
 import { fortuneZodiacState } from '@/stores/useSajuStore';
 import { useEffect } from 'react';
@@ -12,6 +12,7 @@ const ZodiacFortune = () => {
   const setIsLoading = useSetRecoilState(loadingState);
   const localFortuneZodiacData = getLocalStorage('fortuneZodiacData');
   const [fortuneZodiac, setFortuneZodiac] = useRecoilState(fortuneZodiacState);
+  const myData = useRecoilValue(userState);
 
   const { data, isLoading, isError } = useZodiacFortuneQuery(userId, {
     enabled: userId !== undefined && localFortuneZodiacData === null,
@@ -56,22 +57,24 @@ const ZodiacFortune = () => {
             </div>
 
             {/* 이름과 정보 */}
-            <h2 className="text-clamp35 font-bold">{fortuneZodiac.zodiacFortune.name}</h2>
-            <p className="text-clamp30 font-normal mt-2">{fortuneZodiac.zodiacFortune.info}</p>
+            <h2 className="text-[16px] sm:text-[20px] font-bold">{fortuneZodiac.zodiacFortune.name}</h2>
+            <p className="text-[14px] sm:text-[18px] font-normal mt-2">{fortuneZodiac.zodiacFortune.info}</p>
 
             {/* 연별 운세 */}
             <div className="w-full mt-4">
-              {Object.entries(fortuneZodiac.zodiacFortune.yearlyFortunes).map(([year, fortune]) => (
-                <div className="py-2 mt-5" key={year}>
-                  <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
-                    <h3 className="font-bold text-clamp30 text-start px-2">💜 {year}년생</h3>
-                  </div>
-
-                  <div className="flex justify-start items-center mt-2">
-                    <p className="font-normal text-clamp25 text-start px-2">{fortune}</p>
-                  </div>
+              <div className="py-2 mt-5">
+                <div className="bg-[#DECEFF] h-[47px] flex justify-start items-center">
+                  <h3 className="font-bold text-[16px] sm:text-[20px] text-start px-2">
+                    💜 {myData?.birth_date.split('-')[0]}년생
+                  </h3>
                 </div>
-              ))}
+
+                <div className="flex justify-start items-center mt-2">
+                  <p className="font-normal text-[14px] sm:text-[18px] text-start px-2">
+                    {fortuneZodiac.zodiacFortune.zodiacYear}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </>

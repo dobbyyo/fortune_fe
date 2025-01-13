@@ -101,7 +101,7 @@ const BookmarkNamingCards = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <BackNavBar title="작명 저장보기" />
         <Line />
 
@@ -114,11 +114,14 @@ const BookmarkNamingCards = () => {
                 bookmarksData.savedNaming.map((item) => (
                   <div
                     key={item.id}
-                    className="relative border rounded-lg p-4 flex items-center justify-between shadow-sm"
+                    className="relative border rounded-lg p-4 flex items-center justify-center shadow-sm mt-2"
                   >
                     <div className="mr-5">
                       <div className="absolute left-2 top-6">
-                        <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
+                        <button
+                          className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]"
+                          onClick={() => handleBookmarkToggle(item)}
+                        >
                           <ResponsiveImage
                             webpSrc={
                               isBookmarked(item.id) ? '/dream/webp/bookmark_2.webp' : '/dream/webp/bookmark_1.webp'
@@ -131,8 +134,8 @@ const BookmarkNamingCards = () => {
                       </div>
                     </div>
                     <div>
-                      <h3 className="text-[20px] sm:text-[25px] font-bold text-center mb-5">{item.name}</h3>
-                      <p className="text-[15px] sm:text-[20px] font-normal text-start">{item.description}</p>
+                      <h3 className="text-[18px] sm:text-[20px] font-bold text-center mb-5">{item.name}</h3>
+                      <p className="text-[15px] sm:text-[18px] font-normal text-start">{item.description}</p>
                     </div>
                   </div>
                 ))}

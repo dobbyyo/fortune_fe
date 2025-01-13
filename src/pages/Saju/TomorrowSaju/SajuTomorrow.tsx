@@ -1,12 +1,9 @@
-import { LoadingBar, NavBar, NotService } from '@/components/Common';
-import { HeaderInfo } from '@/components/Saju/SajuToday';
+import { LoadingBar, NavBar } from '@/components/Common';
 import { MetaTag } from '@/components/Seo';
 import { sajuMetaData } from '@/config/metaData';
-import useRequireAuth from '@/hooks/useRequireAuth';
 import { useTomorrowFortuneExplainQuery } from '@/services/queries/saju.query';
 import { userIdSelector } from '@/stores/useAuthStore';
-import { loadingState } from '@/stores/useLoadingStore';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 const SajuTomorrow = () => {
   const {

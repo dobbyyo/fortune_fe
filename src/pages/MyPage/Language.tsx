@@ -29,14 +29,14 @@ const Language = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center mt-10">
+      <div className="baseStyle">
         <BackNavBar title="언어" />
 
         <Line />
 
         <div className="w-full p-4 space-y-4">
           <div className="flex justify-between  items-center py-4 border-b">
-            <span className="text-clamp35 font-bold">한국어</span>
+            <span className="text-[17px] sm:text-[20px] font-bold">한국어</span>
 
             <div className="w-[20px] h-[20px] mr-4">
               <ResponsiveImage

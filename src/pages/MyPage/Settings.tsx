@@ -37,7 +37,7 @@ const Settings = () => {
         <div className="p-4 w-full">
           {/* 설정 섹션 */}
           <div className="mb-4">
-            <h2 className="text-start text-clamp35 font-bold mb-2">설정</h2>
+            <h2 className="text-start text-[17px] sm:text-[20px] font-bold mb-2">설정</h2>
             <Link to="/myPage/language" className="flex justify-between items-center py-4 border-b">
               <div className="flex items-center space-x-3">
                 <div className="w-[30px] h-[30px]">
@@ -48,10 +48,10 @@ const Settings = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="text-clamp30 font-normal">언어</span>
+                <span className="text-[15px] sm:text-[18px] font-normal">언어</span>
               </div>
               <div className="flex items-center">
-                <span className="text-clamp30 text-[#707070]">한국어</span>
+                <span className="text-[15px] sm:text-[18px] text-[#707070]">한국어</span>
                 <div className="w-[15px] h-[15px] ml-1">
                   <ResponsiveImage
                     webpSrc="/setting/webp/arrow_right.webp"
@@ -66,7 +66,7 @@ const Settings = () => {
 
           {/* 계정 섹션 */}
           <div>
-            <h2 className="text-start text-clamp35 font-bold mb-2">계정</h2>
+            <h2 className="text-start text-[17px] sm:text-[20px] font-bold mb-2">계정</h2>
             <Link to="/myPage/account" className="flex justify-between items-center py-4 border-b">
               <div className="flex items-center space-x-3">
                 <div className="w-[30px] h-[30px]">
@@ -77,7 +77,7 @@ const Settings = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span className="text-clamp30 font-normal">계정 설정</span>
+                <span className="text-[15px] sm:text-[18px] font-normal">계정 설정</span>
               </div>
               <div className="flex items-center">
                 <div className="w-[15px] h-[15px] ml-1">

@@ -97,7 +97,7 @@ const BookmarkFortuneCards = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <BackNavBar title="북마크 오늘의 운세" />
         <Line />
 

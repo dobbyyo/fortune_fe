@@ -30,7 +30,7 @@ const BookmarkTarotCards = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <BackNavBar title="북마크 타로카드" />
         <Line />
 

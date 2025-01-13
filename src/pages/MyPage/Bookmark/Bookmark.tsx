@@ -116,7 +116,7 @@ const Bookmark = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <BackNavBar title="저장보기" />
         <BookmarkFortuneTab tabs={tabs} activeTab={activeTab} setActiveTab={handleTabClick} />
         {

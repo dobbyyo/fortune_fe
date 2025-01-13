@@ -64,17 +64,17 @@ const Withdrawal = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center mt-10">
+      <div className="baseStyle">
         <BackNavBar title="탈퇴하기" />
         <Line />
-        <h2 className="text-clamp35 font-normal text-center mt-8">왜 떠나시나요?</h2>
+        <h2 className="text-[17px] sm:text-[20px] font-normal text-center mt-8">왜 떠나시나요?</h2>
         <textarea
-          className="w-full text-clamp25 font-normal mt-4 border border-gray-300 rounded-md p-4 text-base resize-none h-[150px] focus:outline-none focus:ring-2 focus:ring-purple-400"
+          className="w-full text-[12px] sm:text-[20px] font-normal mt-4 border border-gray-300 rounded-md p-4 text-base resize-none h-[150px] focus:outline-none focus:ring-2 focus:ring-purple-400"
           placeholder="이유를 꼭 알려주세요."
           value={reason}
           onChange={handleReasonChange}
         ></textarea>
-        {error && <p className="text-red-500 text-clamp25 mt-2">{error}</p>}
+        {error && <p className="text-red-500 text-[12px] sm:text-[20px] mt-2">{error}</p>}
 
         <div className="flex items-center mt-4">
           <input
@@ -84,7 +84,7 @@ const Withdrawal = () => {
             checked={isConfirmed}
             onChange={handleCheckboxChange}
           />
-          <label htmlFor="confirm" className="text-clamp25 text-red-500">
+          <label htmlFor="confirm" className="text-[12px] sm:text-[20px] text-red-500">
             ‘탈퇴하기’ 버튼을 누르면 모든 정보가 사라집니다.
           </label>
         </div>

@@ -19,7 +19,7 @@ const Bottom = () => {
             className="w-full h-full object-cover"
           />
         </div>
-        <span className="text-clamp30 font-normal">공지사항</span>
+        <span className="mediumText font-normal">공지사항</span>
       </button>
 
       <button className="flex flex-col items-center" onClick={() => onClickPage('/myPage/bookmark')}>
@@ -32,7 +32,7 @@ const Bottom = () => {
           />
         </div>
 
-        <span className="text-clamp30 font-normal">저장보기</span>
+        <span className="mediumText font-normal">저장보기</span>
       </button>
     </div>
   );

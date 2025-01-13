@@ -65,10 +65,6 @@ const SajuResult = () => {
     const fortuneConstellation = getFortuneData('fortuneConstellation', fortuneConstellationData);
 
     if (!explainFortune || !fortuneZodiac || !fortuneConstellation) {
-      console.log('explainFortune', explainFortune);
-      console.log('fortuneZodiac', fortuneZodiac);
-      console.log('fortuneConstellation', fortuneConstellation);
-
       return alert('오늘의 운세, 띠 운세, 별자리 운세를 모두 확인해주세요.');
     }
 

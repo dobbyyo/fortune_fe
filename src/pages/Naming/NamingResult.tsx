@@ -109,7 +109,7 @@ const NamingResult = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center mt-10">
+      <div className="baseStyle">
         <BackNavBar title="AI 작명가" />
 
         <Line />
@@ -119,7 +119,10 @@ const NamingResult = () => {
             {namingData.naming.map((item, index) => (
               <div key={index} className="relative border rounded-lg p-4 flex items-center justify-between shadow-sm">
                 <div className="absolute left-2 top-6">
-                  <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(item)}>
+                  <button
+                    className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]"
+                    onClick={() => handleBookmarkToggle(item)}
+                  >
                     <ResponsiveImage
                       webpSrc={isBookmarked(item.name) ? '/dream/webp/bookmark_2.webp' : '/dream/webp/bookmark_1.webp'}
                       pngSrc={isBookmarked(item.name) ? '/dream/png/bookmark_2.png' : '/dream/png/bookmark_1.png'}
@@ -130,8 +133,8 @@ const NamingResult = () => {
                 </div>
 
                 <div className="w-full flex flex-col justify-center items-center">
-                  <h3 className="text-[20px] sm:text-[25px] font-bold text-center mb-5">{item.name}</h3>
-                  <p className="text-[15px] sm:text-[20px] font-normal text-start">{item.description}</p>
+                  <h3 className="text-[18px] sm:text-[20px] font-bold text-center mb-5">{item.name}</h3>
+                  <p className="text-[13px] sm:text-[18px] font-normal text-start">{item.description}</p>
                 </div>
               </div>
             ))}

@@ -40,19 +40,19 @@ const NamingHome = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <NavBar title="작명" isResult={false} isBookmark={false} />
 
         <Line />
 
         <div
           role="tablist"
-          className="w-full h-[50px] sm:h-[60px] tabs tabs-bordered flex justify-start mb-4 bg-white px-0 sm:px-5"
+          className="w-full h-[50px] sm:h-[60px] tabs tabs-bordered flex justify-start bg-white px-0 sm:px-5"
         >
           {tabs.map((tab) => (
             <a
               key={tab.key}
-              className={`w-full tab h-full px-0 sm:px-4 text-center text-clamp30 font-normal ${
+              className={`w-full tab h-full px-0 sm:px-4 text-center text-[16px] sm:text-[20px] font-normal ${
                 activeTab === tab.name ? 'tab-active !border-[#A47AF1]' : 'border-transparent'
               }`}
               onClick={() => setActiveTab(tab.name)}

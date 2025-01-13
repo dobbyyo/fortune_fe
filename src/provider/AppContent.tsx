@@ -1,24 +1,33 @@
 import { useCheckAuthQuery } from '@/services/queries/auth.query';
-import { authState } from '@/stores/useAuthStore';
+import { authState, userState } from '@/stores/useAuthStore';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import Router from '@/routes/Router';
 import { LoadingBar } from '@/components/Common';
+import { useMyDataQuery } from '@/services/queries/user.query';
 
 function AppContent() {
   const setAuthState = useSetRecoilState(authState);
+  const setUserDatas = useSetRecoilState(userState);
 
-  const { data, isLoading } = useCheckAuthQuery();
+  const { data: checkLogin, isLoading } = useCheckAuthQuery();
+  const { data: myData, isLoading: isFetchingData } = useMyDataQuery({
+    enabled: checkLogin?.status === 200,
+  });
 
   // Recoil 상태 업데이트
   useEffect(() => {
     if (!isLoading) {
       setAuthState({
         isLoading: false,
-        isAuthenticated: data?.status === 200,
+        isAuthenticated: checkLogin?.status === 200,
       });
+
+      if (checkLogin?.status === 200) {
+        setUserDatas(myData?.myInfo);
+      }
     }
-  }, [data, isLoading, setAuthState]);
+  }, [checkLogin, isLoading, setAuthState, isFetchingData]);
 
   if (isLoading) {
     return <LoadingBar />; // 로딩 상태 처리

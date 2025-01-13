@@ -1,6 +1,10 @@
 import { LoginButton, LoginIcon } from '@/components/Login';
 import { MetaTag } from '@/components/Seo';
 import { authMetaData } from '@/config/metaData';
+import { authState } from '@/stores/useAuthStore';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 const Login = () => {
   const {
@@ -11,6 +15,14 @@ const Login = () => {
     ogTitle,
     ogDescription,
   } = authMetaData.login;
+
+  const auth = useRecoilValue(authState);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      navigate('/');
+    }
+  }, [auth]);
 
   return (
     <>

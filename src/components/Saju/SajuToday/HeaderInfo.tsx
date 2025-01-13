@@ -12,9 +12,9 @@ const HeaderInfo = () => {
 
   return (
     <div className="w-full flex justify-evenly sm:justify-center items-center sm:px-[70px] mt-[50px] bg-[#F2F2F2] py-2 rounded-[10px]">
-      <p className="font-medium text-clamp30 mr-2">{username}</p>
-      <p className="font-normal text-clamp30 mr-2">{gender}</p>
-      <p className="font-normal text-clamp30">{birthDate} (양력)</p>
+      <p className="font-medium text-[14px] sm:text-[18px] mr-2">{username}</p>
+      <p className="font-normal text-[14px] sm:text-[18px] mr-2">{gender}</p>
+      <p className="font-normal text-[14px] sm:text-[18px]">{birthDate} (양력)</p>
     </div>
   );
 };

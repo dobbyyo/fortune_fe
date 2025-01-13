@@ -74,7 +74,7 @@ const SajuHome = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <NavBar title="사주" isResult={false} isBookmark={false} />
         <Line />
 

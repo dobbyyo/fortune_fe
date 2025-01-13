@@ -60,13 +60,13 @@ const DreamHome = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center">
+      <div className="baseStyle">
         <NavBar title="꿈해몽" isResult={false} isBookmark={false} />
 
         <Line />
 
-        <div className="w-full bg-[#F6F6F6] flex flex-col items-center py-8 my-12">
-          <h1 className="text-[20px] sm:text-[30px] font-bold mt-5 text-center">꿈을 해석해 드립니다</h1>
+        <div className="w-full bg-[#F6F6F6] flex flex-col items-center py-2 sm:py-8">
+          <h1 className="text-[18px] sm:text-[20px] font-bold mt-5 text-center">꿈을 해석해 드립니다</h1>
 
           <div className="grid grid-cols-3 gap-5 sm:gap-10 px-4 mt-8 w-full max-w-[800px] place-items-center">
             {namingCategories.map((category) => {
@@ -88,32 +88,33 @@ const DreamHome = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <span className="text-[10px] sm:text-[25px] font-medium">{category.label}</span>
+                  <span className="text-[10px] sm:text-[18px] font-medium">{category.label}</span>
                 </button>
               );
             })}
           </div>
 
           <div className="w-full mt-8 px-6">
-            <h3 className="text-[18px] sm:text-[25px] font-medium text-start mb-2">간단한 설명</h3>
+            <h3 className="text-[18px] sm:text-[20px] font-medium text-start mb-2">간단한 설명</h3>
             <input
               type="text"
               value={description}
               onChange={handleInputChange}
               placeholder="예시) 모던한 느낌의 사람 이름"
               className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg shadow-sm font-medium
-              placeholder:text-[14px] sm:placeholder:text-[25px] text-[14px] sm:text-[18px] focus:outline-none
+              placeholder:text-[14px] sm:placeholder:text-[20px] text-[14px] sm:text-[18px] focus:outline-none
             "
             />
           </div>
-        </div>
 
-        <button
-          onClick={handleGenerate}
-          className="w-full sm:w-[240px] py-3 bg-[#A47aF1] text-white text-clamp25 font-bold sm:rounded-[30px]"
-        >
-          생성하기
-        </button>
+          <button
+            onClick={handleGenerate}
+            className="w-full sm:w-[240px] py-3 bg-[#A47aF1] text-white 
+            text-[16px] sm:text-[20px] font-bold sm:rounded-[30px] mt-5"
+          >
+            생성하기
+          </button>
+        </div>
       </div>
     </>
   );

@@ -87,7 +87,7 @@ const DreamResult = () => {
         ogTitle={ogTitle}
         ogDescription={ogDescription}
       />
-      <div className="w-full h-full flex flex-col items-center mt-10">
+      <div className="baseStyle">
         <BackNavBar title="꿈해몽" />
 
         <Line />
@@ -98,7 +98,10 @@ const DreamResult = () => {
               <>
                 <div className="relative border rounded-lg p-4 flex items-center justify-between shadow-sm">
                   <div className="absolute left-2 top-6">
-                    <button className="w-[30px] h-[30px]" onClick={() => handleBookmarkToggle(dreamData)}>
+                    <button
+                      className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]"
+                      onClick={() => handleBookmarkToggle(dreamData)}
+                    >
                       <ResponsiveImage
                         webpSrc={
                           isBookmarked(dreamData.title) ? '/dream/webp/bookmark_2.webp' : '/dream/webp/bookmark_1.webp'
@@ -112,14 +115,14 @@ const DreamResult = () => {
                     </button>
                   </div>
                   <div className="w-full">
-                    <h3 className="text-[20px] sm:text-[25px] font-bold text-center mb-5">{dreamData.title}</h3>
-                    <p className="text-[15px] sm:text-[20px] font-normal text-start">{dreamData.description}</p>
+                    <h3 className="text-[18px] sm:text-[20px] font-bold text-center mb-5">{dreamData.title}</h3>
+                    <p className="text-[13px] sm:text-[20px] font-normal text-start">{dreamData.description}</p>
                   </div>
                 </div>
 
                 <div className="pt-10 text-start">
-                  <h2 className="text-[20px] sm:text-[25px] font-bold">해몽</h2>
-                  <p className="text-[15px] sm:text-[20px] font-normal mt-5">{dreamData.interpretation}</p>
+                  <h2 className="text-[18px] sm:text-[20px] font-bold">해몽</h2>
+                  <p className="text-[13px] sm:text-[20px] font-normal mt-5">{dreamData.interpretation}</p>
                 </div>
               </>
             )}

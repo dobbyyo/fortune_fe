@@ -13,6 +13,7 @@ const Router = () => (
         </div>
       }
     >
+      {/* <PageTransition> */}
       <Routes>
         {routes.map(({ path, element, isPrivate }) => (
           <Route
@@ -22,6 +23,7 @@ const Router = () => (
           />
         ))}
       </Routes>
+      {/* </PageTransition> */}
     </Suspense>
   </BrowserRouter>
 );

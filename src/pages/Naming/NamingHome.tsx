@@ -1,5 +1,5 @@
 import { Line, NavBar } from '@/components/Common';
-import { AiNaming, ProfessionalNaming } from '@/components/Naming';
+import { RenderTabContent } from '@/components/Naming';
 import { MetaTag } from '@/components/Seo';
 import { namingMetaData } from '@/config/metaData';
 import { useState } from 'react';
@@ -20,15 +20,7 @@ const NamingHome = () => {
     { name: '전문가 의뢰', key: 'professionalNaming' },
   ];
 
-  const renderTabContent = () => {
-    const tabContentMap: { [key: string]: JSX.Element } = {
-      aiNaming: <AiNaming />,
-      professionalNaming: <ProfessionalNaming />,
-    };
-
-    const activeTabKey: string = tabs.find((tab) => tab.name === activeTab)?.key || 'aiNaming';
-    return tabContentMap[activeTabKey] || <div>탭을 선택하세요</div>;
-  };
+  const activeTabKey: string = tabs.find((tab) => tab.name === activeTab)?.key || 'aiNaming';
 
   return (
     <>
@@ -62,7 +54,9 @@ const NamingHome = () => {
           ))}
         </div>
 
-        <div className="w-full py-2">{renderTabContent()}</div>
+        <div className="w-full py-2">
+          <RenderTabContent activeTabKey={activeTabKey} />
+        </div>
       </div>
     </>
   );

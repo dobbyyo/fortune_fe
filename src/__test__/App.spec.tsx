@@ -1,9 +1,11 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { RecoilRoot } from 'recoil';
 import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from '../lib/queryClient';
-import { Router } from '@/routes';
+import { HelmetProvider } from 'react-helmet-async';
+import { CookiesProvider } from 'react-cookie';
+import App from '@/App';
 
 jest.mock('../config/config', () => ({
   config: {
@@ -11,25 +13,32 @@ jest.mock('../config/config', () => ({
   },
 }));
 
-jest.mock('@/routes/Router', () => ({
+jest.mock('@/provider/AppContent', () => ({
   __esModule: true,
-  default: () => (
-    <div>
-      <p>Welcome</p>
-    </div>
-  ),
+  default: () => <div>Mocked AppContent</div>,
+}));
+
+// Mock Suspense
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  Suspense: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
 describe('App Component', () => {
-  test('renders Router component', () => {
+  test('renders AppContent component', async () => {
     render(
-      <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
-          <Router />
-        </QueryClientProvider>
-      </RecoilRoot>,
+      <HelmetProvider>
+        <CookiesProvider>
+          <RecoilRoot>
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
+          </RecoilRoot>
+        </CookiesProvider>
+      </HelmetProvider>,
     );
 
-    expect(screen.getByText(/Welcome/i)).toBeInTheDocument();
+    // AppContent의 Mock된 텍스트가 렌더링되는지 확인
+    await waitFor(() => expect(screen.getByText(/Mocked AppContent/i)).toBeInTheDocument());
   });
 });

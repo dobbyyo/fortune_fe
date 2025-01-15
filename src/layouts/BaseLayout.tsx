@@ -1,3 +1,4 @@
+import DisplayAds from '@/components/Ads/DisplayAds';
 import { ErrorModal, LoadingBar } from '@/components/Common';
 import MainContent from '@/components/Common/MainContent';
 import Header from '@/components/Header/Header';
@@ -18,6 +19,7 @@ const BaseLayout = ({ children }: { children: ReactNode }) => {
       {isLoading && <LoadingBar />}
       {isError && <ErrorModal />}
       <MainContent>{children}</MainContent>
+      <DisplayAds />
     </div>
   );
 };

@@ -3,6 +3,9 @@ import { HeaderInfo, ItemList, ResultButton } from '@/components/Saju/SajuToday'
 import { MetaTag } from '@/components/Seo';
 import { sajuMetaData } from '@/config/metaData';
 import useRequireAuth from '@/hooks/useRequireAuth';
+import { usePreTodayFortuneExplainQuery } from '@/services/queries/saju.query';
+import { userIdSelector } from '@/stores/useAuthStore';
+import { useRecoilValue } from 'recoil';
 
 const SajuToday = () => {
   const {
@@ -13,7 +16,12 @@ const SajuToday = () => {
     ogTitle,
     ogDescription,
   } = sajuMetaData.sajuToday;
+  const userId = useRecoilValue(userIdSelector);
   const { isLoading } = useRequireAuth();
+
+  usePreTodayFortuneExplainQuery(userId, {
+    enabled: !!userId, // userId가 있을 때만 prefetch 실행
+  });
 
   if (isLoading) {
     return <LoadingBar />;

@@ -46,7 +46,7 @@ export const tomorrowFortuneExplain = async (userId: number): Promise<ApiTomorro
 export const todayZodiacFortuneExplain = async (userId: number): Promise<ApiTodayZodiacFortuneExplanationResponse> => {
   try {
     const { data } = await api.get<ApiTodayZodiacFortuneExplanationResponse>(`/fortunes/zodiac?userId=${userId}`);
-    console.log('data', data);
+
     return data;
   } catch (error) {
     throw error;

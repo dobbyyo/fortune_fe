@@ -23,6 +23,7 @@ import { SuccessResponse } from '@/types/apiType';
 import { errorState } from '@/stores/useErrorStore';
 import { config } from '@/config/config';
 import { useNavigate } from 'react-router-dom';
+import shareUsingWebAPI from '@/hooks/shareUingWebApi';
 
 export const useTarotCardsDrawQuery = ({ mainTitle }: { mainTitle: string }) => {
   return useQuery({
@@ -165,23 +166,13 @@ export const useTarotCardShareMutation = () => {
 
       const shareUrl = `${currentUrl}/tarot/result/share/${newShareId}`;
 
-      // Web Share API 호출
       try {
-        if (navigator.share) {
-          await navigator.share({
-            title: '오늘의 타로 결과',
-            text: '타로 결과를 확인해보세요!',
-            url: shareUrl,
-          });
-          console.log('공유 성공');
-        } else {
-          alert('이 브라우저는 공유 기능을 지원하지 않습니다.');
-        }
+        await shareUsingWebAPI(shareUrl);
       } catch (error) {
-        console.error('공유 실패 또는 취소:', error);
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     },
     onSettled: () => {
       setLoading(false);

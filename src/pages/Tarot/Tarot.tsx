@@ -3,6 +3,7 @@ import BaseNavBar from '@/components/Common/BaseNavBar';
 import { MetaTag } from '@/components/Seo';
 import { ActionButtons, CardSlider, CardTitle, SelectedCards, TabNavigation } from '@/components/Tarot';
 import { tarotMetaData } from '@/config/metaData';
+import { removeLocalStorage } from '@/lib/localStorage';
 
 const Tarot = () => {
   const {
@@ -13,6 +14,8 @@ const Tarot = () => {
     ogTitle,
     ogDescription,
   } = tarotMetaData.tarot;
+
+  removeLocalStorage('tarotBookmark');
 
   return (
     <>

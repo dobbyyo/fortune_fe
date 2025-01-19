@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, usePrefetchQuery, useQuery } from '@tanstack/react-query';
 import {
   todayConstellationFortune,
   todayFortune,
@@ -39,6 +39,18 @@ export const useTodayFortuneExplainQuery = (userId: number | undefined, options 
   });
 };
 
+export const usePreTodayFortuneExplainQuery = (userId: number | undefined, options = {}) => {
+  return usePrefetchQuery({
+    queryKey: ['todayFortuneExplain', userId],
+    queryFn: async () => {
+      const response = await todayFortuneExplain(Number(userId));
+      return response.data;
+    },
+    retry: 1,
+    ...options,
+  });
+};
+
 export const useZodiacFortuneQuery = (userId: number | undefined, options = {}) => {
   return useQuery({
     queryKey: ['zodiacFortune', userId],
@@ -51,8 +63,32 @@ export const useZodiacFortuneQuery = (userId: number | undefined, options = {}) 
   });
 };
 
+export const usePreZodiacFortuneQuery = (userId: number | undefined, options = {}) => {
+  return usePrefetchQuery({
+    queryKey: ['zodiacFortune', userId],
+    queryFn: async () => {
+      const response = await todayZodiacFortuneExplain(Number(userId));
+      return response.data;
+    },
+    retry: 1,
+    ...options,
+  });
+};
+
 export const useConstellationFortuneQuery = (userId: number | undefined, options = {}) => {
   return useQuery({
+    queryKey: ['constellationFortune', userId],
+    queryFn: async () => {
+      const response = await todayConstellationFortune(Number(userId));
+      return response.data;
+    },
+    retry: 1,
+    ...options,
+  });
+};
+
+export const usePreConstellationFortuneQuery = (userId: number | undefined, options = {}) => {
+  return usePrefetchQuery({
     queryKey: ['constellationFortune', userId],
     queryFn: async () => {
       const response = await todayConstellationFortune(Number(userId));

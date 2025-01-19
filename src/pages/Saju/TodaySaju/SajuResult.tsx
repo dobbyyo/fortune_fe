@@ -9,8 +9,13 @@ import {
   mapTodayFortuneData,
   mapZodiacFortuneData,
 } from '@/services/payloadData/SajuResultPayload';
-import { useTodayFortuneDeleteMutation, useTodayFortuneSaveMutation } from '@/services/queries/saju.query';
-import { authState, userState } from '@/stores/useAuthStore';
+import {
+  usePreConstellationFortuneQuery,
+  usePreZodiacFortuneQuery,
+  useTodayFortuneDeleteMutation,
+  useTodayFortuneSaveMutation,
+} from '@/services/queries/saju.query';
+import { authState, userIdSelector, userState } from '@/stores/useAuthStore';
 import { explainFortuneState, fortuneConstellationState, fortuneZodiacState } from '@/stores/useSajuStore';
 import { todayFortuneSavePayloadType } from '@/types/fortuneType';
 import { useState } from 'react';
@@ -25,9 +30,16 @@ const SajuResult = () => {
     ogTitle,
     ogDescription,
   } = sajuMetaData.sajuResult;
-
+  const userId = useRecoilValue(userIdSelector);
   const [activeTab, setActiveTab] = useState('오늘의 운세');
   const { isLoading } = useRequireAuth();
+
+  usePreZodiacFortuneQuery(userId, {
+    enabled: !!userId, // userId가 있을 때만 prefetch 실행
+  });
+  usePreConstellationFortuneQuery(userId, {
+    enabled: !!userId,
+  });
 
   const tabs = [
     { name: '오늘의 운세', key: 'today' },
